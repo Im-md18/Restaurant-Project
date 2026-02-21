@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Bestill bord - FireFly</title>
+</head>
+<body>
+
+<header class="siteHeader">
+  <div class="headerInner">
+    <a class="brand" href="index.html">
+      <img src="images/flyfire.png" alt="FireFly" />
+      <span>FireFly</span>
+    </a>
+
+    <nav class="navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">Om oss</a></li>
+        <li><a href="menu.html">Meny</a></li>
+        <li><a href="contact.html">Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero hero--small">
+  <h1>Bestill bord</h1>
+  <p>Send oss detaljer – vi bekrefter på e-post.</p>
+</section>
+
+<section class="contact">
+  <h2>Reservasjon</h2>
+
+  <form class="contactForm"
+        action="https://formspree.io/f/mykdnkrg"
+        method="POST">
+
+    <input type="hidden" name="_subject" value="Ny bordbestilling - FireFly" />
+    <input type="hidden" name="_next" value="thanks.html" />
+
+    <input name="name" type="text" placeholder="Navn" required />
+    <input name="email" type="email" placeholder="E-post" required />
+    <input name="phone" type="tel" placeholder="Telefon" required />
+
+    <input name="date" type="date" required />
+    <input name="time" type="time" required />
+    <input name="people" type="number" min="1" max="20" placeholder="Antall personer" required />
+
+    <textarea name="message" rows="4" placeholder="Ekstra info (allergier, etc.)"></textarea>
+
+    <button class="btn primary" type="submit">Send bestilling</button>
+  </form>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
