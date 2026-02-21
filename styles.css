@@ -380,6 +380,51 @@ select:focus-visible{
   border: none;
 }
 
+.socialIcon{
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.socialIcon img{
+  width: 28px;
+  height: 28px;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease;
+}
+
+.socialIcon img:hover{
+  transform: scale(1.15);
+}
+
+.socialBtn{
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+
+  background: rgba(255,255,255,0.08);   /* الدائرة الغامقة/الشفافة */
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.socialBtn svg{
+  width: 18px;
+  height: 18px;
+  fill: rgba(255,255,255,0.9);
+}
+
+/* Hover مثل اللي بالصورة (لطيف وبسيط) */
+.socialBtn:hover{
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.12);
+  box-shadow: 0 14px 35px rgba(0,0,0,0.35);
+}
+
 /* ===== Modal Booking ===== */
 .modal{
   position: fixed;
