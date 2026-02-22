@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,12 +10,12 @@
 
 <header class="siteHeader">
   <div class="headerInner">
-    <a class="brand" href="index.html">
+    <a class="brand" href="index.html" aria-label="FireFly home">
       <img src="images/flyfire.png" alt="FireFly" />
       <span>FireFly</span>
     </a>
 
-    <nav class="navigation">
+    <nav class="navigation" aria-label="Main navigation">
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">Om oss</a></li>
@@ -27,32 +27,100 @@
 </header>
 
 <section class="hero hero--small">
+  <span class="heroBadge">Reservasjon • FireFly</span>
   <h1>Bestill bord</h1>
   <p>Send oss detaljer – vi bekrefter på e-post.</p>
 </section>
 
-<section class="contact">
-  <h2>Reservasjon</h2>
+<section class="bookingPage">
+  <div class="bookingGrid">
 
-  <form class="contactForm"
-        action="https://formspree.io/f/mykdnkrg"
-        method="POST">
+    <form class="bookingFormCard"
+          action="https://formspree.io/f/mykdnkrg"
+          method="POST">
 
-    <input type="hidden" name="_subject" value="Ny bordbestilling - FireFly" />
-    <input type="hidden" name="_next" value="thanks.html" />
+      <div class="formHead">
+        <div>
+          <h2>Reservasjon</h2>
+          <p class="muted">Fyll inn info under. Vi kontakter deg for bekreftelse.</p>
+        </div>
+        <a class="btn ghost btn-sm" href="menu.html">Se meny</a>
+      </div>
 
-    <input name="name" type="text" placeholder="Navn" required />
-    <input name="email" type="email" placeholder="E-post" required />
-    <input name="phone" type="tel" placeholder="Telefon" required />
+      <input type="hidden" name="_subject" value="Ny bordbestilling - FireFly" />
+      <input type="hidden" name="_next" value="thanks.html" />
 
-    <input name="date" type="date" required />
-    <input name="time" type="time" required />
-    <input name="people" type="number" min="1" max="20" placeholder="Antall personer" required />
+      <div class="fieldGroup">
+        <h3 class="groupTitle">Kontakt</h3>
 
-    <textarea name="message" rows="4" placeholder="Ekstra info (allergier, etc.)"></textarea>
+        <div class="formRow">
+          <label>
+            <span>Navn</span>
+            <input name="name" type="text" placeholder="Ditt navn" required />
+          </label>
 
-    <button class="btn primary" type="submit">Send bestilling</button>
-  </form>
+          <label>
+            <span>E-post</span>
+            <input name="email" type="email" placeholder="navn@epost.no" required />
+          </label>
+        </div>
+
+        <label>
+          <span>Telefon</span>
+          <input name="phone" type="tel" placeholder="+47 ..." required />
+        </label>
+      </div>
+
+      <div class="fieldGroup">
+        <h3 class="groupTitle">Tid & antall</h3>
+
+        <div class="formRow">
+          <label>
+            <span>Dato</span>
+            <input name="date" type="date" required />
+          </label>
+
+          <label>
+            <span>Tid</span>
+            <input name="time" type="time" required />
+          </label>
+        </div>
+
+        <label>
+          <span>Antall personer</span>
+          <input name="people" type="number" min="1" max="20" placeholder="1–20" required />
+        </label>
+
+        <label>
+          <span>Ekstra info (valgfritt)</span>
+          <textarea name="message" rows="4" placeholder="Allergier, barnestol, spesielle ønsker..."></textarea>
+        </label>
+      </div>
+
+      <div class="formActions">
+        <button class="btn primary" type="submit">Send bestilling</button>
+        <span class="muted formNote">Du får svar på e-post så snart som mulig.</span>
+      </div>
+    </form>
+
+    <aside class="bookingSide">
+      <div class="sideCard">
+        <h3>Tips</h3>
+        <p class="muted">
+          For raskere bekreftelse: skriv gjerne <strong>dato</strong>, <strong>klokkeslett</strong> og
+          <strong>antall personer</strong> tydelig. Hvis du har allergier, legg det inn i ekstra info.
+        </p>
+      </div>
+
+      <div class="sideCard">
+        <h3>Kontakt</h3>
+        <p class="muted"><strong>Telefon:</strong> +47 000 00 000</p>
+        <p class="muted"><strong>Adresse:</strong> Storgaten 33, 4876 Grimstad</p>
+        <a class="btn ghost" href="contact.html">Gå til kontakt</a>
+      </div>
+    </aside>
+
+  </div>
 </section>
 
 <script src="script.js"></script>

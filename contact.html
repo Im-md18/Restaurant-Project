@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,12 +10,12 @@
 
 <header class="siteHeader">
   <div class="headerInner">
-    <a class="brand" href="index.html">
+    <a class="brand" href="index.html" aria-label="FireFly home">
       <img src="images/flyfire.png" alt="FireFly" />
       <span>FireFly</span>
     </a>
 
-    <nav class="navigation">
+    <nav class="navigation" aria-label="Main navigation">
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">Om oss</a></li>
@@ -27,34 +27,77 @@
 </header>
 
 <section class="hero hero--small">
+  <span class="heroBadge">Kontakt • FireFly</span>
   <h1>Kontakt</h1>
   <p>Bestill bord eller send oss en melding.</p>
 </section>
 
 <section class="contact" id="contactMe">
-  <h2>Send oss en melding</h2>
+  <div class="contactTop">
+    <div>
+      <h2>Send oss en melding</h2>
+      <p class="muted">Vi svarer så raskt vi kan. Du kan også ringe eller bruke Google Maps.</p>
+    </div>
+
+    <!-- (اختياري) زر واتساب — غيّر الرقم إذا بدك -->
+    <a class="btn ghost btn-sm"
+       href="https://wa.me/4700000000?text=Hei%20FireFly!%20Jeg%20vil%20bestille%20bord."
+       target="_blank" rel="noopener">
+      WhatsApp
+    </a>
+  </div>
 
   <div class="contactGrid">
-    <!-- ✅ هذا هو الفورم الوحيد + مربوط بـ Formspree -->
-    <form class="contactForm"
+    <!-- Formspree form -->
+    <form class="contactForm cardForm"
           action="https://formspree.io/f/mykdnkrg"
           method="POST">
 
-      <input name="name" type="text" placeholder="Navn" required />
-      <input name="email" type="email" placeholder="E-post" required />
-      <textarea name="message" rows="5" placeholder="Melding" required></textarea>
+      <div class="formRow">
+        <label>
+          <span>Navn</span>
+          <input name="name" type="text" placeholder="Ditt navn" required />
+        </label>
+
+        <label>
+          <span>E-post</span>
+          <input name="email" type="email" placeholder="navn@epost.no" required />
+        </label>
+      </div>
+
+      <label>
+        <span>Melding</span>
+        <textarea name="message" rows="6" placeholder="Skriv hva du ønsker (dato, klokkeslett, antall personer...)" required></textarea>
+      </label>
 
       <input type="hidden" name="_subject" value="Ny melding fra FireFly nettsted" />
       <input type="hidden" name="_next" value="thanks.html" />
 
-      <button class="btn primary" type="submit">Send</button>
+      <div class="formActions">
+        <button class="btn primary" type="submit">Send</button>
+        <span class="formNote muted">Ved å sende godtar du at vi kan kontakte deg på e-post.</span>
+      </div>
     </form>
 
-    <div class="contactInfo">
+    <aside class="contactInfo">
       <h3>Informasjon</h3>
-      <p><strong>Adresse:</strong> Storgaten 33, 4876 Grimstad</p>
-      <p><strong>Telefon:</strong> +47 000 00 000</p>
-      <p><strong>Åpningstider:</strong> Man–Søn 12:00 – 22:00</p>
+
+      <div class="infoList">
+        <div class="infoItem">
+          <div class="infoTitle">📍 Adresse</div>
+          <div class="infoText">Storgaten 33, 4876 Grimstad</div>
+        </div>
+
+        <div class="infoItem">
+          <div class="infoTitle">📞 Telefon</div>
+          <div class="infoText">+47 000 00 000</div>
+        </div>
+
+        <div class="infoItem">
+          <div class="infoTitle">⏰ Åpningstider</div>
+          <div class="infoText">Man–Søn 12:00 – 22:00</div>
+        </div>
+      </div>
 
       <div class="map">
         <iframe
@@ -65,11 +108,14 @@
         </iframe>
       </div>
 
-      <a class="btn ghost" target="_blank"
-         href="https://www.google.com/maps/search/?api=1&query=Storgaten%2033%2C%204876%20Grimstad">
-        Åpne i Google Maps
-      </a>
-    </div>
+      <div class="contactCtas">
+        <a class="btn ghost" target="_blank" rel="noopener"
+           href="https://www.google.com/maps/search/?api=1&query=Storgaten%2033%2C%204876%20Grimstad">
+          Åpne i Google Maps
+        </a>
+        <a class="btn ghost" href="menu.html">Se meny</a>
+      </div>
+    </aside>
   </div>
 </section>
 
@@ -84,6 +130,7 @@
     <div>
       <h3>Åpningstider</h3>
       <p>Man–Søn: 12:00 – 22:00</p>
+      <p class="footerCopy">© 2026 FireFly Restaurant</p>
     </div>
 
     <div>
@@ -92,8 +139,6 @@
       <p><a href="contact.html">Kontakt</a></p>
     </div>
   </div>
-
-  <p class="footerCopy">© 2026 FireFly Restaurant</p>
 </footer>
 
 <script src="script.js"></script>

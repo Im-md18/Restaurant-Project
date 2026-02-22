@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,12 +10,12 @@
 
 <header class="siteHeader">
   <div class="headerInner">
-    <a class="brand" href="index.html">
+    <a class="brand" href="index.html" aria-label="FireFly home">
       <img src="images/flyfire.png" alt="FireFly" />
       <span>FireFly</span>
     </a>
 
-    <nav class="navigation">
+    <nav class="navigation" aria-label="Main navigation">
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a class="active" href="about.html">Om oss</a></li>
@@ -26,34 +26,101 @@
   </div>
 </header>
 
-<section class="hero">
+<section class="hero hero--small">
+  <span class="heroBadge">Om oss • FireFly</span>
   <h1>Om FireFly</h1>
   <p>Historie, visjon og hva som gjør oss unike.</p>
 </section>
 
-<section class="aboutMe">
-  <div class="aboutIntro">
-    <h2>Vår historie</h2>
-    <p>
-      FireFly Restaurant ble grunnlagt i 2025 av en gruppe matentusiaster. Målet var å lage en varm og moderne restaurantopplevelse.
-    </p>
-    <p style="margin-top: 0.8rem;">
-      Fokus: kvalitet, service og ferske råvarer.
-    </p>
+<section class="aboutPage">
+  <div class="aboutGrid">
+
+    <article class="panel">
+      <h2>Vår historie</h2>
+      <p>
+        FireFly Restaurant ble grunnlagt i 2025 av en gruppe matentusiaster.
+        Målet var å lage en varm og moderne restaurantopplevelse — med fokus på smak, kvalitet og atmosfære.
+      </p>
+
+      <div class="statRow" aria-label="Highlights">
+        <div class="stat">
+          <div class="statNum">2025</div>
+          <div class="statText">Startet</div>
+        </div>
+        <div class="stat">
+          <div class="statNum">Ferskt</div>
+          <div class="statText">Råvarer</div>
+        </div>
+        <div class="stat">
+          <div class="statNum">Lokalt</div>
+          <div class="statText">Miljø</div>
+        </div>
+      </div>
+
+      <div class="ctaRow">
+        <a class="btn primary" href="menu.html">Se meny</a>
+        <a class="btn ghost" href="contact.html">Bestill bord</a>
+      </div>
+    </article>
+
+    <article class="panel panel--accent">
+      <div class="panelHead">
+        <div>
+          <h2>Vår visjon</h2>
+          <p class="muted">
+            Vi ønsker å være blant de beste restaurantene i byen — kjent for smak, kvalitet og god atmosfære.
+          </p>
+        </div>
+        <img src="images/firefly.png" alt="FireFly logo" class="light" />
+      </div>
+
+      <h3 class="panelSub">Våre verdier</h3>
+
+      <div class="valueCards">
+        <div class="valueCard">
+          <div class="valueIcon">🍽️</div>
+          <div class="valueTitle">Kvalitet</div>
+          <div class="valueText">Respekt for råvarer og gode smaker.</div>
+        </div>
+
+        <div class="valueCard">
+          <div class="valueIcon">✨</div>
+          <div class="valueTitle">Renhet</div>
+          <div class="valueText">Orden på kjøkkenet og fokus på hygiene.</div>
+        </div>
+
+        <div class="valueCard">
+          <div class="valueIcon">🤝</div>
+          <div class="valueTitle">Service</div>
+          <div class="valueText">En opplevelse som gjør at du vil komme tilbake.</div>
+        </div>
+      </div>
+
+      <p class="OmOss" style="margin-top:14px;">
+        Våre verdier handler om mer enn mat — vi vil at du skal føle deg velkommen.
+        Derfor kombinerer vi ferske råvarer, tydelige smaker og god service i en rolig og hyggelig atmosfære.
+      </p>
+    </article>
+
   </div>
 
-  <div class="aboutDetails">
-    <div class="textTitle">
-      <h3>Vår visjon</h3>
-      <h3>Våre verdier</h3>
-      <img src="images/firefly.png" alt="FireFly logo" class="light" />
+  <section class="whyUs">
+    <h2>Hvorfor velge oss?</h2>
+    <div class="whyGrid">
+      <div class="whyItem">
+        <div class="whyTitle">Rask og enkel bestilling</div>
+        <p class="muted">Bestill bord eller kontakt oss direkte — enkelt og effektivt.</p>
+      </div>
+      <div class="whyItem">
+        <div class="whyTitle">Variert meny</div>
+        <p class="muted">Hovedretter, lette retter, suppe og dessert — noe for alle.</p>
+      </div>
+      <div class="whyItem">
+        <div class="whyTitle">God stemning</div>
+        <p class="muted">Moderne, varmt og avslappende miljø — perfekt for venner og familie.</p>
+      </div>
     </div>
-
-    <p class="OmOss">
-      Vi ønsker å være blant de beste restaurantene i byen, kjent for smak, kvalitet og god atmosfære.
-      Våre verdier er: respekt for råvarer, renhet på kjøkkenet og en service som gjør at du vil komme tilbake.
-    </p>
-  </div>
+  </section>
 </section>
 
 <footer class="footer">
@@ -67,6 +134,7 @@
     <div>
       <h3>Åpningstider</h3>
       <p>Man–Søn: 12:00 – 22:00</p>
+      <p class="footerCopy">© 2026 FireFly Restaurant</p>
     </div>
 
     <div>
@@ -75,8 +143,6 @@
       <p><a href="contact.html">Kontakt</a></p>
     </div>
   </div>
-
-  <p class="footerCopy">© 2026 FireFly Restaurant</p>
 </footer>
 
 <script src="script.js"></script>

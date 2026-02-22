@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,15 +11,17 @@
 <header class="siteHeader">
   <div class="headerInner">
 
-    <a class="brand" href="index.html">
+    <a class="brand" href="index.html" aria-label="FireFly home">
       <img src="images/flyfire.png" alt="FireFly" />
       <span>FireFly</span>
     </a>
 
-    <nav class="navigation">
+    
+
+    <nav class="navigation" aria-label="Main navigation">
       <ul>
         <li><a class="active" href="index.html">Home</a></li>
-        <li><a href="about.html">Om oss</a></li>
+        <li><a href="#omoss">Om oss</a></li>
         <li><a href="menu.html">Meny</a></li>
         <li><a href="contact.html">Kontakt</a></li>
       </ul>
@@ -29,8 +31,9 @@
 </header>
 
 <section class="hero" id="home">
+  <span class="heroBadge">Restaurant • Grimstad</span>
   <h1>FireFly</h1>
-  <p>Velkommen! Bestill nå.</p>
+  <p>Velkommen! Bestill nå — god mat, god stemning og rask service.</p>
 
   <div class="heroActions">
     <a class="btn primary" href="contact.html">Bestill bord</a>
@@ -38,28 +41,55 @@
   </div>
 </section>
 
-<section class="aboutMe">
-  <div class="aboutIntro">
+<section class="aboutMe" id="omoss">
+  <div class="aboutCard">
     <h2>Om oss</h2>
-    <p>
-      Vi er en restaurant som serverer deilig mat og drikke. Vi har et bredt utvalg av retter og drikkevarer for å tilfredsstille alle smaker.
+    <p class="muted">
+      Vi serverer deilig mat og drikke med fokus på kvalitet og en varm atmosfære.
+      Et bredt utvalg av retter og drikkevarer — noe for alle.
     </p>
-    <p style="margin-top: 0.8rem;">
-      <a class="btn ghost" href="about.html">Les mer</a>
-    </p>
+
+<div class="miniGrid">
+      <div class="mini">
+        <div class="miniTitle">📍 Adresse</div>
+        <div class="miniText">Storgaten 33, 4876 Grimstad</div>
+      </div>
+
+      <div class="mini">
+        <div class="miniTitle">⏰ Åpningstider</div>
+        <div class="miniText">Man–Tos 12–22 • Fre–Søn 12–02:30</div>
+      </div>
+
+      <div class="mini">
+        <div class="miniTitle">📞 Telefon</div>
+        <div class="miniText">+47 000 00 000</div>
+      </div>
+    </div>
+
+    <div class="aboutBtns">
+      <a class="btn primary" href="menu.html">Se dagens meny</a>
+      <a class="btn ghost" href="booking.html">Bestill bord</a>
+    </div>
   </div>
 
-  <div class="aboutDetails">
-    <div class="textTitle">
-      <h3>Vår historie</h3>
-      <h3>Vår visjon</h3>
+  <div class="aboutCard">
+    <div class="aboutHead">
+      <div>
+        <h2>Vår historie</h2>
+        <p class="muted">Vår visjon og hva vi står for</p>
+      </div>
       <img src="images/firefly.png" alt="FireFly logo" class="light" />
     </div>
 
-    <p class="OmOss">
-      FireFly Restaurant ble grunnlagt i 2025 av en gruppe matentusiaster som ønsket å skape en unik matopplevelse for sine kunder.
-      Vår visjon er å være den beste restauranten i byen, kjent for vår kvalitet og service.
+    <p class="muted" style="line-height:1.75;">
+      FireFly Restaurant ble grunnlagt i 2025 av en gruppe mennesker som ønsket å skape en unik matopplevelse
+      for sine kunder. Vår visjon er å være den beste restauranten i byen, kjent for vår kvalitet og service.
     </p>
+
+    <div class="aboutBtns">
+      <a class="btn ghost" href="about.html">Les mer</a>
+      <a class="btn ghost" href="contact.html">Kontakt oss</a>
+    </div>
   </div>
 </section>
 
@@ -75,26 +105,26 @@
       <h3>Åpningstider</h3>
       <p>Man – Tos: 12:00 – 22:00</p>
       <p>Fre – Søn: 12:00 – 02:30</p>
+      <p class="footerCopy">© 2026 FireFly</p>
     </div>
-<div>
-  <h3>Lenker</h3>
-  <p><a href="menu.html">Meny</a></p>
-  <p><a href="contact.html">Kontakt</a></p>
 
-  <!-- Facebook -->
-  <a class="socialBtn" 
-     href="https://www.facebook.com/profile.php?id=61587469647280" 
-     target="_blank" 
-     aria-label="Facebook">
-    <svg viewBox="0 0 320 512" aria-hidden="true">
-      <path d="M279.14 288l14.22-92.66h-88.91V117.78c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
-    </svg>
-  </a>
-</div>
+    <div>
+      <h3>Lenker</h3>
+      <p><a href="menu.html">Meny</a></p>
+      <p><a href="contact.html">Kontakt</a></p>
 
-  <p class="footerCopy">© 2026 FireFly</p>
+      <a class="socialBtn"
+         href="https://www.facebook.com/profile.php?id=61587469647280"
+         target="_blank"
+         rel="noopener"
+         aria-label="Facebook">
+        <svg viewBox="0 0 320 512" aria-hidden="true">
+          <path d="M279.14 288l14.22-92.66h-88.91V117.78c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
 </footer>
 
-<script src="script.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,12 +10,12 @@
 
 <header class="siteHeader">
   <div class="headerInner">
-    <a class="brand" href="index.html">
+    <a class="brand" href="index.html" aria-label="FireFly home">
       <img src="images/flyfire.png" alt="FireFly" />
       <span>FireFly</span>
     </a>
 
-    <nav class="navigation">
+    <nav class="navigation" aria-label="Main navigation">
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">Om oss</a></li>
@@ -26,51 +26,111 @@
   </div>
 </header>
 
-<section class="hero">
+<section class="hero hero--small">
+  <span class="heroBadge">Meny • FireFly</span>
   <h1>Meny</h1>
   <p>Våre favoritter – alltid ferskt.</p>
 </section>
 
 <section class="menu">
-  <h2>Våre retter</h2>
-
-  <div class="cards">
-    <div class="card">
-      <h3>Burger</h3>
-      <p>Saftig burger med fries.</p>
-      <span class="price">150 kr</span>
+  <div class="menuTop">
+    <div>
+      <h2>Våre retter</h2>
+      <p class="menuHint">Bruk søk eller filtrer for å finne noe du liker.</p>
     </div>
 
-    <div class="card">
-      <h3>Pizza</h3>
-      <p>Kylling pizza.</p>
-      <span class="price">200 kr</span>
-    </div>
+    <div class="menuControls" role="group" aria-label="Menu controls">
+      <div class="searchWrap">
+        <input id="menuSearch" type="search" placeholder="Søk: burger, pizza, pasta..." aria-label="Search menu" />
+      </div>
 
-    <div class="card">
-      <h3>Salat</h3>
-      <p>Frisk salat med dressing.</p>
-      <span class="price">119 kr</span>
-    </div>
-
-    <div class="card">
-      <h3>Pasta</h3>
-      <p>Kremet pasta med kylling.</p>
-      <span class="price">179 kr</span>
-    </div>
-
-    <div class="card">
-      <h3>Suppe</h3>
-      <p>Dagens suppe med brød.</p>
-      <span class="price">99 kr</span>
-    </div>
-
-    <div class="card">
-      <h3>Dessert</h3>
-      <p>Søt dessert for en perfekt slutt.</p>
-      <span class="price">89 kr</span>
+      <div class="chips" aria-label="Categories">
+        <button class="chip active" type="button" data-filter="all">Alle</button>
+        <button class="chip" type="button" data-filter="main">Hovedretter</button>
+        <button class="chip" type="button" data-filter="light">Lett</button>
+        <button class="chip" type="button" data-filter="soup">Suppe</button>
+        <button class="chip" type="button" data-filter="dessert">Dessert</button>
+      </div>
     </div>
   </div>
+
+  <div class="cards" id="menuCards">
+
+    <article class="card" data-cat="main" data-name="burger">
+      <div class="cardTop">
+        <h3>Burger</h3>
+        <span class="price">150 kr</span>
+      </div>
+      <p>Saftig burger med fries.</p>
+      <div class="cardActions">
+        <span class="tag">Populær</span>
+        <a class="btn ghost btn-sm" href="contact.html">Bestill</a>
+      </div>
+    </article>
+
+    <article class="card" data-cat="main" data-name="pizza">
+      <div class="cardTop">
+        <h3>Pizza</h3>
+        <span class="price">200 kr</span>
+      </div>
+      <p>Kylling pizza.</p>
+      <div class="cardActions">
+        <span class="tag">Ny</span>
+        <a class="btn ghost btn-sm" href="contact.html">Bestill</a>
+      </div>
+    </article>
+
+    <article class="card" data-cat="light" data-name="salat">
+      <div class="cardTop">
+        <h3>Salat</h3>
+        <span class="price">119 kr</span>
+      </div>
+      <p>Frisk salat med dressing.</p>
+      <div class="cardActions">
+        <span class="tag">Frisk</span>
+        <a class="btn ghost btn-sm" href="contact.html">Bestill</a>
+      </div>
+    </article>
+
+    <article class="card" data-cat="main" data-name="pasta">
+      <div class="cardTop">
+        <h3>Pasta</h3>
+        <span class="price">179 kr</span>
+      </div>
+      <p>Kremet pasta med kylling.</p>
+      <div class="cardActions">
+        <span class="tag">Kremet</span>
+        <a class="btn ghost btn-sm" href="contact.html">Bestill</a>
+      </div>
+    </article>
+
+    <article class="card" data-cat="soup" data-name="suppe">
+      <div class="cardTop">
+        <h3>Suppe</h3>
+        <span class="price">99 kr</span>
+      </div>
+      <p>Dagens suppe med brød.</p>
+      <div class="cardActions">
+        <span class="tag">Dagens</span>
+        <a class="btn ghost btn-sm" href="contact.html">Bestill</a>
+      </div>
+    </article>
+
+    <article class="card" data-cat="dessert" data-name="dessert">
+      <div class="cardTop">
+        <h3>Dessert</h3>
+        <span class="price">89 kr</span>
+      </div>
+      <p>Søt dessert for en perfekt slutt.</p>
+      <div class="cardActions">
+        <span class="tag">Søt</span>
+        <a class="btn ghost btn-sm" href="contact.html">Bestill</a>
+      </div>
+    </article>
+
+  </div>
+
+  <p class="menuEmpty" id="menuEmpty" hidden>Ingen treff. Prøv et annet søk eller kategori.</p>
 </section>
 
 <footer class="footer">
@@ -84,6 +144,7 @@
     <div>
       <h3>Åpningstider</h3>
       <p>Man–Søn: 12:00 – 22:00</p>
+      <p class="footerCopy">© 2026 FireFly Restaurant</p>
     </div>
 
     <div>
@@ -92,10 +153,49 @@
       <p><a href="contact.html">Kontakt</a></p>
     </div>
   </div>
-
-  <p class="footerCopy">© 2026 FireFly Restaurant</p>
 </footer>
 
-<script src="script.js"></script>
+<script>
+  // بسيط وخفيف: بحث + فلاتر بدون اعتماد على script.js
+  const search = document.getElementById('menuSearch');
+  const chips = document.querySelectorAll('.chip');
+  const cards = Array.from(document.querySelectorAll('#menuCards .card'));
+  const empty = document.getElementById('menuEmpty');
+
+  let activeFilter = 'all';
+
+  function applyFilters(){
+    const q = (search.value || '').trim().toLowerCase();
+
+    let visibleCount = 0;
+    for (const c of cards){
+      const name = (c.dataset.name || '').toLowerCase();
+      const text = (c.textContent || '').toLowerCase();
+      const cat = c.dataset.cat;
+
+      const matchText = !q || name.includes(q) || text.includes(q);
+      const matchCat = (activeFilter === 'all') || (cat === activeFilter);
+
+      const show = matchText && matchCat;
+      c.style.display = show ? '' : 'none';
+      if (show) visibleCount++;
+    }
+
+    empty.hidden = visibleCount !== 0;
+  }
+
+  chips.forEach(btn => {
+    btn.addEventListener('click', () => {
+      chips.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      applyFilters();
+    });
+  });
+
+  search.addEventListener('input', applyFilters);
+  applyFilters();
+</script>
+
 </body>
 </html>
