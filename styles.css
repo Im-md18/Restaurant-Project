@@ -86,8 +86,13 @@ main #history{
 }
 
 /* Default bottom spacing for main sections */
-main > *:not(.hero):not(.hero--small){
-  padding-bottom: 70px;
+main > section{
+  margin-bottom: 70px;
+}
+
+/* مساحة إضافية قبل الفوتر */
+main > section:last-of-type{
+  margin-bottom: 90px;
 }
 
 /* =========================
@@ -223,7 +228,7 @@ main > *:not(.hero):not(.hero--small){
   width: 100%;
   max-width: var(--max);
   margin: 0 auto;
-  padding: 0 var(--padX) 70px;
+  padding: 0 var(--padX) ;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
@@ -327,7 +332,7 @@ main > *:not(.hero):not(.hero--small){
   width: 100%;
   max-width: var(--max);
   margin: 0 auto;
-  padding: 0 var(--padX) 70px;
+  padding: 0 var(--padX) ;
 }
 
 /* =========================
@@ -470,6 +475,152 @@ main > *:not(.hero):not(.hero--small){
 .OmOss{ color: var(--muted); line-height: 1.75; }
 
 /* =========================
+   About - polish (premium)
+   ========================= */
+
+.aboutGrid{ gap: 18px; }
+
+/* panels feel more premium */
+.panel{
+  position: relative;
+  overflow: hidden;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease;
+}
+
+.panel::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background: radial-gradient(700px 220px at 20% 0%, rgba(0,173,181,.10), transparent 55%);
+  opacity:.55;
+  pointer-events:none;
+}
+
+.panel:hover{
+  transform: translateY(-2px);
+  border-color: rgba(0,173,181,.22);
+  background: rgba(255,255,255,0.04);
+}
+
+/* nicer spacing inside */
+.panel h2{ margin-bottom: 8px; }
+.panel p{ margin-top: 8px; }
+
+/* ===== Stats row (2025 / Ferskt / Lokalt) as mini cards ===== */
+.statRow{
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.stat{
+  border-radius: 16px;
+  padding: 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+.statNum{
+  font-weight: 900;
+  font-size: 1.05rem;
+  line-height: 1.1;
+  color: rgba(0,173,181,.95);
+}
+
+.statText{
+  margin-top: 4px;
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* ===== Buttons row ===== */
+.ctaRow{
+  margin-top: 14px;
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ===== Values cards (make them tighter & aligned) ===== */
+.valueCards{
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.valueCard{
+  display:flex;
+  gap: 10px;
+  align-items:flex-start;
+  border-radius: 16px;
+  padding: 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+.valueIcon{
+  width: 34px;
+  height: 34px;
+  display:grid;
+  place-items:center;
+  border-radius: 12px;
+  background: rgba(0,173,181,.12);
+  border: 1px solid rgba(0,173,181,.25);
+  flex: 0 0 auto;
+}
+
+.valueTitle{
+  font-weight: 900;
+  margin-bottom: 2px;
+}
+
+.valueText{
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* responsive */
+@media (max-width: 860px){
+  .statRow{ grid-template-columns: 1fr; }
+}
+
+/* =========================
+   Why Us (About page)
+   ========================= */
+.whyUs{
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+.whyUs h2{
+  font-size: 1.7rem;
+  margin-bottom: 12px;
+}
+
+.whyGrid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.whyItem{
+  border-radius: var(--radiusLg);
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 14px 40px rgba(0,0,0,.25);
+  padding: 18px;
+}
+
+.whyTitle{
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+/* =========================
    Contact
    ========================= */
 .contactGrid{
@@ -591,8 +742,8 @@ main > *:not(.hero):not(.hero--small){
    Footer
    ========================= */
 .footer{
-  border-top: 1px solid rgba(255,255,255,0.08);
-  background: rgba(0,0,0,0.14);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(180deg, #0B1018, #070A12);
   padding: 2.6rem var(--padX);
 }
 
@@ -629,12 +780,40 @@ main > *:not(.hero):not(.hero--small){
   box-shadow: 0 14px 35px rgba(0,0,0,0.35);
 }
 .socialBtn svg{ width: 18px; height:18px; fill: rgba(255,255,255,0.9); }
+/* =========================
+   Sticky Footer System (FINAL)
+   ========================= */
+
+html, body { 
+  height: 100%; 
+}
+
+body{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main{ 
+  flex: 1; 
+}
+
+.footer{ 
+  margin-top: auto; 
+}
+
+body.compact main{
+  flex: 1 !important;
+}
+
 
 /* =========================
    Responsive
    ========================= */
 @media (max-width: 860px){
   .hero::before{ height: 330px; }
+
+  .whyGrid{ grid-template-columns: 1fr; }
 
   .menuTop{ flex-direction:column; align-items:flex-start; }
   .menuControls{ align-items:flex-start; width:100%; }
