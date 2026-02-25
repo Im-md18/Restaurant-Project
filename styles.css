@@ -95,6 +95,210 @@ main > section:last-of-type{
   margin-bottom: 90px;
 }
 
+
+/* =========================
+   Uiverse Theme Toggle (SCOPED for FireFly)
+   ========================= */
+
+.uiSwitchWrap{
+  display:flex;
+  align-items:center;
+  margin-left: 14px;
+}
+
+/* زر بشكل glass يتماشى مع موقعك */
+.uiSwitchWrap .themeToggle{
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 14px 40px rgba(0,0,0,.25);
+  border-radius: 14px;
+
+  width: 46px;
+  height: 46px;
+
+  display:grid;
+  place-items:center;
+
+  transition: 200ms ease;
+}
+
+/* From Uiverse.io by Type-Delta (SCOPED) */
+.uiSwitchWrap .themeToggle {
+  color: #00adb5;
+  width: 3em;
+}
+
+.uiSwitchWrap .st-sunMoonThemeToggleBtn {
+  position: relative;
+  cursor: pointer;
+}
+
+.uiSwitchWrap .st-sunMoonThemeToggleBtn .themeToggleInput {
+  opacity: 0;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.uiSwitchWrap .st-sunMoonThemeToggleBtn svg {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s ease;
+  transform: rotate(40deg);
+}
+
+.uiSwitchWrap .st-sunMoonThemeToggleBtn svg .sunMoon {
+  transform-origin: center center;
+  transition: inherit;
+  transform: scale(1);
+}
+
+.uiSwitchWrap .st-sunMoonThemeToggleBtn svg .sunRay {
+  transform-origin: center center;
+  transform: scale(0);
+}
+
+.uiSwitchWrap .st-sunMoonThemeToggleBtn svg mask > circle {
+  transition: transform 0.64s cubic-bezier(0.41, 0.64, 0.32, 1.575);
+  transform: translate(0px, 0px);
+}
+
+.uiSwitchWrap .st-sunMoonThemeToggleBtn svg .sunRay2 { animation-delay: 0.05s !important; }
+.uiSwitchWrap .st-sunMoonThemeToggleBtn svg .sunRay3 { animation-delay: 0.1s !important; }
+.uiSwitchWrap .st-sunMoonThemeToggleBtn svg .sunRay4 { animation-delay: 0.17s !important; }
+.uiSwitchWrap .st-sunMoonThemeToggleBtn svg .sunRay5 { animation-delay: 0.25s !important; }
+/* كان عندك sunRay5 مكرر بالمصدر — بخليه للثبات بس صححته لـ sunRay6 */
+.uiSwitchWrap .st-sunMoonThemeToggleBtn svg .sunRay6 { animation-delay: 0.29s !important; }
+
+.uiSwitchWrap .st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg {
+  transform: rotate(90deg);
+}
+.uiSwitchWrap .st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg mask > circle {
+  transform: translate(16px, -3px);
+}
+.uiSwitchWrap .st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg .sunMoon {
+  transform: scale(0.55);
+}
+.uiSwitchWrap .st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg .sunRay {
+  animation: uiShowRay1832 0.4s ease 0s 1 forwards;
+}
+
+@keyframes uiShowRay1832 {
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
+}
+
+/* hover لطيف */
+.uiSwitchWrap .themeToggle:hover{
+  background: rgba(255,255,255,0.075);
+  transform: translateY(-1px);
+}
+
+/* Light mode: خلي الأيقونة أغمق شوي */
+body.lightMode .uiSwitchWrap .themeToggle{
+  background: rgba(0,0,0,0.04);
+  border-color: rgba(0,0,0,0.10);
+  color: rgba(0,0,0,0.75);
+  box-shadow: 0 14px 40px rgba(0,0,0,.10);
+}
+
+body.lightMode .aboutCard,
+body.lightMode .panel,
+body.lightMode .sideCard{
+  background: rgba(0,0,0,0.03);
+  border-color: rgba(0,0,0,0.08);
+}
+
+body.lightMode .aboutCard,
+body.lightMode .panel,
+body.lightMode .sideCard,
+body.lightMode .bookingFormCard,
+body.lightMode .cardForm,
+body.lightMode .contactInfo{
+  background: rgba(0,0,0,0.03);
+  border-color: rgba(0,0,0,0.08);
+  box-shadow: 0 14px 40px rgba(0,0,0,.10);
+}
+
+
+/* =========================
+   Light mode (FINAL)
+   ========================= */
+body.lightMode{
+  /* override your theme variables */
+  --bg:#f6f8fb;
+  --bg2:#ffffff;
+
+  --card: rgba(0,0,0,0.03);
+  --line: rgba(0,0,0,0.10);
+
+  --text:#0b1220;
+  --muted: rgba(11,18,32,0.72);
+
+  /* keep brand feel but readable */
+  --accent:#007a8a;
+
+  /* light background (similar style to your dark gradient) */
+  background:
+    radial-gradient(900px 520px at 10% -10%, rgba(0,122,138,.14), transparent 60%),
+    radial-gradient(900px 520px at 90% 0%, rgba(0,0,0,.04), transparent 60%),
+    linear-gradient(180deg, var(--bg), var(--bg2));
+}
+
+/* Header + nav */
+body.lightMode .siteHeader{
+  background: rgba(255,255,255,.72);
+  border-bottom: 1px solid var(--line);
+}
+
+body.lightMode .navigation a{
+  color: rgba(11,18,32,.82);
+}
+body.lightMode .navigation a:hover{
+  background: rgba(0,0,0,.04);
+  border-color: rgba(0,0,0,.10);
+}
+body.lightMode .navigation a.active{
+  background: rgba(0,122,138,.12);
+  border-color: rgba(0,122,138,.28);
+  color: var(--text);
+}
+
+/* Cards / panels */
+body.lightMode .aboutCard,
+body.lightMode .panel,
+body.lightMode .sideCard,
+body.lightMode .bookingFormCard,
+body.lightMode .cardForm,
+body.lightMode .contactInfo,
+body.lightMode .card,
+body.lightMode .mini,
+body.lightMode .whyItem,
+body.lightMode .stat,
+body.lightMode .valueCard{
+  background: var(--card);
+  border-color: var(--line);
+  box-shadow: 0 14px 40px rgba(0,0,0,.10);
+}
+
+/* inputs */
+body.lightMode .searchWrap input,
+body.lightMode .contactForm input,
+body.lightMode .contactForm textarea,
+body.lightMode .bookingFormCard input,
+body.lightMode .bookingFormCard textarea{
+  background: rgba(0,0,0,0.03);
+  border-color: rgba(0,0,0,0.12);
+  color: var(--text);
+}
+
+/* Footer */
+body.lightMode .footer{
+  background: linear-gradient(180deg, #ffffff, #f2f4f8);
+  border-top: 1px solid var(--line);
+}
+
 /* =========================
    Header
    ========================= */

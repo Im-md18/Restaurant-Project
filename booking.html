@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="styles.css" />
+  
   <title>Bestill bord - FireFly</title>
 </head>
 <body>
@@ -23,6 +24,26 @@
         <li><a href="contact.html">Kontakt</a></li>
       </ul>
     </nav>
+    <div class="uiSwitchWrap">
+      <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn">
+        <input type="checkbox" id="themeToggle" class="themeToggleInput" />
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+          <mask id="moon-mask">
+            <rect x="0" y="0" width="20" height="20" fill="white"></rect>
+            <circle cx="11" cy="3" r="8" fill="black"></circle>
+          </mask>
+          <circle class="sunMoon" cx="10" cy="10" r="8" mask="url(#moon-mask)"></circle>
+          <g>
+            <circle class="sunRay sunRay1" cx="18" cy="10" r="1.5"></circle>
+            <circle class="sunRay sunRay2" cx="14" cy="16.928" r="1.5"></circle>
+            <circle class="sunRay sunRay3" cx="6" cy="16.928" r="1.5"></circle>
+            <circle class="sunRay sunRay4" cx="2" cy="10" r="1.5"></circle>
+            <circle class="sunRay sunRay5" cx="6" cy="3.1718" r="1.5"></circle>
+            <circle class="sunRay sunRay6" cx="14" cy="3.1718" r="1.5"></circle>
+          </g>
+        </svg>
+      </label>
+    </div>
   </div>
 </header>
 
@@ -34,11 +55,9 @@
 
 <section class="bookingPage">
   <div class="bookingGrid">
-
     <form class="bookingFormCard"
           action="https://formspree.io/f/mykdnkrg"
           method="POST">
-
       <div class="formHead">
         <div>
           <h2>Reservasjon</h2>
@@ -52,19 +71,16 @@
 
       <div class="fieldGroup">
         <h3 class="groupTitle">Kontakt</h3>
-
         <div class="formRow">
           <label>
             <span>Navn</span>
             <input name="name" type="text" placeholder="Ditt navn" required />
           </label>
-
           <label>
             <span>E-post</span>
             <input name="email" type="email" placeholder="navn@epost.no" required />
           </label>
         </div>
-
         <label>
           <span>Telefon</span>
           <input name="phone" type="tel" placeholder="+47 ..." required />
@@ -73,36 +89,30 @@
 
       <div class="fieldGroup">
         <h3 class="groupTitle">Tid & antall</h3>
-
         <div class="formRow">
           <label>
             <span>Dato</span>
             <input name="date" type="date" required />
           </label>
-
           <label>
             <span>Tid</span>
             <input name="time" type="time" required />
           </label>
         </div>
-
         <label>
           <span>Antall personer</span>
           <input name="people" type="number" min="1" max="20" placeholder="1–20" required />
         </label>
-
         <label>
           <span>Ekstra info (valgfritt)</span>
           <textarea name="message" rows="4" placeholder="Allergier, barnestol, spesielle ønsker..."></textarea>
         </label>
       </div>
-
       <div class="formActions">
         <button class="btn primary" type="submit">Send bestilling</button>
         <span class="muted formNote">Du får svar på e-post så snart som mulig.</span>
       </div>
     </form>
-
     <aside class="bookingSide">
       <div class="sideCard">
         <h3>Tips</h3>
@@ -111,15 +121,7 @@
           <strong>antall personer</strong> tydelig. Hvis du har allergier, legg det inn i ekstra info.
         </p>
       </div>
-
-      <div class="sideCard">
-        <h3>Kontakt</h3>
-        <p class="muted"><strong>Telefon:</strong> +47 000 00 000</p>
-        <p class="muted"><strong>Adresse:</strong> Storgaten 33, 4876 Grimstad</p>
-        <a class="btn ghost" href="contact.html">Gå til kontakt</a>
-      </div>
     </aside>
-
   </div>
 </section>
 

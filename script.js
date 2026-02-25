@@ -1,8 +1,6 @@
 // ===============================
 // FireFly - script.js (Final)
 // ===============================
-
-// ----- Helpers -----
 function getCurrentPageName() {
   const p = location.pathname.split("/").pop();
   return (p && p.length) ? p : "index.html";
@@ -66,10 +64,6 @@ function normalizeHref(href) {
   });
 })();
 
-// ===============================
-// 3) Booking modal (only if modal exists)
-// - Does NOT break Formspree pages
-// ===============================
 (() => {
   const openBooking = document.getElementById("openBooking");
   const closeBooking = document.getElementById("closeBooking");
@@ -101,7 +95,7 @@ function normalizeHref(href) {
     if (e.key === "Escape" && bookingModal.classList.contains("open")) closeModal();
   });
 
-  // Prevent submit فقط إذا الفورم "ديمو" (ما عنده action)
+  // Prevent submit if no real action (e.g. Formspree) and show thank you message
   bookingForm?.addEventListener("submit", (e) => {
     const action = bookingForm.getAttribute("action");
     const isRealSubmit = action && action.trim().length > 0;
@@ -127,8 +121,30 @@ function normalizeHref(href) {
       btn.disabled = true;
       btn.style.opacity = "0.75";
       btn.textContent = "Sender...";
-      // إذا انتقلت لصفحة thanks ما تحتاج نرجعه
-      // وإذا صار خطأ، المستخدم يقدر يرجع ويعيد تحميل الصفحة
     });
   });
 })();
+
+(() => {
+  const toggle = document.getElementById("themeToggle");
+  if (!toggle) return;
+
+  const KEY = "fireflyTheme"; // "dark" | "light"
+
+  function apply(theme) {
+    document.body.classList.toggle("lightMode", theme === "light");
+    toggle.checked = theme === "light";
+  }
+
+  // init from saved
+  const saved = localStorage.getItem(KEY);
+  apply(saved || "dark");
+
+  toggle.addEventListener("change", () => {
+    const theme = toggle.checked ? "light" : "dark";
+    localStorage.setItem(KEY, theme);
+    apply(theme);
+  });
+})();
+
+
