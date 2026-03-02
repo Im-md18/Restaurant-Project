@@ -42,6 +42,25 @@ a{ color:inherit; text-decoration:none; }
 
 .hidden{ display:none; }
 .muted{ color: var(--muted); }
+/* Utilities */
+.lead{ line-height: 1.75; }
+
+/* Skip link (accessibility) */
+.skipLink{
+  position:absolute;
+  left:-9999px;
+  top:12px;
+  z-index: 9999;
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.skipLink:focus{
+  left: 12px;
+}
+
 
 /* Prevent anchors hiding behind sticky header */
 section{ scroll-margin-top: 92px; }
@@ -90,7 +109,6 @@ main > section{
   margin-bottom: 70px;
 }
 
-/* مساحة إضافية قبل الفوتر */
 main > section:last-of-type{
   margin-bottom: 90px;
 }
@@ -106,7 +124,6 @@ main > section:last-of-type{
   margin-left: 14px;
 }
 
-/* زر بشكل glass يتماشى مع موقعك */
 .uiSwitchWrap .themeToggle{
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.12);
@@ -168,7 +185,6 @@ main > section:last-of-type{
 .uiSwitchWrap .st-sunMoonThemeToggleBtn svg .sunRay3 { animation-delay: 0.1s !important; }
 .uiSwitchWrap .st-sunMoonThemeToggleBtn svg .sunRay4 { animation-delay: 0.17s !important; }
 .uiSwitchWrap .st-sunMoonThemeToggleBtn svg .sunRay5 { animation-delay: 0.25s !important; }
-/* كان عندك sunRay5 مكرر بالمصدر — بخليه للثبات بس صححته لـ sunRay6 */
 .uiSwitchWrap .st-sunMoonThemeToggleBtn svg .sunRay6 { animation-delay: 0.29s !important; }
 
 .uiSwitchWrap .st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg {
@@ -189,13 +205,11 @@ main > section:last-of-type{
   100% { transform: scale(1); }
 }
 
-/* hover لطيف */
 .uiSwitchWrap .themeToggle:hover{
   background: rgba(255,255,255,0.075);
   transform: translateY(-1px);
 }
 
-/* Light mode: خلي الأيقونة أغمق شوي */
 body.lightMode .uiSwitchWrap .themeToggle{
   background: rgba(0,0,0,0.04);
   border-color: rgba(0,0,0,0.10);
@@ -1029,4 +1043,28 @@ body.compact main{
 
   .formRow{ grid-template-columns: 1fr; }
   .footerInner{ grid-template-columns: 1fr; }
+}
+
+.footerInner{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr; 
+  column-gap: 60px;   
+  row-gap: 20px;
+  align-items: start;
+  justify-content: center;
+}
+
+.footerQR{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;    
+}
+
+.footerQR img{
+  width: 75px;
+  height: auto;
+  margin-top: 10px;
+  padding: 4px;
+  border-radius: 10px;
+  background: #fff;
 }
