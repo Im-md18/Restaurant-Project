@@ -3,212 +3,310 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FireFly Restaurant sin meny – ferske retter, god mat i Grimstad." />
   <link rel="stylesheet" href="styles.css" />
-  <title>Meny - FireFly</title>
+  <title>Meny – FireFly Restaurant</title>
 </head>
 <body>
 
+<!-- ── HEADER ──────────────────────────────────────────── -->
 <header class="siteHeader">
   <div class="headerInner">
-    <a class="brand" href="index.html" aria-label="FireFly home">
-      <img src="images/flyfire.png" alt="FireFly" />
+
+    <a class="brand" href="index.html" aria-label="Gå til FireFly forsiden">
+      <img src="images/flyfire.png" alt="" aria-hidden="true" />
       <span>FireFly</span>
     </a>
 
-    <nav class="navigation" aria-label="Main navigation">
+    <nav class="navigation" id="mainNav" aria-label="Hovednavigasjon">
       <ul>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html">Hjem</a></li>
         <li><a href="about.html">Om oss</a></li>
-        <li><a class="active" href="menu.html">Meny</a></li>
+        <li><a class="active" href="menu.html" aria-current="page">Meny</a></li>
         <li><a href="contact.html">Kontakt</a></li>
       </ul>
     </nav>
+
+    <button class="hamburger" id="hamburger" aria-label="Åpne meny" aria-expanded="false" aria-controls="mainNav">
+      <span></span><span></span><span></span>
+    </button>
+
     <div class="uiSwitchWrap">
-      <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn">
+      <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn" title="Bytt tema" aria-label="Bytt mellom lys og mørk modus">
         <input type="checkbox" id="themeToggle" class="themeToggleInput" />
-        <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
           <mask id="moon-mask">
             <rect x="0" y="0" width="20" height="20" fill="white"></rect>
             <circle cx="11" cy="3" r="8" fill="black"></circle>
           </mask>
           <circle class="sunMoon" cx="10" cy="10" r="8" mask="url(#moon-mask)"></circle>
           <g>
-            <circle class="sunRay sunRay1" cx="18" cy="10" r="1.5"></circle>
-            <circle class="sunRay sunRay2" cx="14" cy="16.928" r="1.5"></circle>
-            <circle class="sunRay sunRay3" cx="6" cy="16.928" r="1.5"></circle>
-            <circle class="sunRay sunRay4" cx="2" cy="10" r="1.5"></circle>
-            <circle class="sunRay sunRay5" cx="6" cy="3.1718" r="1.5"></circle>
-            <circle class="sunRay sunRay6" cx="14" cy="3.1718" r="1.5"></circle>
+            <circle cx="18" cy="10" r="1.5"></circle>
+            <circle cx="14" cy="16.928" r="1.5"></circle>
+            <circle cx="6" cy="16.928" r="1.5"></circle>
+            <circle cx="2" cy="10" r="1.5"></circle>
+            <circle cx="6" cy="3.1718" r="1.5"></circle>
+            <circle cx="14" cy="3.1718" r="1.5"></circle>
           </g>
         </svg>
       </label>
     </div>
- 
 
   </div>
 </header>
 
-<section class="hero hero--small">
-  <span class="heroBadge">Meny • FireFly</span>
-  <h1>Meny</h1>
-  <p>Våre favoritter – alltid ferskt.</p>
+
+<!-- ── HERO ────────────────────────────────────────────── -->
+<section class="hero hero--small" aria-labelledby="menuHeroTitle">
+  <span class="heroBadge">FireFly · Grimstad</span>
+  <h1 id="menuHeroTitle">Vår Meny</h1>
+  <p>Alltid ferskt — noe for enhver smak.</p>
 </section>
 
-<section class="menu">
+
+<!-- ── MENU SECTION ────────────────────────────────────── -->
+<section class="menu" aria-labelledby="menuTitle">
+
   <div class="menuTop">
     <div>
-      <h2>Våre retter</h2>
-      <p class="menuHint">Bruk søk eller filtrer for å finne noe du liker.</p>
+      <h2 id="menuTitle">Våre retter</h2>
+      <p class="menuHint">Søk eller filtrer for å finne noe du liker.</p>
     </div>
 
-    <div class="menuControls" role="group" aria-label="Menu controls">
+    <div class="menuControls" role="group" aria-label="Menyfiltre">
       <div class="searchWrap">
-        <input id="menuSearch" type="search" placeholder="Søk: burger, pizza, pasta..." aria-label="Search menu" />
+        <input
+          id="menuSearch"
+          type="search"
+          placeholder="Søk: burger, pizza, pasta…"
+          aria-label="Søk i menyen"
+          autocomplete="off"
+        />
       </div>
 
-      <div class="chips" aria-label="Categories">
+      <div class="chips" role="group" aria-label="Kategorier">
         <button class="chip active" type="button" data-filter="all">Alle</button>
         <button class="chip" type="button" data-filter="main">Hovedretter</button>
         <button class="chip" type="button" data-filter="light">Lett</button>
         <button class="chip" type="button" data-filter="soup">Suppe</button>
         <button class="chip" type="button" data-filter="dessert">Dessert</button>
+        <button class="chip" type="button" data-filter="drink">Drikke</button>
       </div>
     </div>
   </div>
 
+  <!-- Result count -->
+  <p class="menuCount" id="menuCount" aria-live="polite"></p>
+
   <div class="cards" id="menuCards">
 
-    <article class="card" data-cat="main" data-name="burger">
+    <!-- Burger -->
+    <article class="card reveal" data-cat="main" data-name="burger">
       <div class="cardTop">
         <h3>Burger</h3>
         <span class="price">150 kr</span>
       </div>
-      <p>Saftig burger med fries.</p>
+      <p>Saftig burger med pommes frites og husets dressing.</p>
       <div class="cardActions">
-        <span class="tag">Populær</span>
-        <a class="btn ghost btn-sm" href="contact.html">Bestill</a>
+        <span class="tag">🔥 Populær</span>
+        <a class="btn ghost btn-sm" href="booking.html">Bestill mat</a>
       </div>
     </article>
 
-    <article class="card" data-cat="main" data-name="pizza">
+    <!-- Pizza -->
+    <article class="card reveal" data-cat="main" data-name="pizza">
       <div class="cardTop">
-        <h3>Pizza</h3>
+        <h3>Kyllingpizza</h3>
         <span class="price">200 kr</span>
       </div>
-      <p>Kylling pizza.</p>
+      <p>Sprø bunn med mozzarella, grillet kylling og paprika.</p>
       <div class="cardActions">
-        <span class="tag">Ny</span>
-        <a class="btn ghost btn-sm" href="contact.html">Bestill</a>
+        <span class="tag">✨ Ny</span>
+        <a class="btn ghost btn-sm" href="booking.html">Bestill mat</a>
       </div>
     </article>
 
-    <article class="card" data-cat="light" data-name="salat">
+    <!-- Salat -->
+    <article class="card reveal" data-cat="light" data-name="salat">
       <div class="cardTop">
-        <h3>Salat</h3>
+        <h3>Frisk salat</h3>
         <span class="price">119 kr</span>
       </div>
-      <p>Frisk salat med dressing.</p>
+      <p>Blandede blader, cherrytomater, agurk og vinaigrette.</p>
       <div class="cardActions">
-        <span class="tag">Frisk</span>
-        <a class="btn ghost btn-sm" href="contact.html">Bestill</a>
+        <span class="tag">🥗 Lett</span>
+        <a class="btn ghost btn-sm" href="booking.html">Bestill mat</a>
       </div>
     </article>
 
-    <article class="card" data-cat="main" data-name="pasta">
+    <!-- Pasta -->
+    <article class="card reveal" data-cat="main" data-name="pasta">
       <div class="cardTop">
-        <h3>Pasta</h3>
+        <h3>Kremet pasta</h3>
         <span class="price">179 kr</span>
       </div>
-      <p>Kremet pasta med kylling.</p>
+      <p>Fettuccine med grillet kylling i kremet hvitløkssaus.</p>
       <div class="cardActions">
-        <span class="tag">Kremet</span>
-        <a class="btn ghost btn-sm" href="contact.html">Bestill</a>
+        <span class="tag">⭐ Anbefalt</span>
+        <a class="btn ghost btn-sm" href="booking.html">Bestill mat</a>
       </div>
     </article>
 
-    <article class="card" data-cat="soup" data-name="suppe">
+    <!-- Suppe -->
+    <article class="card reveal" data-cat="soup" data-name="suppe">
       <div class="cardTop">
-        <h3>Suppe</h3>
+        <h3>Dagens suppe</h3>
         <span class="price">99 kr</span>
       </div>
-      <p>Dagens suppe med brød.</p>
+      <p>Varm suppe av sesongens råvarer, servert med ferskt brød.</p>
       <div class="cardActions">
-        <span class="tag">Dagens</span>
-        <a class="btn ghost btn-sm" href="contact.html">Bestill</a>
+        <span class="tag">🍲 Dagens</span>
+        <a class="btn ghost btn-sm" href="booking.html">Bestill mat</a>
       </div>
     </article>
 
-    <article class="card" data-cat="dessert" data-name="dessert">
+    <!-- Dessert -->
+    <article class="card reveal" data-cat="dessert" data-name="dessert">
       <div class="cardTop">
         <h3>Dessert</h3>
         <span class="price">89 kr</span>
       </div>
-      <p>Søt dessert for en perfekt slutt.</p>
+      <p>Søt avslutning — spør servitøren om dagens dessert.</p>
       <div class="cardActions">
-        <span class="tag">Søt</span>
-        <a class="btn ghost btn-sm" href="contact.html">Bestill</a>
+        <span class="tag">🍮 Søt</span>
+        <a class="btn ghost btn-sm" href="booking.html">Bestill mat</a>
+      </div>
+    </article>
+
+    <!-- Brus -->
+    <article class="card reveal" data-cat="drink" data-name="brus drikke">
+      <div class="cardTop">
+        <h3>Brus / Vann</h3>
+        <span class="price">45 kr</span>
+      </div>
+      <p>Cola, Fanta, Sprite eller iskaldt vann.</p>
+      <div class="cardActions">
+        <span class="tag">🥤 Drikke</span>
+        <a class="btn ghost btn-sm" href="booking.html">Bestill mat</a>
+      </div>
+    </article>
+
+    <!-- Kaffe -->
+    <article class="card reveal" data-cat="drink" data-name="kaffe latte cappuccino">
+      <div class="cardTop">
+        <h3>Kaffe</h3>
+        <span class="price">55 kr</span>
+      </div>
+      <p>Espresso, americano, latte eller cappuccino.</p>
+      <div class="cardActions">
+        <span class="tag">☕ Varm</span>
+        <a class="btn ghost btn-sm" href="booking.html">Bestill mat</a>
       </div>
     </article>
 
   </div>
 
-  <p class="menuEmpty" id="menuEmpty" hidden>Ingen treff. Prøv et annet søk eller kategori.</p>
+  <p class="menuEmpty" id="menuEmpty" hidden aria-live="polite">
+    Ingen treff. Prøv et annet søk eller kategori.
+  </p>
+
 </section>
 
+
+<!-- ── FOOTER ──────────────────────────────────────────── -->
 <footer class="footer">
   <div class="footerInner">
+
     <div>
       <h3>FireFly Restaurant</h3>
       <p>Storgaten 33, 4876 Grimstad</p>
-      <p>Tlf: +47 000 00 000</p>
+      <p><a href="tel:+4700000000">+47 000 00 000</a></p>
     </div>
 
     <div>
       <h3>Åpningstider</h3>
-      <p>Man – Tos: 12:00 – 22:00</p>
-      <p>Fre – Søn: 12:00 – 02:30</p>
-      <p class="footerCopy">© 2026 FireFly</p>
+      <p>Man – Tor:&nbsp; 12:00 – 22:00</p>
+      <p>Fre – Søn:&nbsp; 12:00 – 02:30</p>
     </div>
 
     <div>
       <h3>Lenker</h3>
       <p><a href="menu.html">Meny</a></p>
+      <p><a href="about.html">Om oss</a></p>
       <p><a href="contact.html">Kontakt</a></p>
+      <p><a href="booking.html">Bestill mat</a></p>
     </div>
 
     <div class="footerQR">
       <h3>Scan meg</h3>
-      <img src="images/qrkode.png" alt="QR Code">
+      <img src="images/qrkode.png" alt="QR-kode til FireFly nettsiden" />
     </div>
+
+  </div>
+
+  <div class="footerBottom">
+    <span>© 2026 FireFly Restaurant, Grimstad</span>
+    <span>Laget med ❤️ i Grimstad</span>
   </div>
 </footer>
 
+
+<!-- ── SCRIPTS ──────────────────────────────────────────── -->
 <script>
-  const search = document.getElementById('menuSearch');
-  const chips = document.querySelectorAll('.chip');
-  const cards = Array.from(document.querySelectorAll('#menuCards .card'));
-  const empty = document.getElementById('menuEmpty');
+  /* ── Theme ── */
+  const themeToggle = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('theme');
+  if (saved === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+    themeToggle.checked = true;
+  }
+  themeToggle.addEventListener('change', () => {
+    const light = themeToggle.checked;
+    document.documentElement.setAttribute('data-theme', light ? 'light' : '');
+    localStorage.setItem('theme', light ? 'light' : 'dark');
+  });
+
+  /* ── Hamburger ── */
+  const hamburger = document.getElementById('hamburger');
+  const mainNav   = document.getElementById('mainNav');
+  hamburger.addEventListener('click', () => {
+    const open = hamburger.classList.toggle('open');
+    mainNav.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+  });
+  mainNav.querySelectorAll('a').forEach(l => l.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mainNav.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+  }));
+
+  /* ── Menu filter & search ── */
+  const searchInput = document.getElementById('menuSearch');
+  const chips       = document.querySelectorAll('.chip');
+  const cards       = Array.from(document.querySelectorAll('#menuCards .card'));
+  const emptyMsg    = document.getElementById('menuEmpty');
+  const countMsg    = document.getElementById('menuCount');
 
   let activeFilter = 'all';
 
-  function applyFilters(){
-    const q = (search.value || '').trim().toLowerCase();
+  function applyFilters() {
+    const q = searchInput.value.trim().toLowerCase();
+    let visible = 0;
 
-    let visibleCount = 0;
-    for (const c of cards){
-      const name = (c.dataset.name || '').toLowerCase();
-      const text = (c.textContent || '').toLowerCase();
-      const cat = c.dataset.cat;
+    cards.forEach(card => {
+      const nameMatch = (card.dataset.name || '').toLowerCase().includes(q);
+      const textMatch = card.textContent.toLowerCase().includes(q);
+      const catMatch  = activeFilter === 'all' || card.dataset.cat === activeFilter;
+      const show      = (nameMatch || textMatch) && catMatch;
 
-      const matchText = !q || name.includes(q) || text.includes(q);
-      const matchCat = (activeFilter === 'all') || (cat === activeFilter);
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
 
-      const show = matchText && matchCat;
-      c.style.display = show ? '' : 'none';
-      if (show) visibleCount++;
-    }
-
-    empty.hidden = visibleCount !== 0;
+    emptyMsg.hidden = visible > 0;
+    countMsg.textContent = visible > 0
+      ? `Viser ${visible} av ${cards.length} retter`
+      : '';
   }
 
   chips.forEach(btn => {
@@ -220,11 +318,39 @@
     });
   });
 
-  search.addEventListener('input', applyFilters);
+  searchInput.addEventListener('input', applyFilters);
+
+  /* ── Scroll reveal ── */
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
   applyFilters();
 </script>
 
-<script src="script.js"></script>
 
+<!-- ── LIVE BESTILLINGSBOBLE ──────────────────────── -->
+<div class="orderBubble" id="orderBubble">
+  <div class="orderPanel" id="orderPanel">
+    <div class="orderPanelHead">
+      <h3>🛒 Din bestilling</h3>
+      <button class="orderClearBtn" id="orderClearBtn">Tøm alle</button>
+    </div>
+    <div id="orderList"><p class="orderEmpty">Ingen retter lagt til ennå.<br/>Gå til menyen og trykk «Legg til».</p></div>
+    <div class="orderTotal" id="orderTotal" style="display:none">
+      <span>Totalt</span>
+      <span class="orderTotalPrice" id="orderTotalPrice">0 kr</span>
+    </div>
+    <a class="btn primary orderSendBtn" href="booking.html" id="orderSendBtn" style="display:none">Gå til bestilling →</a>
+  </div>
+  <button class="orderBubbleBtn" id="orderBubbleBtn" aria-label="Vis bestilling" aria-expanded="false">
+    🛒
+    <span class="orderBadge" id="orderBadge" style="display:none">0</span>
+  </button>
+</div>
 </body>
 </html>
