@@ -7,73 +7,49 @@
   <link rel="stylesheet" href="styles.css" />
   <title>Om oss – FireFly Restaurant</title>
 </head>
-
 <body>
-
-<!-- ── HEADER ──────────────────────────────────────────── -->
 <header class="siteHeader">
   <div class="headerInner">
-
     <a class="brand" href="index.html" aria-label="Gå til FireFly forsiden">
       <img src="images/flyfire.png" alt="" aria-hidden="true" />
       <span>FireFly</span>
     </a>
-
     <nav class="navigation" id="mainNav" aria-label="Hovednavigasjon">
       <ul>
         <li><a href="index.html">Hjem</a></li>
         <li><a class="active" href="about.html" aria-current="page">Om oss</a></li>
         <li><a href="menu.html">Meny</a></li>
+        <li><a href="minkonto.html">Min konto</a></li>
         <li><a href="contact.html">Kontakt</a></li>
       </ul>
     </nav>
-
     <button class="hamburger" id="hamburger" aria-label="Åpne meny" aria-expanded="false" aria-controls="mainNav">
       <span></span><span></span><span></span>
     </button>
-
     <div class="uiSwitchWrap">
       <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn" title="Bytt tema" aria-label="Bytt mellom lys og mørk modus">
         <input type="checkbox" id="themeToggle" class="themeToggleInput" />
         <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-          <mask id="moon-mask">
-            <rect x="0" y="0" width="20" height="20" fill="white"></rect>
-            <circle cx="11" cy="3" r="8" fill="black"></circle>
-          </mask>
+          <mask id="moon-mask"><rect x="0" y="0" width="20" height="20" fill="white"></rect><circle cx="11" cy="3" r="8" fill="black"></circle></mask>
           <circle class="sunMoon" cx="10" cy="10" r="8" mask="url(#moon-mask)"></circle>
-          <g>
-            <circle cx="18" cy="10" r="1.5"></circle>
-            <circle cx="14" cy="16.928" r="1.5"></circle>
-            <circle cx="6" cy="16.928" r="1.5"></circle>
-            <circle cx="2" cy="10" r="1.5"></circle>
-            <circle cx="6" cy="3.1718" r="1.5"></circle>
-            <circle cx="14" cy="3.1718" r="1.5"></circle>
-          </g>
+          <g><circle cx="18" cy="10" r="1.5"></circle><circle cx="14" cy="16.928" r="1.5"></circle><circle cx="6" cy="16.928" r="1.5"></circle><circle cx="2" cy="10" r="1.5"></circle><circle cx="6" cy="3.1718" r="1.5"></circle><circle cx="14" cy="3.1718" r="1.5"></circle></g>
         </svg>
       </label>
     </div>
-
   </div>
 </header>
 
-
-<!-- ── MAIN ────────────────────────────────────────────── -->
 <main>
-
-  <!-- HERO -->
   <section class="hero hero--small" aria-labelledby="aboutHeroTitle">
     <span class="heroBadge">FireFly · Grimstad</span>
     <h1 id="aboutHeroTitle">Om FireFly</h1>
     <p>Vår historie, visjon og hva som gjør oss unike.</p>
   </section>
 
-  <!-- ABOUT GRID -->
   <section class="aboutPage" aria-labelledby="aboutPageTitle">
     <div class="sectionLabel" id="aboutPageTitle">Hvem er vi</div>
-
     <div class="aboutGrid">
 
-      <!-- Historie -->
       <article class="panel reveal">
         <h2>Vår historie</h2>
         <p class="muted lead">
@@ -81,71 +57,44 @@
           Målet var å skape en varm og moderne restaurantopplevelse — med fokus på smak, kvalitet og atmosfære
           midt i hjertet av Grimstad.
         </p>
-
         <div class="statRow" aria-label="Høydepunkter">
-          <div class="stat">
-            <div class="statNum">2025</div>
-            <div class="statText">Grunnlagt</div>
-          </div>
-          <div class="stat">
-            <div class="statNum">100%</div>
-            <div class="statText">Ferskt</div>
-          </div>
-          <div class="stat">
-            <div class="statNum">Lokalt</div>
-            <div class="statText">Miljø</div>
-          </div>
+          <div class="stat"><div class="statNum">2025</div><div class="statText">Grunnlagt</div></div>
+          <div class="stat"><div class="statNum">100%</div><div class="statText">Ferskt</div></div>
+          <div class="stat"><div class="statNum">Lokalt</div><div class="statText">Miljø</div></div>
         </div>
-
         <div class="ctaRow">
           <a class="btn primary" href="menu.html">Se menyen</a>
           <a class="btn ghost" href="contact.html">Kontakt oss</a>
         </div>
       </article>
 
-      <!-- Visjon & verdier -->
       <article class="panel reveal" style="transition-delay:0.12s">
         <h2>Vår visjon</h2>
         <p class="muted lead">
           Vi ønsker å være blant de beste restaurantene i Grimstad — kjent for smak, kvalitet og en varm atmosfære
           som gjør at du vil komme tilbake.
         </p>
-
         <div class="sectionLabel" style="margin-top:1.5rem; margin-bottom:1rem;">Våre verdier</div>
-
         <div class="valueCards">
           <div class="valueCard">
             <div class="valueIcon">🍽️</div>
-            <div>
-              <div class="valueTitle">Kvalitet</div>
-              <div class="valueText">Vi respekterer råvarene og jobber for de beste smakene på tallerkenen.</div>
-            </div>
+            <div><div class="valueTitle">Kvalitet</div><div class="valueText">Vi respekterer råvarene og jobber for de beste smakene på tallerkenen.</div></div>
           </div>
-
           <div class="valueCard">
             <div class="valueIcon">✨</div>
-            <div>
-              <div class="valueTitle">Renhet</div>
-              <div class="valueText">Orden på kjøkkenet og fokus på hygiene er ikke forhandlingsbart.</div>
-            </div>
+            <div><div class="valueTitle">Renhet</div><div class="valueText">Orden på kjøkkenet og fokus på hygiene er ikke forhandlingsbart.</div></div>
           </div>
-
           <div class="valueCard">
             <div class="valueIcon">🤝</div>
-            <div>
-              <div class="valueTitle">Service</div>
-              <div class="valueText">En opplevelse som gjør at du alltid vil komme tilbake til oss.</div>
-            </div>
+            <div><div class="valueTitle">Service</div><div class="valueText">En opplevelse som gjør at du alltid vil komme tilbake til oss.</div></div>
           </div>
         </div>
       </article>
 
     </div>
 
-    <!-- Hvorfor oss -->
     <section class="whyUs" aria-labelledby="whyTitle">
       <div class="sectionLabel" id="whyTitle">Hvorfor velge oss</div>
-
       <div class="whyGrid">
         <div class="whyItem reveal">
           <div class="whyTitle">🚀 Rask og enkel bestilling</div>
@@ -161,107 +110,34 @@
         </div>
       </div>
     </section>
-
   </section>
-
 </main>
 
-
-<!-- ── FOOTER ──────────────────────────────────────────── -->
 <footer class="footer">
   <div class="footerInner">
-
-    <div>
-      <h3>FireFly Restaurant</h3>
-      <p>Storgaten 33, 4876 Grimstad</p>
-      <p><a href="tel:+4700000000">+47 000 00 000</a></p>
-    </div>
-
-    <div>
-      <h3>Åpningstider</h3>
-      <p>Man – Tor:&nbsp; 12:00 – 22:00</p>
-      <p>Fre – Søn:&nbsp; 12:00 – 02:30</p>
-    </div>
-
-    <div>
-      <h3>Lenker</h3>
-      <p><a href="menu.html">Meny</a></p>
-      <p><a href="about.html">Om oss</a></p>
-      <p><a href="contact.html">Kontakt</a></p>
-      <p><a href="booking.html">Bestill mat</a></p>
-    </div>
-
-    <div class="footerQR">
-      <h3>Scan meg</h3>
-      <img src="images/qrkode.png" alt="QR-kode til FireFly nettsiden" />
-    </div>
-
+    <div><h3>FireFly Restaurant</h3><p>Storgaten 33, 4876 Grimstad</p><p><a href="tel:+4700000000">+47 000 00 000</a></p></div>
+    <div><h3>Åpningstider</h3><p>Man – Tor:&nbsp; 12:00 – 22:00</p><p>Fre – Søn:&nbsp; 12:00 – 02:30</p></div>
+    <div><h3>Lenker</h3><p><a href="menu.html">Meny</a></p><p><a href="about.html">Om oss</a></p><p><a href="contact.html">Kontakt</a></p><p><a href="booking.html">Bestill mat</a></p></div>
+    <div class="footerQR"><h3>Scan meg</h3><img src="images/qrkode.png" alt="QR-kode til FireFly nettsiden" /></div>
   </div>
-
   <div class="footerBottom">
     <span>© 2026 FireFly Restaurant, Grimstad</span>
     <span>Laget med ❤️ i Grimstad</span>
   </div>
 </footer>
 
-
-<!-- ── SCRIPTS ──────────────────────────────────────────── -->
-<script>
-  /* ── Theme ── */
-  const themeToggle = document.getElementById('themeToggle');
-  const saved = localStorage.getItem('theme');
-  if (saved === 'light') {
-    document.documentElement.setAttribute('data-theme', 'light');
-    themeToggle.checked = true;
-  }
-  themeToggle.addEventListener('change', () => {
-    const light = themeToggle.checked;
-    document.documentElement.setAttribute('data-theme', light ? 'light' : '');
-    localStorage.setItem('theme', light ? 'light' : 'dark');
-  });
-
-  /* ── Hamburger ── */
-  const hamburger = document.getElementById('hamburger');
-  const mainNav   = document.getElementById('mainNav');
-  hamburger.addEventListener('click', () => {
-    const open = hamburger.classList.toggle('open');
-    mainNav.classList.toggle('open', open);
-    hamburger.setAttribute('aria-expanded', open);
-  });
-  mainNav.querySelectorAll('a').forEach(l => l.addEventListener('click', () => {
-    hamburger.classList.remove('open');
-    mainNav.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
-  }));
-
-  /* ── Scroll reveal ── */
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
-
-
-<!-- ── LIVE BESTILLINGSBOBLE ──────────────────────── -->
 <div class="orderBubble" id="orderBubble">
   <div class="orderPanel" id="orderPanel">
-    <div class="orderPanelHead">
-      <h3>🛒 Din bestilling</h3>
-      <button class="orderClearBtn" id="orderClearBtn">Tøm alle</button>
-    </div>
+    <div class="orderPanelHead"><h3>🛒 Din bestilling</h3><button class="orderClearBtn" id="orderClearBtn">Tøm alle</button></div>
     <div id="orderList"><p class="orderEmpty">Ingen retter lagt til ennå.<br/>Gå til menyen og trykk «Legg til».</p></div>
-    <div class="orderTotal" id="orderTotal" style="display:none">
-      <span>Totalt</span>
-      <span class="orderTotalPrice" id="orderTotalPrice">0 kr</span>
-    </div>
+    <div class="orderTotal" id="orderTotal" style="display:none"><span>Totalt</span><span class="orderTotalPrice" id="orderTotalPrice">0 kr</span></div>
     <a class="btn primary orderSendBtn" href="booking.html" id="orderSendBtn" style="display:none">Gå til bestilling →</a>
   </div>
   <button class="orderBubbleBtn" id="orderBubbleBtn" aria-label="Vis bestilling" aria-expanded="false">
-    🛒
-    <span class="orderBadge" id="orderBadge" style="display:none">0</span>
+    🛒<span class="orderBadge" id="orderBadge" style="display:none">0</span>
   </button>
 </div>
+
+<script src="script.js"></script>
 </body>
 </html>

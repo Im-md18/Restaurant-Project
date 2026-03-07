@@ -75,9 +75,14 @@
       color: var(--muted);
       transition: background var(--t), color var(--t);
       margin-bottom: 2px;
+      cursor: pointer;
     }
     .accountNav a:hover  { background: var(--surface2); color: var(--text); }
-    .accountNav a.active { background: var(--gold-glow); color: var(--gold); border: 1px solid rgba(232,184,109,.2); }
+    .accountNav a.active {
+      background: var(--gold-glow);
+      color: var(--gold);
+      border: 1px solid rgba(232,184,109,.2);
+    }
     .accountNav a .navIcon { font-size: 1rem; width: 20px; text-align: center; }
 
     /* ── MAIN CONTENT ── */
@@ -207,7 +212,7 @@
     }
     .logoutBtn:hover { color: var(--ember); border-color: rgba(255,107,53,.3); background: rgba(255,107,53,.06); }
 
-    /* Login gate (shown when not logged in) */
+    /* Login gate */
     .loginGate {
       background: var(--surface);
       border: 1px solid var(--border2);
@@ -281,70 +286,53 @@
 <body>
 
 <!-- ── HEADER ──────────────────────────────────────────── -->
+<!-- FIKSET: Brand er nå på riktig plass (før nav), hamburger har riktig ID -->
 <header class="siteHeader">
   <div class="headerInner">
-
-    <nav class="navigation" id="mainNav" aria-label="Hovednavigasjon">
-      <ul>
-        <li><a href="index.html">Hjem</a></li>
-        <li><a href="menu.html">Meny</a></li>
-        <li><a href="booking.html">Mine bestillinger</a></li>
-        <li><a href="about.html">Om oss</a></li>
-        <li><a href="minkonto.html" class="active" aria-current="page">Min konto</a></li>
-        <li><a href="contact.html">Kontakt</a></li>
-      </ul>
-    </nav>
 
     <a class="brand" href="index.html" aria-label="Gå til FireFly forsiden">
       <img src="images/flyfire.png" alt="" aria-hidden="true" />
       <span>FireFly</span>
     </a>
 
-    <div class="headerRight">
-      <div class="uiSwitchWrap">
-        <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn" title="Bytt tema" aria-label="Bytt mellom lys og mørk modus">
-          <input type="checkbox" id="themeToggle" class="themeToggleInput" />
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <mask id="moon-mask">
-              <rect x="0" y="0" width="20" height="20" fill="white"></rect>
-              <circle cx="11" cy="3" r="8" fill="black"></circle>
-            </mask>
-            <circle class="sunMoon" cx="10" cy="10" r="8" mask="url(#moon-mask)"></circle>
-            <g>
-              <circle cx="18" cy="10" r="1.5"></circle>
-              <circle cx="14" cy="16.928" r="1.5"></circle>
-              <circle cx="6" cy="16.928" r="1.5"></circle>
-              <circle cx="2" cy="10" r="1.5"></circle>
-              <circle cx="6" cy="3.1718" r="1.5"></circle>
-              <circle cx="14" cy="3.1718" r="1.5"></circle>
-            </g>
-          </svg>
-        </label>
-      </div>
-      <button class="menuTrigger" id="menuTrigger" aria-label="Åpne meny" aria-expanded="false" aria-controls="megaMenu">
-        <span></span><span></span><span></span>
-      </button>
+    <nav class="navigation" id="mainNav" aria-label="Hovednavigasjon">
+      <ul>
+        <li><a href="index.html">Hjem</a></li>
+        <li><a href="menu.html">Meny</a></li>
+        <li><a href="about.html">Om oss</a></li>
+        <li><a href="minkonto.html" class="active" aria-current="page">Min konto</a></li>
+        <li><a href="contact.html">Kontakt</a></li>
+      </ul>
+    </nav>
+
+    <!-- FIKSET: Riktig ID (hamburger) slik at script.js finner den -->
+    <button class="hamburger" id="hamburger" aria-label="Åpne meny" aria-expanded="false" aria-controls="mainNav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="uiSwitchWrap">
+      <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn" title="Bytt tema" aria-label="Bytt mellom lys og mørk modus">
+        <input type="checkbox" id="themeToggle" class="themeToggleInput" />
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <mask id="moon-mask">
+            <rect x="0" y="0" width="20" height="20" fill="white"></rect>
+            <circle cx="11" cy="3" r="8" fill="black"></circle>
+          </mask>
+          <circle class="sunMoon" cx="10" cy="10" r="8" mask="url(#moon-mask)"></circle>
+          <g>
+            <circle cx="18" cy="10" r="1.5"></circle>
+            <circle cx="14" cy="16.928" r="1.5"></circle>
+            <circle cx="6" cy="16.928" r="1.5"></circle>
+            <circle cx="2" cy="10" r="1.5"></circle>
+            <circle cx="6" cy="3.1718" r="1.5"></circle>
+            <circle cx="14" cy="3.1718" r="1.5"></circle>
+          </g>
+        </svg>
+      </label>
     </div>
 
   </div>
 </header>
-
-<!-- ── MEGA MENU ────────────────────────────────────────── -->
-<div class="megaMenuOverlay" id="megaMenu" role="dialog" aria-modal="true" aria-label="Navigasjon">
-  <button class="megaMenuClose" id="megaMenuClose" aria-label="Lukk meny">✕</button>
-  <nav class="megaMenuNav" aria-label="Navigasjon">
-    <a href="index.html">Hjem</a>
-    <a href="menu.html">Meny</a>
-    <a href="booking.html">Mine bestillinger</a>
-    <a href="about.html">Om oss</a>
-    <a href="minkonto.html" class="active">Min konto</a>
-    <a href="contact.html">Kontakt</a>
-  </nav>
-  <div class="megaMenuDivider"></div>
-  <div class="megaMenuFooter">
-    <p>Storgaten 33, 4876 Grimstad · +47 000 00 000</p>
-  </div>
-</div>
 
 
 <!-- ── MAIN ────────────────────────────────────────────── -->
@@ -358,33 +346,34 @@
 
   <section class="accountPage">
 
-    <!-- LOGIN GATE (shown when not logged in) -->
+    <!-- LOGIN GATE -->
     <div id="loginGate" class="loginGate reveal">
       <div class="gateIcon">🔐</div>
       <h2>Logg inn</h2>
       <p>Logg inn for å se bestillingshistorikk, administrere profilen din og få personlige tilbud fra FireFly.</p>
 
-      <form class="loginForm" id="loginForm" novalidate>
+      <!-- FIKSET: Fjernet <form> action som ville navigere bort — bruker JS i stedet -->
+      <div class="loginForm" id="loginForm">
         <label>
           <span>E-post</span>
-          <input type="email" id="loginEmail" placeholder="navn@epost.no" autocomplete="email" required />
+          <input type="email" id="loginEmail" placeholder="navn@epost.no" autocomplete="email" />
         </label>
         <label>
           <span>Passord</span>
-          <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" required />
+          <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" />
         </label>
-        <button class="btn primary" type="submit" id="loginBtn" style="width:100%;justify-content:center;margin-top:0.25rem;">
+        <button class="btn primary" type="button" id="loginBtn" style="width:100%;justify-content:center;margin-top:0.25rem;">
           Logg inn
         </button>
         <div class="loginDivider">eller</div>
         <button class="btn ghost" type="button" id="guestBtn" style="width:100%;justify-content:center;">
           Fortsett som gjest
         </button>
-        <p class="registerLink">Har du ikke konto? <a href="#" id="showRegister">Registrer deg</a></p>
-      </form>
+        <p class="registerLink">Har du ikke konto? <a href="#">Registrer deg</a></p>
+      </div>
     </div>
 
-    <!-- ACCOUNT DASHBOARD (shown when logged in) -->
+    <!-- ACCOUNT DASHBOARD -->
     <div id="accountDashboard" style="display:none;">
       <div class="accountLayout">
 
@@ -396,16 +385,16 @@
             <div class="accountEmail" id="accountEmailDisplay">gjest@firefly.no</div>
           </div>
           <nav class="accountNav" aria-label="Kontomeny">
-            <a href="#" class="active" data-section="overview">
+            <a class="active" data-section="overview">
               <span class="navIcon">🏠</span> Oversikt
             </a>
-            <a href="#" data-section="orders">
+            <a data-section="orders">
               <span class="navIcon">📋</span> Mine bestillinger
             </a>
-            <a href="#" data-section="profile">
+            <a data-section="profile">
               <span class="navIcon">👤</span> Rediger profil
             </a>
-            <a href="#" data-section="preferences">
+            <a data-section="preferences">
               <span class="navIcon">⚙️</span> Preferanser
             </a>
           </nav>
@@ -489,7 +478,7 @@
             <div class="accountCard reveal">
               <div class="accountCardTitle">📋 Mine bestillinger</div>
               <div class="orderHistory" id="fullOrderList">
-                <!-- Rendered by JS from sessionStorage -->
+                <p class="muted" style="font-size:0.88rem;text-align:center;padding:1rem 0;">Ingen aktive bestillinger i handlekurven.</p>
               </div>
             </div>
           </div>
@@ -607,24 +596,27 @@
   </button>
 </div>
 
+<!-- FIKSET: script.js lastes FØR side-spesifikk JS -->
 <script src="script.js"></script>
+
 <script>
-/* ── TEMA ── */
-const themeToggle = document.getElementById('themeToggle');
-const savedTheme  = localStorage.getItem('fireflyTheme') || 'dark';
-document.documentElement.setAttribute('data-theme', savedTheme === 'light' ? 'light' : '');
-document.body.classList.toggle('lightMode', savedTheme === 'light');
-themeToggle.checked = savedTheme === 'light';
-themeToggle.addEventListener('change', () => {
-  const t = themeToggle.checked ? 'light' : 'dark';
-  localStorage.setItem('fireflyTheme', t);
+/* ── KONTO-LOGIKK ── */
+const USER_KEY = 'fireflyUser';
+const THEME_KEY = 'fireflyTheme';
+
+// Tema-preferanse-toggle
+const prefDark = document.getElementById('prefDark');
+const savedTheme = localStorage.getItem(THEME_KEY) || 'dark';
+if (prefDark) prefDark.checked = savedTheme === 'dark';
+
+prefDark?.addEventListener('change', (e) => {
+  const t = e.target.checked ? 'dark' : 'light';
+  localStorage.setItem(THEME_KEY, t);
   document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : '');
   document.body.classList.toggle('lightMode', t === 'light');
-  document.getElementById('prefDark').checked = t === 'dark';
+  const toggle = document.getElementById('themeToggle');
+  if (toggle) toggle.checked = t === 'light';
 });
-
-/* ── ACCOUNT STATE (uses localStorage for demo) ── */
-const USER_KEY = 'fireflyUser';
 
 function getUser() {
   try { return JSON.parse(localStorage.getItem(USER_KEY)); } catch { return null; }
@@ -641,8 +633,6 @@ function showDashboard(user) {
   document.getElementById('profileLast').value   = user.last   || '';
   document.getElementById('profileEmail').value  = user.email  || '';
   document.getElementById('profilePhone').value  = user.phone  || '';
-
-  // Load orders from sessionStorage
   renderFullOrders();
 }
 
@@ -678,13 +668,15 @@ function renderFullOrders() {
   } catch { el.innerHTML = ''; }
 }
 
-/* ── LOGIN ── */
-document.getElementById('loginForm').addEventListener('submit', (e) => {
-  e.preventDefault();
+/* ── LOGG INN ── */
+document.getElementById('loginBtn').addEventListener('click', () => {
   const email = document.getElementById('loginEmail').value.trim();
-  if (!email) return;
-  const name  = email.split('@')[0];
-  const user  = { name, email, first: name, last: '', phone: '' };
+  if (!email) {
+    alert('Vennligst skriv inn e-post.');
+    return;
+  }
+  const name = email.split('@')[0];
+  const user = { name, email, first: name, last: '', phone: '' };
   saveUser(user);
   showDashboard(user);
 });
@@ -695,18 +687,20 @@ document.getElementById('guestBtn').addEventListener('click', () => {
   showDashboard(user);
 });
 
-/* ── SIDEBAR NAV ── */
+/* ── SIDEBAR-NAVIGASJON ── */
 document.querySelectorAll('.accountNav a[data-section]').forEach(link => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
     document.querySelectorAll('.accountNav a').forEach(l => l.classList.remove('active'));
     document.querySelectorAll('.accountSection').forEach(s => s.style.display = 'none');
     link.classList.add('active');
-    document.getElementById('section-' + link.dataset.section).style.display = 'block';
+    const section = document.getElementById('section-' + link.dataset.section);
+    if (section) section.style.display = 'block';
+    if (link.dataset.section === 'orders') renderFullOrders();
   });
 });
 
-/* ── PROFILE SAVE ── */
+/* ── LAGRE PROFIL ── */
 document.getElementById('profileForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const user = getUser() || {};
@@ -717,39 +711,23 @@ document.getElementById('profileForm').addEventListener('submit', (e) => {
   user.phone = document.getElementById('profilePhone').value;
   saveUser(user);
   document.getElementById('accountName').textContent = user.name;
+  document.getElementById('accountEmailDisplay').textContent = user.email;
   document.getElementById('accountAvatar').textContent = (user.name)[0].toUpperCase();
   const msg = document.getElementById('profileSaveMsg');
   msg.style.display = 'inline';
   setTimeout(() => msg.style.display = 'none', 2500);
 });
 
-/* ── LOGOUT ── */
+/* ── LOGG UT ── */
 document.getElementById('logoutBtn').addEventListener('click', () => {
   localStorage.removeItem(USER_KEY);
   document.getElementById('accountDashboard').style.display = 'none';
   document.getElementById('loginGate').style.display = 'block';
 });
 
-/* ── DARK PREF TOGGLE ── */
-document.getElementById('prefDark').addEventListener('change', (e) => {
-  const t = e.target.checked ? 'dark' : 'light';
-  localStorage.setItem('fireflyTheme', t);
-  document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : '');
-  document.body.classList.toggle('lightMode', t === 'light');
-  themeToggle.checked = t === 'light';
-});
-document.getElementById('prefDark').checked = savedTheme === 'dark';
-
-/* ── SCROLL REVEAL ── */
-const ro = new IntersectionObserver(entries =>
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } }),
-  { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
-
-/* ── AUTO LOGIN IF ALREADY LOGGED IN ── */
+/* ── AUTO-LOGIN ── */
 const existingUser = getUser();
 if (existingUser) showDashboard(existingUser);
 </script>
-
 </body>
 </html>

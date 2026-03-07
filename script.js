@@ -1,32 +1,23 @@
 // ================================================
 // FireFly — script.js
 // Deles av: index / menu / about / contact /
-//           booking / thanks
+//           booking / thanks / minkonto
 // ================================================
 
 // ── 1) TEMA (lys / mørk) ─────────────────────────
-// Støtter BEGGE metodene:
-//   • data-theme="light" på <html>  (nye sider)
-//   • body.lightMode                (gammel CSS-kompatibilitet)
 (() => {
   const toggle = document.getElementById('themeToggle');
   if (!toggle) return;
 
-  const KEY = 'fireflyTheme';
+  const KEY = 'fireflyTheme'; // Én nøkkel brukt overalt
 
   function applyTheme(theme) {
     const isLight = theme === 'light';
-
-    // Ny metode
     document.documentElement.setAttribute('data-theme', isLight ? 'light' : '');
-
-    // Gammel metode (bakoverkompatibel)
     document.body.classList.toggle('lightMode', isLight);
-
     toggle.checked = isLight;
   }
 
-  // Last lagret tema (standard: mørk)
   applyTheme(localStorage.getItem(KEY) || 'dark');
 
   toggle.addEventListener('change', () => {
@@ -49,7 +40,6 @@
     hamburger.setAttribute('aria-expanded', String(open));
   });
 
-  // Lukk meny når bruker klikker på en lenke
   mainNav.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       hamburger.classList.remove('open');
@@ -58,7 +48,6 @@
     });
   });
 
-  // Lukk meny ved Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && hamburger.classList.contains('open')) {
       hamburger.classList.remove('open');
@@ -71,17 +60,10 @@
 
 // ── 3) AKTIV NAV-LENKE ───────────────────────────
 (() => {
-  function getCurrentPage() {
-    const p = location.pathname.split('/').pop();
-    return (p && p.length) ? p : 'index.html';
-  }
-
-  const currentPage = getCurrentPage();
+  const currentPage = location.pathname.split('/').pop() || 'index.html';
 
   document.querySelectorAll('.navigation a').forEach(link => {
     const href = (link.getAttribute('href') || '').split('#')[0];
-
-    // Ikke marker eksterne lenker
     if (/^https?:\/\//i.test(href)) return;
 
     const page = href === '' ? 'index.html' : href;
@@ -113,7 +95,6 @@
 
 
 // ── 5) SKJEMA — DEAKTIVER KNAPP VED INNSENDING ──
-// Forhindrer dobbel-innsending og gir feedback
 (() => {
   document.querySelectorAll('form').forEach(form => {
     form.addEventListener('submit', () => {
@@ -128,21 +109,17 @@
 
 
 // ── 6) DATOFELT — IKKE TILLAT FORTIDEN ───────────
-// Gjelder booking.html
 (() => {
   const dateInput = document.getElementById('dateInput');
   if (!dateInput) return;
-
-  const today = new Date().toISOString().split('T')[0];
-  dateInput.setAttribute('min', today);
+  dateInput.setAttribute('min', new Date().toISOString().split('T')[0]);
 })();
 
 
 // ── 7) MENY — SØK OG FILTER ─────────────────────
-// Gjelder menu.html
 (() => {
   const searchInput = document.getElementById('menuSearch');
-  const chips       = document.querySelectorAll('.chip');
+  const chips       = document.querySelectorAll('.chip[data-filter]');
   const menuCards   = document.querySelectorAll('#menuCards .card');
   const emptyMsg    = document.getElementById('menuEmpty');
   const countMsg    = document.getElementById('menuCount');
@@ -188,7 +165,6 @@
 
 
 // ── 8) TAKK-SIDE — AUTOMATISK NEDTELLING ─────────
-// Gjelder thanks.html
 (() => {
   const countdownEl = document.getElementById('countdown');
   if (!countdownEl) return;
@@ -205,24 +181,9 @@
 })();
 
 
-// ── 9) "LES MER"-KNAPP (om nødvendig) ────────────
-(() => {
-  const btn = document.getElementById('toggleAbout') ||
-              document.getElementById('toggleBtn');
-  const content = document.getElementById('moreContent');
-  if (!btn || !content) return;
-
-  btn.addEventListener('click', () => {
-    const hidden = content.classList.toggle('hidden');
-    btn.textContent = hidden ? 'Les mer' : 'Skjul';
-    if (!hidden) content.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-})();
-
-
-// ── 10) LIVE BESTILLINGSBOBLE ─────────────────────
-// Vises på alle sider. Menyretter kan legges til.
-// Bestillingen lagres i sessionStorage.
+// ── 9) LIVE BESTILLINGSBOBLE ─────────────────────
+// Vises på alle sider. Handlekurven lagres i sessionStorage.
+// På menysiden erstattes "Bestill mat"-lenker med "Legg til"-knapper.
 (() => {
   const bubbleBtn  = document.getElementById('orderBubbleBtn');
   const panel      = document.getElementById('orderPanel');
@@ -235,54 +196,75 @@
 
   if (!bubbleBtn) return;
 
-  const KEY = 'fireflyOrder';
+  const CART_KEY = 'fireflyCart'; // Samme nøkkel som booking.html
 
-  // -- Hjelpefunksjoner --
-  function loadOrder() {
-    try { return JSON.parse(sessionStorage.getItem(KEY)) || []; }
-    catch { return []; }
+  // -- Lagring (bruker object {id: qty} format som booking.html) --
+  function loadCart() {
+    try { return JSON.parse(sessionStorage.getItem(CART_KEY)) || {}; }
+    catch { return {}; }
   }
-  function saveOrder(order) {
-    sessionStorage.setItem(KEY, JSON.stringify(order));
+  function saveCart(cart) {
+    sessionStorage.setItem(CART_KEY, JSON.stringify(cart));
+  }
+
+  const MENU_DATA = [
+    { id:1, name:'Burger',       price:150 },
+    { id:2, name:'Kyllingpizza', price:200 },
+    { id:3, name:'Frisk salat',  price:119 },
+    { id:4, name:'Kremet pasta', price:179 },
+    { id:5, name:'Dagens suppe', price:99  },
+    { id:6, name:'Dessert',      price:89  },
+    { id:7, name:'Brus / Vann',  price:45  },
+    { id:8, name:'Kaffe',        price:55  },
+  ];
+
+  function cartCount(cart) {
+    return Object.values(cart).reduce((s, q) => s + q, 0);
+  }
+  function cartTotal(cart) {
+    return Object.entries(cart).reduce((s, [id, q]) => {
+      const it = MENU_DATA.find(m => m.id === +id);
+      return s + (it ? it.price * q : 0);
+    }, 0);
   }
 
   function renderOrder() {
-    const order = loadOrder();
-    const count = order.length;
-    const total = order.reduce((sum, i) => sum + i.price, 0);
+    const cart  = loadCart();
+    const count = cartCount(cart);
+    const total = cartTotal(cart);
 
     // Badge
-    if (count > 0) {
-      badge.textContent = count;
-      badge.style.display = 'flex';
-    } else {
-      badge.style.display = 'none';
-    }
+    badge.textContent    = count;
+    badge.style.display  = count > 0 ? 'flex' : 'none';
 
-    // List
+    // Liste
     if (count === 0) {
-      listEl.innerHTML = '<p class="orderEmpty">Ingen retter lagt til ennå.<br/>Gå til menyen og trykk «Legg til».</p>';
-      totalEl.style.display  = 'none';
-      sendBtn.style.display  = 'none';
+      listEl.innerHTML      = '<p class="orderEmpty">Ingen retter lagt til ennå.<br/>Gå til menyen og trykk «Legg til».</p>';
+      totalEl.style.display = 'none';
+      sendBtn.style.display = 'none';
     } else {
-      listEl.innerHTML = order.map((item, idx) => `
-        <div class="orderItem">
-          <span class="orderItemName">${item.name}</span>
-          <span class="orderItemPrice">${item.price} kr</span>
-          <button class="orderItemRemove" data-idx="${idx}" aria-label="Fjern ${item.name}">✕</button>
-        </div>
-      `).join('');
+      const entries = Object.entries(cart).filter(([,q]) => q > 0);
+      listEl.innerHTML = entries.map(([id, qty]) => {
+        const it = MENU_DATA.find(m => m.id === +id);
+        if (!it) return '';
+        return `<div class="orderItem">
+          <span class="orderItemName">${it.name} × ${qty}</span>
+          <span class="orderItemPrice">${it.price * qty} kr</span>
+          <button class="orderItemRemove" data-id="${id}" aria-label="Fjern ${it.name}">✕</button>
+        </div>`;
+      }).join('');
+
       totalPrice.textContent = total + ' kr';
       totalEl.style.display  = 'flex';
       sendBtn.style.display  = 'block';
 
-      // Remove buttons
       listEl.querySelectorAll('.orderItemRemove').forEach(btn => {
         btn.addEventListener('click', () => {
-          const order2 = loadOrder();
-          order2.splice(Number(btn.dataset.idx), 1);
-          saveOrder(order2);
+          const cart2 = loadCart();
+          delete cart2[btn.dataset.id];
+          saveCart(cart2);
           renderOrder();
+          syncMenuButtons();
         });
       });
     }
@@ -296,56 +278,84 @@
     if (open) renderOrder();
   });
 
-  // -- Clear all --
-  clearBtn.addEventListener('click', () => {
-    saveOrder([]);
+  // -- Lukk panel ved klikk utenfor --
+  document.addEventListener('click', (e) => {
+    const bubble = document.getElementById('orderBubble');
+    if (bubble && !bubble.contains(e.target) && panel.classList.contains('open')) {
+      panel.classList.remove('open');
+      bubbleBtn.classList.remove('open');
+      bubbleBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // -- Tøm alt --
+  clearBtn?.addEventListener('click', () => {
+    saveCart({});
     renderOrder();
+    syncMenuButtons();
   });
 
-  // -- "Legg til"-knapper på menykortet --
-  // Konverter alle "Bestill mat"-lenker på menysiden til "Legg til"-knapper
-  document.querySelectorAll('#menuCards .card').forEach(card => {
-    const actionDiv = card.querySelector('.cardActions');
-    if (!actionDiv) return;
+  // -- Konverter menykortkort til "Legg til"-knapper (på menu.html) --
+  function syncMenuButtons() {
+    const cart = loadCart();
+    document.querySelectorAll('#menuCards .card').forEach(card => {
+      const actionDiv = card.querySelector('.cardActions');
+      if (!actionDiv) return;
 
-    const oldLink = actionDiv.querySelector('a.btn');
-    if (!oldLink) return;
+      const nameEl   = card.querySelector('h3');
+      const priceEl  = card.querySelector('.price');
+      const name     = nameEl  ? nameEl.textContent.trim()  : 'Rett';
+      const priceStr = priceEl ? priceEl.textContent.trim() : '0 kr';
+      const price    = parseInt(priceStr.replace(/[^0-9]/g, ''), 10) || 0;
 
-    const nameEl  = card.querySelector('h3');
-    const priceEl = card.querySelector('.price');
-    const name    = nameEl  ? nameEl.textContent.trim()  : 'Rett';
-    const priceStr = priceEl ? priceEl.textContent.trim() : '0 kr';
-    const price   = parseInt(priceStr.replace(/[^0-9]/g, ''), 10) || 0;
+      // Finn menyen basert på navn
+      const menuItem = MENU_DATA.find(m => m.name === name);
+      const itemId   = menuItem ? menuItem.id : null;
+      const qty      = itemId ? (cart[itemId] || 0) : 0;
 
-    const addBtn = document.createElement('button');
-    addBtn.className = 'btn ghost btn-sm';
-    addBtn.textContent = '+ Legg til';
-    addBtn.type = 'button';
+      // Finn eksisterende knapp eller lenke
+      let btn = actionDiv.querySelector('.addToCartBtn');
 
-    addBtn.addEventListener('click', () => {
-      const order = loadOrder();
-      order.push({ name, price });
-      saveOrder(order);
-      renderOrder();
+      if (!btn) {
+        // Fjern den gamle "Bestill mat"-lenken
+        const oldLink = actionDiv.querySelector('a.btn');
+        if (oldLink) oldLink.remove();
 
-      // Bump animation
-      badge.classList.remove('bump');
-      void badge.offsetWidth; // reflow
-      badge.classList.add('bump');
-      setTimeout(() => badge.classList.remove('bump'), 300);
+        btn = document.createElement('button');
+        btn.className = 'btn ghost btn-sm addToCartBtn';
+        btn.type = 'button';
+        actionDiv.appendChild(btn);
 
-      // Knapp feedback
-      addBtn.textContent = '✓ Lagt til';
-      addBtn.disabled = true;
-      setTimeout(() => {
-        addBtn.textContent = '+ Legg til';
-        addBtn.disabled = false;
-      }, 1500);
+        btn.addEventListener('click', () => {
+          if (!itemId) return;
+          const cart2 = loadCart();
+          cart2[itemId] = (cart2[itemId] || 0) + 1;
+          saveCart(cart2);
+          renderOrder();
+          syncMenuButtons();
+
+          // Bump-animasjon
+          badge.classList.remove('bump');
+          void badge.offsetWidth;
+          badge.classList.add('bump');
+          setTimeout(() => badge.classList.remove('bump'), 300);
+        });
+      }
+
+      // Oppdater knapp-tekst basert på antall i kurv
+      if (qty > 0) {
+        btn.textContent  = `✓ ${qty} i kurv`;
+        btn.style.color  = 'var(--gold)';
+        btn.style.borderColor = 'var(--gold-dim)';
+      } else {
+        btn.textContent = '+ Legg til';
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }
     });
+  }
 
-    oldLink.replaceWith(addBtn);
-  });
-
-  // Initial render (for badge on page load)
+  // Initialiser
   renderOrder();
+  syncMenuButtons();
 })();

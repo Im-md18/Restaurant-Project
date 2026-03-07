@@ -23,6 +23,7 @@
         <li><a href="index.html">Hjem</a></li>
         <li><a href="about.html">Om oss</a></li>
         <li><a class="active" href="menu.html" aria-current="page">Meny</a></li>
+        <li><a href="minkonto.html">Min konto</a></li>
         <li><a href="contact.html">Kontakt</a></li>
       </ul>
     </nav>
@@ -70,7 +71,7 @@
   <div class="menuTop">
     <div>
       <h2 id="menuTitle">Våre retter</h2>
-      <p class="menuHint">Søk eller filtrer for å finne noe du liker.</p>
+      <p class="menuHint">Søk eller filtrer for å finne noe du liker. Trykk «Legg til» for å legge i handlekurven 🛒</p>
     </div>
 
     <div class="menuControls" role="group" aria-label="Menyfiltre">
@@ -95,13 +96,13 @@
     </div>
   </div>
 
-  <!-- Result count -->
+  <!-- Resultat-teller -->
   <p class="menuCount" id="menuCount" aria-live="polite"></p>
 
   <div class="cards" id="menuCards">
 
     <!-- Burger -->
-    <article class="card reveal" data-cat="main" data-name="burger">
+    <article class="card reveal" data-cat="main" data-name="burger" data-id="1" data-price="150">
       <div class="cardTop">
         <h3>Burger</h3>
         <span class="price">150 kr</span>
@@ -109,12 +110,12 @@
       <p>Saftig burger med pommes frites og husets dressing.</p>
       <div class="cardActions">
         <span class="tag">🔥 Populær</span>
-        <a class="btn ghost btn-sm" href="booking.html">Bestill mat</a>
+        <button class="btn ghost btn-sm addToCartBtn" type="button" aria-label="Legg Burger i handlekurv">+ Legg til</button>
       </div>
     </article>
 
     <!-- Pizza -->
-    <article class="card reveal" data-cat="main" data-name="pizza">
+    <article class="card reveal" data-cat="main" data-name="pizza" data-id="2" data-price="200">
       <div class="cardTop">
         <h3>Kyllingpizza</h3>
         <span class="price">200 kr</span>
@@ -122,12 +123,12 @@
       <p>Sprø bunn med mozzarella, grillet kylling og paprika.</p>
       <div class="cardActions">
         <span class="tag">✨ Ny</span>
-        <a class="btn ghost btn-sm" href="booking.html">Bestill mat</a>
+        <button class="btn ghost btn-sm addToCartBtn" type="button" aria-label="Legg Kyllingpizza i handlekurv">+ Legg til</button>
       </div>
     </article>
 
     <!-- Salat -->
-    <article class="card reveal" data-cat="light" data-name="salat">
+    <article class="card reveal" data-cat="light" data-name="salat" data-id="3" data-price="119">
       <div class="cardTop">
         <h3>Frisk salat</h3>
         <span class="price">119 kr</span>
@@ -135,12 +136,12 @@
       <p>Blandede blader, cherrytomater, agurk og vinaigrette.</p>
       <div class="cardActions">
         <span class="tag">🥗 Lett</span>
-        <a class="btn ghost btn-sm" href="booking.html">Bestill mat</a>
+        <button class="btn ghost btn-sm addToCartBtn" type="button" aria-label="Legg Frisk salat i handlekurv">+ Legg til</button>
       </div>
     </article>
 
     <!-- Pasta -->
-    <article class="card reveal" data-cat="main" data-name="pasta">
+    <article class="card reveal" data-cat="main" data-name="pasta" data-id="4" data-price="179">
       <div class="cardTop">
         <h3>Kremet pasta</h3>
         <span class="price">179 kr</span>
@@ -148,12 +149,12 @@
       <p>Fettuccine med grillet kylling i kremet hvitløkssaus.</p>
       <div class="cardActions">
         <span class="tag">⭐ Anbefalt</span>
-        <a class="btn ghost btn-sm" href="booking.html">Bestill mat</a>
+        <button class="btn ghost btn-sm addToCartBtn" type="button" aria-label="Legg Kremet pasta i handlekurv">+ Legg til</button>
       </div>
     </article>
 
     <!-- Suppe -->
-    <article class="card reveal" data-cat="soup" data-name="suppe">
+    <article class="card reveal" data-cat="soup" data-name="suppe" data-id="5" data-price="99">
       <div class="cardTop">
         <h3>Dagens suppe</h3>
         <span class="price">99 kr</span>
@@ -161,12 +162,12 @@
       <p>Varm suppe av sesongens råvarer, servert med ferskt brød.</p>
       <div class="cardActions">
         <span class="tag">🍲 Dagens</span>
-        <a class="btn ghost btn-sm" href="booking.html">Bestill mat</a>
+        <button class="btn ghost btn-sm addToCartBtn" type="button" aria-label="Legg Dagens suppe i handlekurv">+ Legg til</button>
       </div>
     </article>
 
     <!-- Dessert -->
-    <article class="card reveal" data-cat="dessert" data-name="dessert">
+    <article class="card reveal" data-cat="dessert" data-name="dessert" data-id="6" data-price="89">
       <div class="cardTop">
         <h3>Dessert</h3>
         <span class="price">89 kr</span>
@@ -174,12 +175,12 @@
       <p>Søt avslutning — spør servitøren om dagens dessert.</p>
       <div class="cardActions">
         <span class="tag">🍮 Søt</span>
-        <a class="btn ghost btn-sm" href="booking.html">Bestill mat</a>
+        <button class="btn ghost btn-sm addToCartBtn" type="button" aria-label="Legg Dessert i handlekurv">+ Legg til</button>
       </div>
     </article>
 
     <!-- Brus -->
-    <article class="card reveal" data-cat="drink" data-name="brus drikke">
+    <article class="card reveal" data-cat="drink" data-name="brus drikke" data-id="7" data-price="45">
       <div class="cardTop">
         <h3>Brus / Vann</h3>
         <span class="price">45 kr</span>
@@ -187,12 +188,12 @@
       <p>Cola, Fanta, Sprite eller iskaldt vann.</p>
       <div class="cardActions">
         <span class="tag">🥤 Drikke</span>
-        <a class="btn ghost btn-sm" href="booking.html">Bestill mat</a>
+        <button class="btn ghost btn-sm addToCartBtn" type="button" aria-label="Legg Brus/Vann i handlekurv">+ Legg til</button>
       </div>
     </article>
 
     <!-- Kaffe -->
-    <article class="card reveal" data-cat="drink" data-name="kaffe latte cappuccino">
+    <article class="card reveal" data-cat="drink" data-name="kaffe latte cappuccino" data-id="8" data-price="55">
       <div class="cardTop">
         <h3>Kaffe</h3>
         <span class="price">55 kr</span>
@@ -200,7 +201,7 @@
       <p>Espresso, americano, latte eller cappuccino.</p>
       <div class="cardActions">
         <span class="tag">☕ Varm</span>
-        <a class="btn ghost btn-sm" href="booking.html">Bestill mat</a>
+        <button class="btn ghost btn-sm addToCartBtn" type="button" aria-label="Legg Kaffe i handlekurv">+ Legg til</button>
       </div>
     </article>
 
@@ -251,96 +252,14 @@
 </footer>
 
 
-<!-- ── SCRIPTS ──────────────────────────────────────────── -->
-<script>
-  /* ── Theme ── */
-  const themeToggle = document.getElementById('themeToggle');
-  const saved = localStorage.getItem('theme');
-  if (saved === 'light') {
-    document.documentElement.setAttribute('data-theme', 'light');
-    themeToggle.checked = true;
-  }
-  themeToggle.addEventListener('change', () => {
-    const light = themeToggle.checked;
-    document.documentElement.setAttribute('data-theme', light ? 'light' : '');
-    localStorage.setItem('theme', light ? 'light' : 'dark');
-  });
-
-  /* ── Hamburger ── */
-  const hamburger = document.getElementById('hamburger');
-  const mainNav   = document.getElementById('mainNav');
-  hamburger.addEventListener('click', () => {
-    const open = hamburger.classList.toggle('open');
-    mainNav.classList.toggle('open', open);
-    hamburger.setAttribute('aria-expanded', open);
-  });
-  mainNav.querySelectorAll('a').forEach(l => l.addEventListener('click', () => {
-    hamburger.classList.remove('open');
-    mainNav.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
-  }));
-
-  /* ── Menu filter & search ── */
-  const searchInput = document.getElementById('menuSearch');
-  const chips       = document.querySelectorAll('.chip');
-  const cards       = Array.from(document.querySelectorAll('#menuCards .card'));
-  const emptyMsg    = document.getElementById('menuEmpty');
-  const countMsg    = document.getElementById('menuCount');
-
-  let activeFilter = 'all';
-
-  function applyFilters() {
-    const q = searchInput.value.trim().toLowerCase();
-    let visible = 0;
-
-    cards.forEach(card => {
-      const nameMatch = (card.dataset.name || '').toLowerCase().includes(q);
-      const textMatch = card.textContent.toLowerCase().includes(q);
-      const catMatch  = activeFilter === 'all' || card.dataset.cat === activeFilter;
-      const show      = (nameMatch || textMatch) && catMatch;
-
-      card.style.display = show ? '' : 'none';
-      if (show) visible++;
-    });
-
-    emptyMsg.hidden = visible > 0;
-    countMsg.textContent = visible > 0
-      ? `Viser ${visible} av ${cards.length} retter`
-      : '';
-  }
-
-  chips.forEach(btn => {
-    btn.addEventListener('click', () => {
-      chips.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeFilter = btn.dataset.filter;
-      applyFilters();
-    });
-  });
-
-  searchInput.addEventListener('input', applyFilters);
-
-  /* ── Scroll reveal ── */
-  const revealEls = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-    });
-  }, { threshold: 0.12 });
-  revealEls.forEach(el => observer.observe(el));
-
-  applyFilters();
-</script>
-
-
-<!-- ── LIVE BESTILLINGSBOBLE ──────────────────────── -->
+<!-- ── BESTILLINGSBOBLE ──────────────────────────────── -->
 <div class="orderBubble" id="orderBubble">
   <div class="orderPanel" id="orderPanel">
     <div class="orderPanelHead">
       <h3>🛒 Din bestilling</h3>
       <button class="orderClearBtn" id="orderClearBtn">Tøm alle</button>
     </div>
-    <div id="orderList"><p class="orderEmpty">Ingen retter lagt til ennå.<br/>Gå til menyen og trykk «Legg til».</p></div>
+    <div id="orderList"><p class="orderEmpty">Ingen retter lagt til ennå.<br/>Trykk «Legg til» på en rett.</p></div>
     <div class="orderTotal" id="orderTotal" style="display:none">
       <span>Totalt</span>
       <span class="orderTotalPrice" id="orderTotalPrice">0 kr</span>
@@ -352,5 +271,85 @@
     <span class="orderBadge" id="orderBadge" style="display:none">0</span>
   </button>
 </div>
+
+<!-- FIKSET: script.js lastes riktig -->
+<script src="script.js"></script>
+
+<script>
+  /* ── Ekstra logikk spesifikt for menusiden ── */
+
+  /* Legg til fra menysiden — data-id og data-price er nå i HTML */
+  const CART_KEY = 'fireflyCart';
+
+  function loadCart() {
+    try { return JSON.parse(sessionStorage.getItem(CART_KEY)) || {}; }
+    catch { return {}; }
+  }
+  function saveCart(cart) {
+    sessionStorage.setItem(CART_KEY, JSON.stringify(cart));
+  }
+
+  function updateAllButtons() {
+    const cart = loadCart();
+    document.querySelectorAll('#menuCards .card').forEach(card => {
+      const id  = card.dataset.id;
+      const btn = card.querySelector('.addToCartBtn');
+      if (!btn || !id) return;
+      const qty = cart[id] || 0;
+      if (qty > 0) {
+        btn.textContent = `✓ ${qty} i kurv`;
+        btn.style.color = 'var(--gold)';
+        btn.style.borderColor = 'rgba(232,184,109,0.5)';
+      } else {
+        btn.textContent = '+ Legg til';
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }
+    });
+  }
+
+  document.querySelectorAll('#menuCards .card').forEach(card => {
+    const btn = card.querySelector('.addToCartBtn');
+    if (!btn) return;
+
+    const id    = card.dataset.id;
+    const price = parseInt(card.dataset.price, 10) || 0;
+    const name  = card.querySelector('h3')?.textContent.trim() || 'Rett';
+
+    btn.addEventListener('click', () => {
+      const cart = loadCart();
+      cart[id] = (cart[id] || 0) + 1;
+      saveCart(cart);
+
+      // Oppdater alle knapper og boblen
+      updateAllButtons();
+
+      // Trigger re-render av boblen (script.js håndterer dette ved panel-åpning)
+      // Men vi oppdaterer badge manuelt her
+      const badge = document.getElementById('orderBadge');
+      const total = Object.values(cart).reduce((s, q) => s + q, 0);
+      if (badge) {
+        badge.textContent = total;
+        badge.style.display = total > 0 ? 'flex' : 'none';
+        badge.classList.remove('bump');
+        void badge.offsetWidth;
+        badge.classList.add('bump');
+        setTimeout(() => badge.classList.remove('bump'), 300);
+      }
+
+      // Oppdater totalpris i boble-panel hvis åpen
+      const panel = document.getElementById('orderPanel');
+      if (panel && panel.classList.contains('open')) {
+        // Utløs re-render ved å simulere at panel allerede er åpent
+        // script.js renderOrder() vil bli kalt neste gang panel åpnes
+        document.getElementById('orderBubbleBtn')?.click();
+        document.getElementById('orderBubbleBtn')?.click();
+      }
+    });
+  });
+
+  // Initialiser knapper med eksisterende handlekurv
+  updateAllButtons();
+</script>
 </body>
 </html>
