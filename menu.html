@@ -6,18 +6,155 @@
   <meta name="description" content="FireFly Restaurant sin meny – ferske retter, god mat i Grimstad." />
   <link rel="stylesheet" href="styles.css" />
   <title>Meny – FireFly Restaurant</title>
+  <style>
+    /* ── MENU CARDS ── */
+    .menuHint { font-size: 0.88rem; color: var(--muted); margin-top: 0.3rem; }
+
+    .card {
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(232,184,109,.28);
+      box-shadow: 0 20px 50px rgba(0,0,0,.45);
+    }
+    .cardImg {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 10px;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      margin-bottom: 0.85rem;
+      overflow: hidden;
+      transition: transform var(--t);
+    }
+    .card:hover .cardImg { transform: scale(1.03); }
+    .cardImg img { width: 100%; height: 100%; object-fit: cover; display: none; }
+    .cardImg img.loaded { display: block; }
+
+    /* ── MODAL ── */
+    .modalOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.75);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .modalOverlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: var(--radiusLg);
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(24px) scale(0.97);
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s ease;
+      opacity: 0;
+      box-shadow: 0 40px 100px rgba(0,0,0,.6);
+    }
+    .modalOverlay.open .modal {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    .modalClose {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      color: var(--muted);
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--t), color var(--t);
+      z-index: 2;
+    }
+    .modalClose:hover { background: var(--ember); color: #fff; border-color: var(--ember); }
+
+    .modalImg {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--surface2);
+      border-radius: var(--radiusLg) var(--radiusLg) 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border2);
+    }
+    .modalImg img { width: 100%; height: 100%; object-fit: cover; display: none; }
+    .modalImg img.loaded { display: block; }
+
+    .modalBody { padding: 1.75rem; }
+
+    .modalMeta {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+    .modalTitle {
+      font-family: var(--ff-serif);
+      font-size: 2rem;
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+    .modalPrice {
+      font-family: var(--ff-serif);
+      font-size: 1.5rem;
+      color: var(--gold);
+      font-weight: 400;
+    }
+    .modalDesc {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border2);
+    }
+    .modalActions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .modalOrderBtn {
+      flex: 1;
+    }
+  </style>
 </head>
 <body>
 
-<!-- ── HEADER ──────────────────────────────────────────── -->
+<!-- ── HEADER ── -->
 <header class="siteHeader">
   <div class="headerInner">
-
     <a class="brand" href="index.html" aria-label="Gå til FireFly forsiden">
       <img src="images/flyfire.png" alt="" aria-hidden="true" />
       <span>FireFly</span>
     </a>
-
     <nav class="navigation" id="mainNav" aria-label="Hovednavigasjon">
       <ul>
         <li><a href="index.html">Hjem</a></li>
@@ -27,64 +164,37 @@
         <li><a href="contact.html">Kontakt</a></li>
       </ul>
     </nav>
-
     <button class="hamburger" id="hamburger" aria-label="Åpne meny" aria-expanded="false" aria-controls="mainNav">
       <span></span><span></span><span></span>
     </button>
-
     <div class="uiSwitchWrap">
-      <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn" title="Bytt tema" aria-label="Bytt mellom lys og mørk modus">
+      <label class="ui-switch" id="themeToggleLabel" title="Bytt tema" aria-label="Bytt mellom lys og mørk modus">
         <input type="checkbox" id="themeToggle" class="themeToggleInput" />
-        <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-          <mask id="moon-mask">
-            <rect x="0" y="0" width="20" height="20" fill="white"></rect>
-            <circle cx="11" cy="3" r="8" fill="black"></circle>
-          </mask>
-          <circle class="sunMoon" cx="10" cy="10" r="8" mask="url(#moon-mask)"></circle>
-          <g>
-            <circle cx="18" cy="10" r="1.5"></circle>
-            <circle cx="14" cy="16.928" r="1.5"></circle>
-            <circle cx="6" cy="16.928" r="1.5"></circle>
-            <circle cx="2" cy="10" r="1.5"></circle>
-            <circle cx="6" cy="3.1718" r="1.5"></circle>
-            <circle cx="14" cy="3.1718" r="1.5"></circle>
-          </g>
-        </svg>
+        <div class="slider"><div class="circle"></div></div>
       </label>
     </div>
-
   </div>
 </header>
 
-
-<!-- ── HERO ────────────────────────────────────────────── -->
+<!-- ── HERO ── -->
 <section class="hero hero--small" aria-labelledby="menuHeroTitle">
   <span class="heroBadge">FireFly · Grimstad</span>
   <h1 id="menuHeroTitle">Vår Meny</h1>
-  <p>Alltid ferskt — noe for enhver smak.</p>
+  <p>Alltid ferskt – noe for enhver smak.</p>
 </section>
 
-
-<!-- ── MENU SECTION ────────────────────────────────────── -->
+<!-- ── MENU ── -->
 <section class="menu" aria-labelledby="menuTitle">
 
   <div class="menuTop">
     <div>
       <h2 id="menuTitle">Våre retter</h2>
-      <p class="menuHint">Søk eller filtrer for å finne noe du liker. Trykk «Legg til» for å legge i handlekurven 🛒</p>
+      <p class="menuHint">Trykk på en rett for å se mer. Vil du bestille? Gå til <a href="booking.html" style="color:var(--gold)">bestilling</a>.</p>
     </div>
-
     <div class="menuControls" role="group" aria-label="Menyfiltre">
       <div class="searchWrap">
-        <input
-          id="menuSearch"
-          type="search"
-          placeholder="Søk: burger, pizza, pasta…"
-          aria-label="Søk i menyen"
-          autocomplete="off"
-        />
+        <input id="menuSearch" type="search" placeholder="Søk: burger, pizza, pasta…" aria-label="Søk i menyen" autocomplete="off" />
       </div>
-
       <div class="chips" role="group" aria-label="Kategorier">
         <button class="chip active" type="button" data-filter="all">Alle</button>
         <button class="chip" type="button" data-filter="main">Hovedretter</button>
@@ -96,113 +206,80 @@
     </div>
   </div>
 
-  <!-- Resultat-teller -->
   <p class="menuCount" id="menuCount" aria-live="polite"></p>
 
   <div class="cards" id="menuCards">
 
-    <!-- Burger -->
-    <article class="card reveal" data-cat="main" data-name="burger" data-id="1" data-price="150">
-      <div class="cardTop">
-        <h3>Burger</h3>
-        <span class="price">150 kr</span>
-      </div>
+    <article class="card reveal" data-cat="main" data-name="burger" tabindex="0"
+      data-id="1" data-price="150" data-emoji="🍔" data-tag="🔥 Populær"
+      data-desc="Saftig hjemmelaget burger med sprøe pommes frites, husets dressing og sylteagurk. Serveres på briochebolla.">
+      <div class="cardImg"><span>🍔</span><img src="images/burger.jpg" alt="Burger" /></div>
+      <div class="cardTop"><h3>Burger</h3><span class="price">150 kr</span></div>
       <p>Saftig burger med pommes frites og husets dressing.</p>
-      <div class="cardActions">
-        <span class="tag">🔥 Populær</span>
-        <button class="btn ghost btn-sm addToCartBtn" type="button" aria-label="Legg Burger i handlekurv">+ Legg til</button>
-      </div>
+      <div class="cardActions"><span class="tag">🔥 Populær</span><span class="menuViewHint">Trykk for mer →</span></div>
     </article>
 
-    <!-- Pizza -->
-    <article class="card reveal" data-cat="main" data-name="pizza" data-id="2" data-price="200">
-      <div class="cardTop">
-        <h3>Kyllingpizza</h3>
-        <span class="price">200 kr</span>
-      </div>
+    <article class="card reveal" data-cat="main" data-name="pizza kylling" tabindex="0"
+      data-id="2" data-price="200" data-emoji="🍕" data-tag="✨ Ny"
+      data-desc="Sprø bunn med hjemmelaget tomatsaus, mozzarella, grillet kylling, paprika og ruccola. Ferdigbakt i steinovn.">
+      <div class="cardImg"><span>🍕</span><img src="images/pizza.jpg" alt="Kyllingpizza" /></div>
+      <div class="cardTop"><h3>Kyllingpizza</h3><span class="price">200 kr</span></div>
       <p>Sprø bunn med mozzarella, grillet kylling og paprika.</p>
-      <div class="cardActions">
-        <span class="tag">✨ Ny</span>
-        <button class="btn ghost btn-sm addToCartBtn" type="button" aria-label="Legg Kyllingpizza i handlekurv">+ Legg til</button>
-      </div>
+      <div class="cardActions"><span class="tag">✨ Ny</span><span class="menuViewHint">Trykk for mer →</span></div>
     </article>
 
-    <!-- Salat -->
-    <article class="card reveal" data-cat="light" data-name="salat" data-id="3" data-price="119">
-      <div class="cardTop">
-        <h3>Frisk salat</h3>
-        <span class="price">119 kr</span>
-      </div>
+    <article class="card reveal" data-cat="light" data-name="salat" tabindex="0"
+      data-id="3" data-price="119" data-emoji="🥗" data-tag="🥗 Lett"
+      data-desc="Blandede blader, cherrytomater, agurk, rødløk og en frisk vinaigrette. Kan tilsettes grillet kylling (+40 kr).">
+      <div class="cardImg"><span>🥗</span><img src="images/salat.jpg" alt="Frisk salat" /></div>
+      <div class="cardTop"><h3>Frisk salat</h3><span class="price">119 kr</span></div>
       <p>Blandede blader, cherrytomater, agurk og vinaigrette.</p>
-      <div class="cardActions">
-        <span class="tag">🥗 Lett</span>
-        <button class="btn ghost btn-sm addToCartBtn" type="button" aria-label="Legg Frisk salat i handlekurv">+ Legg til</button>
-      </div>
+      <div class="cardActions"><span class="tag">🥗 Lett</span><span class="menuViewHint">Trykk for mer →</span></div>
     </article>
 
-    <!-- Pasta -->
-    <article class="card reveal" data-cat="main" data-name="pasta" data-id="4" data-price="179">
-      <div class="cardTop">
-        <h3>Kremet pasta</h3>
-        <span class="price">179 kr</span>
-      </div>
+    <article class="card reveal" data-cat="main" data-name="pasta kremet" tabindex="0"
+      data-id="4" data-price="179" data-emoji="🍝" data-tag="⭐ Anbefalt"
+      data-desc="Fettuccine med grillet kylling i kremet hvitløkssaus med parmesan og fersk basilikum. Husets favoritt.">
+      <div class="cardImg"><span>🍝</span><img src="images/pasta.jpg" alt="Kremet pasta" /></div>
+      <div class="cardTop"><h3>Kremet pasta</h3><span class="price">179 kr</span></div>
       <p>Fettuccine med grillet kylling i kremet hvitløkssaus.</p>
-      <div class="cardActions">
-        <span class="tag">⭐ Anbefalt</span>
-        <button class="btn ghost btn-sm addToCartBtn" type="button" aria-label="Legg Kremet pasta i handlekurv">+ Legg til</button>
-      </div>
+      <div class="cardActions"><span class="tag">⭐ Anbefalt</span><span class="menuViewHint">Trykk for mer →</span></div>
     </article>
 
-    <!-- Suppe -->
-    <article class="card reveal" data-cat="soup" data-name="suppe" data-id="5" data-price="99">
-      <div class="cardTop">
-        <h3>Dagens suppe</h3>
-        <span class="price">99 kr</span>
-      </div>
+    <article class="card reveal" data-cat="soup" data-name="suppe dagens" tabindex="0"
+      data-id="5" data-price="99" data-emoji="🍲" data-tag="🍲 Dagens"
+      data-desc="Varm suppe laget av sesongens råvarer, servert med ferskt hjemmelaget brød. Spør servitøren om dagens variant.">
+      <div class="cardImg"><span>🍲</span><img src="images/suppe.jpg" alt="Dagens suppe" /></div>
+      <div class="cardTop"><h3>Dagens suppe</h3><span class="price">99 kr</span></div>
       <p>Varm suppe av sesongens råvarer, servert med ferskt brød.</p>
-      <div class="cardActions">
-        <span class="tag">🍲 Dagens</span>
-        <button class="btn ghost btn-sm addToCartBtn" type="button" aria-label="Legg Dagens suppe i handlekurv">+ Legg til</button>
-      </div>
+      <div class="cardActions"><span class="tag">🍲 Dagens</span><span class="menuViewHint">Trykk for mer →</span></div>
     </article>
 
-    <!-- Dessert -->
-    <article class="card reveal" data-cat="dessert" data-name="dessert" data-id="6" data-price="89">
-      <div class="cardTop">
-        <h3>Dessert</h3>
-        <span class="price">89 kr</span>
-      </div>
-      <p>Søt avslutning — spør servitøren om dagens dessert.</p>
-      <div class="cardActions">
-        <span class="tag">🍮 Søt</span>
-        <button class="btn ghost btn-sm addToCartBtn" type="button" aria-label="Legg Dessert i handlekurv">+ Legg til</button>
-      </div>
+    <article class="card reveal" data-cat="dessert" data-name="dessert" tabindex="0"
+      data-id="6" data-price="89" data-emoji="🍮" data-tag="🍮 Søt"
+      data-desc="Søt avslutning på måltidet – spør servitøren om dagens dessert. Varierer etter sesong og inspirasjon fra kjøkkenet.">
+      <div class="cardImg"><span>🍮</span><img src="images/dessert.jpg" alt="Dessert" /></div>
+      <div class="cardTop"><h3>Dessert</h3><span class="price">89 kr</span></div>
+      <p>Søt avslutning – spør servitøren om dagens dessert.</p>
+      <div class="cardActions"><span class="tag">🍮 Søt</span><span class="menuViewHint">Trykk for mer →</span></div>
     </article>
 
-    <!-- Brus -->
-    <article class="card reveal" data-cat="drink" data-name="brus drikke" data-id="7" data-price="45">
-      <div class="cardTop">
-        <h3>Brus / Vann</h3>
-        <span class="price">45 kr</span>
-      </div>
+    <article class="card reveal" data-cat="drink" data-name="brus vann drikke" tabindex="0"
+      data-id="7" data-price="45" data-emoji="🥤" data-tag="🥤 Drikke"
+      data-desc="Velg mellom Cola, Fanta, Sprite eller iskaldt mineralvann. Serveres med is og sitron.">
+      <div class="cardImg"><span>🥤</span><img src="images/brus.jpg" alt="Brus og vann" /></div>
+      <div class="cardTop"><h3>Brus / Vann</h3><span class="price">45 kr</span></div>
       <p>Cola, Fanta, Sprite eller iskaldt vann.</p>
-      <div class="cardActions">
-        <span class="tag">🥤 Drikke</span>
-        <button class="btn ghost btn-sm addToCartBtn" type="button" aria-label="Legg Brus/Vann i handlekurv">+ Legg til</button>
-      </div>
+      <div class="cardActions"><span class="tag">🥤 Drikke</span><span class="menuViewHint">Trykk for mer →</span></div>
     </article>
 
-    <!-- Kaffe -->
-    <article class="card reveal" data-cat="drink" data-name="kaffe latte cappuccino" data-id="8" data-price="55">
-      <div class="cardTop">
-        <h3>Kaffe</h3>
-        <span class="price">55 kr</span>
-      </div>
+    <article class="card reveal" data-cat="drink" data-name="kaffe latte cappuccino espresso" tabindex="0"
+      data-id="8" data-price="55" data-emoji="☕" data-tag="☕ Varm"
+      data-desc="Vi serverer espresso, americano, latte, cappuccino og flat white. Laget med nøye utvalgte bønner fra lokale brennere.">
+      <div class="cardImg"><span>☕</span><img src="images/kaffe.jpg" alt="Kaffe" /></div>
+      <div class="cardTop"><h3>Kaffe</h3><span class="price">55 kr</span></div>
       <p>Espresso, americano, latte eller cappuccino.</p>
-      <div class="cardActions">
-        <span class="tag">☕ Varm</span>
-        <button class="btn ghost btn-sm addToCartBtn" type="button" aria-label="Legg Kaffe i handlekurv">+ Legg til</button>
-      </div>
+      <div class="cardActions"><span class="tag">☕ Varm</span><span class="menuViewHint">Trykk for mer →</span></div>
     </article>
 
   </div>
@@ -213,23 +290,45 @@
 
 </section>
 
+<!-- ── MODAL ── -->
+<div class="modalOverlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal" id="modal">
+    <button class="modalClose" id="modalClose" aria-label="Lukk">✕</button>
+    <div class="modalImg" id="modalImg">
+      <span id="modalEmoji">🍔</span>
+      <img id="modalImgEl" src="" alt="" />
+    </div>
+    <div class="modalBody">
+      <div class="modalMeta">
+        <span class="tag" id="modalTag">🔥 Populær</span>
+      </div>
+      <div class="modalTitle" id="modalTitle">Burger</div>
+      <div class="modalPrice" id="modalPrice">150 kr</div>
+      <p class="modalDesc" id="modalDesc">Beskrivelse her.</p>
+      <div class="modalActions">
+        <button class="btn primary modalOrderBtn" id="modalAddBtn">
+          + Legg i kurv
+        </button>
+        <a class="btn ghost" href="booking.html">Gå til bestilling →</a>
+        <button class="btn ghost" id="modalCloseBtn">Lukk</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- ── FOOTER ──────────────────────────────────────────── -->
+<!-- ── FOOTER ── -->
 <footer class="footer">
   <div class="footerInner">
-
     <div>
       <h3>FireFly Restaurant</h3>
       <p>Storgaten 33, 4876 Grimstad</p>
       <p><a href="tel:+4700000000">+47 000 00 000</a></p>
     </div>
-
     <div>
       <h3>Åpningstider</h3>
       <p>Man – Tor:&nbsp; 12:00 – 22:00</p>
       <p>Fre – Søn:&nbsp; 12:00 – 02:30</p>
     </div>
-
     <div>
       <h3>Lenker</h3>
       <p><a href="menu.html">Meny</a></p>
@@ -237,119 +336,183 @@
       <p><a href="contact.html">Kontakt</a></p>
       <p><a href="booking.html">Bestill mat</a></p>
     </div>
-
     <div class="footerQR">
       <h3>Scan meg</h3>
       <img src="images/qrkode.png" alt="QR-kode til FireFly nettsiden" />
     </div>
-
   </div>
-
   <div class="footerBottom">
     <span>© 2026 FireFly Restaurant, Grimstad</span>
     <span>Laget med ❤️ i Grimstad</span>
   </div>
 </footer>
 
-
-<!-- ── BESTILLINGSBOBLE ──────────────────────────────── -->
+<!-- ── BESTILLINGSBOBLE ── -->
 <div class="orderBubble" id="orderBubble">
   <div class="orderPanel" id="orderPanel">
     <div class="orderPanelHead">
       <h3>🛒 Din bestilling</h3>
       <button class="orderClearBtn" id="orderClearBtn">Tøm alle</button>
     </div>
-    <div id="orderList"><p class="orderEmpty">Ingen retter lagt til ennå.<br/>Trykk «Legg til» på en rett.</p></div>
+    <div id="orderList"><p class="orderEmpty">Ingen retter lagt til ennå.</p></div>
     <div class="orderTotal" id="orderTotal" style="display:none">
-      <span>Totalt</span>
-      <span class="orderTotalPrice" id="orderTotalPrice">0 kr</span>
+      <span>Totalt</span><span class="orderTotalPrice" id="orderTotalPrice">0 kr</span>
     </div>
     <a class="btn primary orderSendBtn" href="booking.html" id="orderSendBtn" style="display:none">Gå til bestilling →</a>
   </div>
   <button class="orderBubbleBtn" id="orderBubbleBtn" aria-label="Vis bestilling" aria-expanded="false">
-    🛒
-    <span class="orderBadge" id="orderBadge" style="display:none">0</span>
+    🛒<span class="orderBadge" id="orderBadge" style="display:none">0</span>
   </button>
 </div>
 
-<!-- FIKSET: script.js lastes riktig -->
 <script src="script.js"></script>
-
+<script src="food-animation.js"></script>
 <script>
-  /* ── Ekstra logikk spesifikt for menusiden ── */
+/* ── HANDLEKURV (fra modal) ── */
+const CART_KEY = 'fireflyCart';
+function loadCart() { try { return JSON.parse(sessionStorage.getItem(CART_KEY))||{}; } catch { return {}; } }
+function saveCart(c) { sessionStorage.setItem(CART_KEY, JSON.stringify(c)); }
+function updateBadge() {
+  const total = Object.values(loadCart()).reduce((s,q)=>s+q,0);
+  const badge = document.getElementById('orderBadge');
+  if (badge) { badge.textContent=total; badge.style.display=total>0?'flex':'none'; }
+}
+updateBadge();
 
-  /* Legg til fra menysiden — data-id og data-price er nå i HTML */
-  const CART_KEY = 'fireflyCart';
+let currentModalId = null;
 
-  function loadCart() {
-    try { return JSON.parse(sessionStorage.getItem(CART_KEY)) || {}; }
-    catch { return {}; }
-  }
-  function saveCart(cart) {
-    sessionStorage.setItem(CART_KEY, JSON.stringify(cart));
-  }
+document.getElementById('modalAddBtn').addEventListener('click', () => {
+  if (!currentModalId) return;
+  const cart = loadCart();
+  cart[currentModalId] = (cart[currentModalId] || 0) + 1;
+  saveCart(cart);
+  updateBadge();
 
-  function updateAllButtons() {
-    const cart = loadCart();
-    document.querySelectorAll('#menuCards .card').forEach(card => {
-      const id  = card.dataset.id;
-      const btn = card.querySelector('.addToCartBtn');
-      if (!btn || !id) return;
-      const qty = cart[id] || 0;
-      if (qty > 0) {
-        btn.textContent = `✓ ${qty} i kurv`;
-        btn.style.color = 'var(--gold)';
-        btn.style.borderColor = 'rgba(232,184,109,0.5)';
-      } else {
-        btn.textContent = '+ Legg til';
-        btn.style.color = '';
-        btn.style.borderColor = '';
-      }
-    });
-  }
+  // Vis bekreftelse på knappen
+  const btn = document.getElementById('modalAddBtn');
+  const prev = btn.textContent;
+  btn.textContent = `✅ Lagt til (${cart[currentModalId]})`;
+  btn.style.background = 'rgba(50,200,100,.15)';
+  btn.style.borderColor = 'rgba(50,200,100,.4)';
+  btn.style.color = '#4caf6e';
+  setTimeout(() => {
+    btn.textContent = `+ Legg i kurv (${cart[currentModalId]})`;
+    btn.style = '';
+  }, 1200);
+});
+const searchEl  = document.getElementById('menuSearch');
+const countEl   = document.getElementById('menuCount');
+const emptyEl   = document.getElementById('menuEmpty');
+const cards     = [...document.querySelectorAll('#menuCards .card')];
+let activeFilter = 'all';
 
-  document.querySelectorAll('#menuCards .card').forEach(card => {
-    const btn = card.querySelector('.addToCartBtn');
-    if (!btn) return;
-
-    const id    = card.dataset.id;
-    const price = parseInt(card.dataset.price, 10) || 0;
-    const name  = card.querySelector('h3')?.textContent.trim() || 'Rett';
-
-    btn.addEventListener('click', () => {
-      const cart = loadCart();
-      cart[id] = (cart[id] || 0) + 1;
-      saveCart(cart);
-
-      // Oppdater alle knapper og boblen
-      updateAllButtons();
-
-      // Trigger re-render av boblen (script.js håndterer dette ved panel-åpning)
-      // Men vi oppdaterer badge manuelt her
-      const badge = document.getElementById('orderBadge');
-      const total = Object.values(cart).reduce((s, q) => s + q, 0);
-      if (badge) {
-        badge.textContent = total;
-        badge.style.display = total > 0 ? 'flex' : 'none';
-        badge.classList.remove('bump');
-        void badge.offsetWidth;
-        badge.classList.add('bump');
-        setTimeout(() => badge.classList.remove('bump'), 300);
-      }
-
-      // Oppdater totalpris i boble-panel hvis åpen
-      const panel = document.getElementById('orderPanel');
-      if (panel && panel.classList.contains('open')) {
-        // Utløs re-render ved å simulere at panel allerede er åpent
-        // script.js renderOrder() vil bli kalt neste gang panel åpnes
-        document.getElementById('orderBubbleBtn')?.click();
-        document.getElementById('orderBubbleBtn')?.click();
-      }
-    });
+function filterCards() {
+  const q = (searchEl.value || '').toLowerCase().trim();
+  let visible = 0;
+  cards.forEach(card => {
+    const matchCat  = activeFilter === 'all' || card.dataset.cat === activeFilter;
+    const matchName = !q || card.dataset.name.includes(q);
+    const show = matchCat && matchName;
+    card.style.display = show ? '' : 'none';
+    if (show) visible++;
   });
+  countEl.textContent = visible > 0 ? `${visible} retter` : '';
+  emptyEl.hidden = visible > 0;
+}
 
-  // Initialiser knapper med eksisterende handlekurv
-  updateAllButtons();
+document.querySelectorAll('.chip').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    filterCards();
+  });
+});
+searchEl?.addEventListener('input', filterCards);
+filterCards();
+
+/* ── MODAL ── */
+const overlay     = document.getElementById('modalOverlay');
+const modalTitle  = document.getElementById('modalTitle');
+const modalPrice  = document.getElementById('modalPrice');
+const modalDesc   = document.getElementById('modalDesc');
+const modalTag    = document.getElementById('modalTag');
+const modalEmoji  = document.getElementById('modalEmoji');
+const modalImgEl  = document.getElementById('modalImgEl');
+
+// Image paths — bytt ut med ekte bilder når du har dem
+const IMG_MAP = {
+  1: 'images/burger.jpg',
+  2: 'images/pizza.jpg',
+  3: 'images/salat.jpg',
+  4: 'images/pasta.jpg',
+  5: 'images/suppe.jpg',
+  6: 'images/dessert.jpg',
+  7: 'images/brus.jpg',
+  8: 'images/kaffe.jpg',
+};
+
+function openModal(card) {
+  const name  = card.querySelector('h3').textContent;
+  const price = card.dataset.price;
+  const desc  = card.dataset.desc;
+  const tag   = card.dataset.tag;
+  const emoji = card.dataset.emoji;
+  const id    = card.dataset.id;
+
+  currentModalId = id;
+
+  modalTitle.textContent = name;
+  modalPrice.textContent = price + ' kr';
+  modalDesc.textContent  = desc;
+  modalTag.textContent   = tag;
+  modalEmoji.textContent = emoji;
+
+  // Reset add button
+  const addBtn = document.getElementById('modalAddBtn');
+  const qty = loadCart()[id] || 0;
+  addBtn.textContent = qty > 0 ? `+ Legg i kurv (${qty})` : '+ Legg i kurv';
+  addBtn.style = '';
+
+  // Prøv å laste bilde — vis emoji som fallback
+  const imgSrc = IMG_MAP[id];
+  modalImgEl.src = '';
+  modalImgEl.classList.remove('loaded');
+  modalEmoji.style.display = 'block';
+  if (imgSrc) {
+    modalImgEl.onload = () => {
+      modalImgEl.classList.add('loaded');
+      modalEmoji.style.display = 'none';
+    };
+    modalImgEl.onerror = () => {
+      modalImgEl.classList.remove('loaded');
+      modalEmoji.style.display = 'block';
+    };
+    modalImgEl.src = imgSrc;
+  }
+
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Åpne modal ved klikk på kort
+cards.forEach(card => {
+  card.addEventListener('click', () => openModal(card));
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(card); }
+  });
+});
+
+// Lukk
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 </body>
 </html>

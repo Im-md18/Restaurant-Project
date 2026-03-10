@@ -185,6 +185,9 @@
 // Vises på alle sider. Handlekurven lagres i sessionStorage.
 // På menysiden erstattes "Bestill mat"-lenker med "Legg til"-knapper.
 (() => {
+  // Ikke init boblen på booking.html (har egen innebygd kurv)
+  if (document.querySelector('script[data-no-cart]')) return;
+
   const bubbleBtn  = document.getElementById('orderBubbleBtn');
   const panel      = document.getElementById('orderPanel');
   const badge      = document.getElementById('orderBadge');

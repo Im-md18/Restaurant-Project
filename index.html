@@ -9,8 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-
-  <!-- FIKSET: Lagt til manglende styles.css -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -39,27 +37,14 @@
       <span></span><span></span><span></span>
     </button>
 
-    <div class="uiSwitchWrap">
-      <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn" title="Bytt tema" aria-label="Bytt mellom lys og mørk modus">
+        <div class="uiSwitchWrap">
+      <label class="ui-switch" id="themeToggleLabel" title="Bytt tema" aria-label="Bytt mellom lys og mørk modus">
         <input type="checkbox" id="themeToggle" class="themeToggleInput" />
-        <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-          <mask id="moon-mask">
-            <rect x="0" y="0" width="20" height="20" fill="white"></rect>
-            <circle cx="11" cy="3" r="8" fill="black"></circle>
-          </mask>
-          <circle class="sunMoon" cx="10" cy="10" r="8" mask="url(#moon-mask)"></circle>
-          <g>
-            <circle cx="18" cy="10" r="1.5"></circle>
-            <circle cx="14" cy="16.928" r="1.5"></circle>
-            <circle cx="6" cy="16.928" r="1.5"></circle>
-            <circle cx="2" cy="10" r="1.5"></circle>
-            <circle cx="6" cy="3.1718" r="1.5"></circle>
-            <circle cx="14" cy="3.1718" r="1.5"></circle>
-          </g>
-        </svg>
+        <div class="slider">
+          <div class="circle"></div>
+        </div>
       </label>
     </div>
-
   </div>
 </header>
 
@@ -200,7 +185,7 @@
   </button>
 </div>
 
-<!-- FIKSET: script.js lastes én gang, på slutten -->
 <script src="script.js"></script>
+<script src="food-animation.js"></script>
 </body>
 </html>

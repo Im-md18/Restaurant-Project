@@ -84,20 +84,19 @@
         <li><a href="index.html">Hjem</a></li>
         <li><a href="about.html">Om oss</a></li>
         <li><a href="menu.html">Meny</a></li>
+        <li><a href="minkonto.html">Min konto</a></li>
         <li><a href="contact.html">Kontakt</a></li>
       </ul>
     </nav>
     <button class="hamburger" id="hamburger" aria-label="Åpne meny" aria-expanded="false" aria-controls="mainNav">
       <span></span><span></span><span></span>
     </button>
-    <div class="uiSwitchWrap">
-      <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn" title="Bytt tema" aria-label="Bytt mellom lys og mørk modus">
+            <div class="uiSwitchWrap">
+      <label class="ui-switch" id="themeToggleLabel" title="Bytt tema" aria-label="Bytt mellom lys og mørk modus">
         <input type="checkbox" id="themeToggle" class="themeToggleInput" />
-        <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-          <mask id="moon-mask"><rect x="0" y="0" width="20" height="20" fill="white"></rect><circle cx="11" cy="3" r="8" fill="black"></circle></mask>
-          <circle class="sunMoon" cx="10" cy="10" r="8" mask="url(#moon-mask)"></circle>
-          <g><circle cx="18" cy="10" r="1.5"></circle><circle cx="14" cy="16.928" r="1.5"></circle><circle cx="6" cy="16.928" r="1.5"></circle><circle cx="2" cy="10" r="1.5"></circle><circle cx="6" cy="3.1718" r="1.5"></circle><circle cx="14" cy="3.1718" r="1.5"></circle></g>
-        </svg>
+        <div class="slider">
+          <div class="circle"></div>
+        </div>
       </label>
     </div>
   </div>
@@ -249,19 +248,7 @@
   </div>
 </footer>
 
-<div class="orderBubble" id="orderBubble">
-  <div class="orderPanel" id="orderPanel">
-    <div class="orderPanelHead"><h3>🛒 Din bestilling</h3><button class="orderClearBtn" id="orderClearBtn">Tøm alle</button></div>
-    <div id="orderList"><p class="orderEmpty">Ingen retter lagt til ennå.</p></div>
-    <div class="orderTotal" id="orderTotal" style="display:none"><span>Totalt</span><span class="orderTotalPrice" id="orderTotalPrice">0 kr</span></div>
-    <a class="btn primary orderSendBtn" href="booking.html" id="orderSendBtn" style="display:none">Gå til bestilling →</a>
-  </div>
-  <button class="orderBubbleBtn" id="orderBubbleBtn" aria-label="Vis bestilling" aria-expanded="false">
-    🛒<span class="orderBadge" id="orderBadge" style="display:none">0</span>
-  </button>
-</div>
-
-<script src="script.js"></script>
+<script src="script.js" data-no-cart></script>
 <script>
 /* ── TABS ── */
 document.querySelectorAll('.bookingTab').forEach(btn => {
@@ -387,6 +374,52 @@ document.getElementById('cartSendBtn')?.addEventListener('click', () => {
   wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
+// Lagre bestillingen til brukerens konto når skjema sendes
+document.getElementById('cartFormSubmit')?.addEventListener('click', () => {
+  const entries = Object.entries(cart).filter(([,q])=>q>0);
+  if (!entries.length) return;
+
+  const MENU_DATA = [
+    {id:1,name:'Burger',price:150,emoji:'🍔'},
+    {id:2,name:'Kyllingpizza',price:200,emoji:'🍕'},
+    {id:3,name:'Frisk salat',price:119,emoji:'🥗'},
+    {id:4,name:'Kremet pasta',price:179,emoji:'🍝'},
+    {id:5,name:'Dagens suppe',price:99,emoji:'🍲'},
+    {id:6,name:'Dessert',price:89,emoji:'🍰'},
+    {id:7,name:'Brus / Vann',price:45,emoji:'🥤'},
+    {id:8,name:'Kaffe',price:55,emoji:'☕'},
+  ];
+
+  const items = entries.map(([id,qty])=>{
+    const m = MENU_DATA.find(x=>x.id===+id);
+    return m ? {name:m.name, emoji:m.emoji, qty, price:m.price*qty} : null;
+  }).filter(Boolean);
+
+  const order = {
+    id: Date.now(),
+    date: new Date().toLocaleDateString('no-NO',{day:'numeric',month:'long',year:'numeric'}),
+    items,
+    total: items.reduce((s,i)=>s+i.price,0),
+    status: 'pending',
+  };
+
+  // Lagre til innlogget bruker
+  try {
+    const sessionEmail = localStorage.getItem('fireflySession');
+    if (sessionEmail) {
+      const users = JSON.parse(localStorage.getItem('fireflyUsers')) || [];
+      const idx = users.findIndex(u=>u.email.toLowerCase()===sessionEmail.toLowerCase());
+      if (idx >= 0) {
+        if (!users[idx].orders) users[idx].orders = [];
+        users[idx].orders.unshift(order);
+        localStorage.setItem('fireflyUsers', JSON.stringify(users));
+      }
+    }
+    // Lagre alltid som pendingOrder for gjester/ikke-innloggede
+    localStorage.setItem('fireflyPendingOrder', JSON.stringify(order));
+  } catch(e) { console.error(e); }
+});
+
 document.getElementById('cartFormCancel')?.addEventListener('click', () => {
   document.getElementById('cartFormWrap').style.display = 'none';
 });
@@ -401,5 +434,6 @@ document.getElementById('cartClearBtn')?.addEventListener('click', () => {
 renderMenuGrid('all');
 renderCartSummary();
 </script>
+<script src="food-animation.js"></script>
 </body>
 </html>
