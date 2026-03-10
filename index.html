@@ -5,24 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="FireFly Restaurant – Deilig mat og drikke i Grimstad. Bestill bord i dag!" />
   <title>FireFly Restaurant – Grimstad</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
 
-<!-- ── HEADER ──────────────────────────────────────────── -->
+<a class="skipLink" href="#main">Hopp til innhold</a>
+
+<!-- HEADER -->
 <header class="siteHeader">
   <div class="headerInner">
-
     <a class="brand" href="index.html" aria-label="Gå til FireFly forsiden">
       <img src="images/flyfire.png" alt="" aria-hidden="true" />
       <span>FireFly</span>
     </a>
-
     <nav class="navigation" id="mainNav" aria-label="Hovednavigasjon">
       <ul>
         <li><a class="active" href="index.html" aria-current="page">Hjem</a></li>
@@ -32,31 +30,27 @@
         <li><a href="contact.html">Kontakt</a></li>
       </ul>
     </nav>
-
     <button class="hamburger" id="hamburger" aria-label="Åpne meny" aria-expanded="false" aria-controls="mainNav">
       <span></span><span></span><span></span>
     </button>
-
-        <div class="uiSwitchWrap">
+    <div class="uiSwitchWrap">
       <label class="ui-switch" id="themeToggleLabel" title="Bytt tema" aria-label="Bytt mellom lys og mørk modus">
         <input type="checkbox" id="themeToggle" class="themeToggleInput" />
-        <div class="slider">
-          <div class="circle"></div>
-        </div>
+        <div class="slider"><div class="circle"></div></div>
       </label>
     </div>
   </div>
 </header>
 
-
-<!-- ── MAIN ────────────────────────────────────────────── -->
-<main>
+<!-- MAIN -->
+<main id="main">
 
   <!-- HERO -->
   <section class="hero full" id="home" aria-labelledby="heroTitle">
+    <canvas id="foodCanvas" aria-hidden="true"></canvas>
     <span class="heroBadge">Restaurant · Grimstad</span>
     <h1 id="heroTitle">Fire<span class="accent">Fly</span></h1>
-    <p>Velkommen! God mat, god stemning og rask service — midt i hjertet av Grimstad.</p>
+    <p>Velkommen! God mat, god stemning og rask service —<br>midt i hjertet av Grimstad.</p>
     <div class="heroActions">
       <a class="btn primary" href="menu.html">Se dagens meny</a>
       <a class="btn ghost" href="booking.html">Bestill bord</a>
@@ -64,18 +58,38 @@
     <div class="scrollHint" aria-hidden="true">Scroll</div>
   </section>
 
+  <!-- FEATURES STRIP -->
+  <section class="featuresStrip" aria-label="Høydepunkter">
+    <div class="featureItem reveal">
+      <span class="featureIcon">🍽️</span>
+      <span>Ferskt daglig</span>
+    </div>
+    <div class="featureDivider" aria-hidden="true"></div>
+    <div class="featureItem reveal" style="transition-delay:0.1s">
+      <span class="featureIcon">⚡</span>
+      <span>Rask service</span>
+    </div>
+    <div class="featureDivider" aria-hidden="true"></div>
+    <div class="featureItem reveal" style="transition-delay:0.2s">
+      <span class="featureIcon">📍</span>
+      <span>Sentrum, Grimstad</span>
+    </div>
+    <div class="featureDivider" aria-hidden="true"></div>
+    <div class="featureItem reveal" style="transition-delay:0.3s">
+      <span class="featureIcon">🌟</span>
+      <span>God atmosfære</span>
+    </div>
+  </section>
+
   <!-- ABOUT -->
   <section class="aboutSection" id="omoss" aria-labelledby="aboutTitle">
-
     <div class="sectionLabel" id="aboutTitle">Om oss</div>
-
     <div class="aboutGrid">
 
       <!-- Info card -->
       <div class="aboutCard reveal">
         <h2>Besøk oss</h2>
         <p>Vi serverer deilig mat og drikke med fokus på kvalitet og en varm atmosfære. Et bredt utvalg av retter og drikkevarer — noe for alle.</p>
-
         <div class="infoGrid">
           <div class="infoItem">
             <div class="infoIcon">📍</div>
@@ -88,7 +102,7 @@
             <div class="infoIcon">⏰</div>
             <div>
               <div class="infoLabel">Åpningstider</div>
-              <div class="infoText">Man–Tor: 12:00–22:00&nbsp;&nbsp;·&nbsp;&nbsp;Fre–Søn: 12:00–02:30</div>
+              <div class="infoText">Man–Tor: 12:00–22:00 · Fre–Søn: 12:00–02:30</div>
             </div>
           </div>
           <div class="infoItem">
@@ -99,10 +113,8 @@
             </div>
           </div>
         </div>
-
         <div class="aboutBtns">
-          <a class="btn primary" href="booking.html">Bestill bord</a>
-          <a class="btn ghost" href="menu.html">Se menyen</a>
+          <a class="btn primary" href="minkonto.html">Gå til mine konto →</a>
         </div>
       </div>
 
@@ -112,37 +124,77 @@
           <h2>Vår historie</h2>
           <img src="images/firefly.png" alt="FireFly logo" />
         </div>
-
-        <p>FireFly Restaurant ble grunnlagt i 2025 av en gruppe mennesker som ønsket å skape en unik matopplevelse for sine gjester. Vår visjon er å være den beste restauranten i Grimstad, kjent for kvalitet, service og en varm, innbydende atmosfære.</p>
-
+        <p>FireFly Restaurant ble grunnlagt i 2025 av en gruppe mennesker som ønsket å skape en unik matopplevelse for sine gjester. Vi er kjent for kvalitet, service og en varm, innbydende atmosfære.</p>
         <div class="aboutBtns">
           <a class="btn ghost" href="about.html">Les mer</a>
-          <a class="btn ghost" href="contact.html">Kontakt oss</a>
         </div>
       </div>
 
     </div>
   </section>
 
+  <!-- MENU PREVIEW -->
+  <section class="menuPreview" aria-labelledby="previewTitle">
+    <div class="sectionLabel" id="previewTitle">Populære retter</div>
+    <div class="previewGrid">
+      <div class="previewCard reveal">
+        <div class="previewEmoji">🍔</div>
+        <div class="previewInfo">
+          <div class="previewName">Burger</div>
+          <div class="previewDesc">Saftig burger med pommes frites og husets dressing</div>
+        </div>
+        <div class="previewPrice">150 kr</div>
+      </div>
+      <div class="previewCard reveal" style="transition-delay:0.1s">
+        <div class="previewEmoji">🍕</div>
+        <div class="previewInfo">
+          <div class="previewName">Kyllingpizza</div>
+          <div class="previewDesc">Sprø bunn med mozzarella, grillet kylling og paprika</div>
+        </div>
+        <div class="previewPrice">200 kr</div>
+      </div>
+      <div class="previewCard reveal" style="transition-delay:0.2s">
+        <div class="previewEmoji">🍝</div>
+        <div class="previewInfo">
+          <div class="previewName">Kremet pasta</div>
+          <div class="previewDesc">Fettuccine med kylling i kremet hvitløkssaus</div>
+        </div>
+        <div class="previewPrice">179 kr</div>
+      </div>
+      <div class="previewCard reveal" style="transition-delay:0.3s">
+        <div class="previewEmoji">🥗</div>
+        <div class="previewInfo">
+          <div class="previewName">Frisk salat</div>
+          <div class="previewDesc">Blandede blader, cherrytomater og vinaigrette</div>
+        </div>
+        <div class="previewPrice">119 kr</div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:2rem;">
+      <a class="btn primary" href="menu.html">Se hele menyen →</a>
+    </div>
+  </section>
+
 </main>
 
-
-<!-- ── FOOTER ──────────────────────────────────────────── -->
+<!-- FOOTER -->
 <footer class="footer">
   <div class="footerInner">
-
     <div>
       <h3>FireFly Restaurant</h3>
       <p>Storgaten 33, 4876 Grimstad</p>
       <p><a href="tel:+4700000000">+47 000 00 000</a></p>
+      <div class="footerSocial">
+        <a class="socialBtn" href="https://www.facebook.com/profile.php?id=61587469647280" target="_blank" rel="noopener noreferrer" aria-label="Besøk FireFly på Facebook">
+          <svg viewBox="0 0 320 512" aria-hidden="true"><path d="M279.14 288l14.22-92.66h-88.91V117.78c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+        </a>
+      </div>
     </div>
-
     <div>
       <h3>Åpningstider</h3>
       <p>Man – Tor:&nbsp; 12:00 – 22:00</p>
       <p>Fre – Søn:&nbsp; 12:00 – 02:30</p>
     </div>
-
     <div>
       <h3>Lenker</h3>
       <p><a href="menu.html">Meny</a></p>
@@ -150,22 +202,18 @@
       <p><a href="contact.html">Kontakt</a></p>
       <p><a href="booking.html">Bestill mat</a></p>
     </div>
-
     <div class="footerQR">
       <h3>Scan meg</h3>
       <img src="images/qrkode.png" alt="QR-kode til FireFly nettsiden" />
     </div>
-
   </div>
-
   <div class="footerBottom">
     <span>© 2026 FireFly Restaurant, Grimstad</span>
     <span>Laget med ❤️ i Grimstad</span>
   </div>
 </footer>
 
-
-<!-- ── BESTILLINGSBOBLE ──────────────────────────────── -->
+<!-- BESTILLINGSBOBLE -->
 <div class="orderBubble" id="orderBubble">
   <div class="orderPanel" id="orderPanel">
     <div class="orderPanelHead">

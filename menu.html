@@ -7,16 +7,11 @@
   <link rel="stylesheet" href="styles.css" />
   <title>Meny – FireFly Restaurant</title>
   <style>
-    /* ── MENU CARDS ── */
-    .menuHint { font-size: 0.88rem; color: var(--muted); margin-top: 0.3rem; }
-
-    .card {
-      cursor: pointer;
-    }
+    .card { cursor: pointer; }
     .card:hover {
       transform: translateY(-4px);
-      border-color: rgba(232,184,109,.28);
-      box-shadow: 0 20px 50px rgba(0,0,0,.45);
+      border-color: rgba(232,184,109,.25);
+      box-shadow: 0 20px 50px rgba(0,0,0,.4);
     }
     .cardImg {
       width: 100%;
@@ -52,10 +47,8 @@
       pointer-events: none;
       transition: opacity 0.25s ease;
     }
-    .modalOverlay.open {
-      opacity: 1;
-      pointer-events: all;
-    }
+    .modalOverlay.open { opacity: 1; pointer-events: all; }
+
     .modal {
       background: var(--surface);
       border: 1px solid var(--border2);
@@ -70,10 +63,8 @@
       opacity: 0;
       box-shadow: 0 40px 100px rgba(0,0,0,.6);
     }
-    .modalOverlay.open .modal {
-      transform: translateY(0) scale(1);
-      opacity: 1;
-    }
+    .modalOverlay.open .modal { transform: none; opacity: 1; }
+
     .modalClose {
       position: absolute;
       top: 1rem; right: 1rem;
@@ -108,13 +99,7 @@
     .modalImg img.loaded { display: block; }
 
     .modalBody { padding: 1.75rem; }
-
-    .modalMeta {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      margin-bottom: 0.6rem;
-    }
+    .modalMeta { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem; }
     .modalTitle {
       font-family: var(--ff-serif);
       font-size: 2rem;
@@ -122,12 +107,7 @@
       line-height: 1.15;
       margin-bottom: 0.5rem;
     }
-    .modalPrice {
-      font-family: var(--ff-serif);
-      font-size: 1.5rem;
-      color: var(--gold);
-      font-weight: 400;
-    }
+    .modalPrice { font-family: var(--ff-serif); font-size: 1.5rem; color: var(--gold); font-weight: 400; }
     .modalDesc {
       color: var(--muted);
       font-size: 0.92rem;
@@ -136,19 +116,15 @@
       padding-bottom: 1.5rem;
       border-bottom: 1px solid var(--border2);
     }
-    .modalActions {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    .modalOrderBtn {
-      flex: 1;
-    }
+    .modalActions { display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap; }
+    .modalOrderBtn { flex: 1; min-width: 140px; }
   </style>
 </head>
 <body>
 
-<!-- ── HEADER ── -->
+<a class="skipLink" href="#main">Hopp til innhold</a>
+
+<!-- HEADER -->
 <header class="siteHeader">
   <div class="headerInner">
     <a class="brand" href="index.html" aria-label="Gå til FireFly forsiden">
@@ -176,121 +152,121 @@
   </div>
 </header>
 
-<!-- ── HERO ── -->
-<section class="hero hero--small" aria-labelledby="menuHeroTitle">
-  <span class="heroBadge">FireFly · Grimstad</span>
-  <h1 id="menuHeroTitle">Vår Meny</h1>
-  <p>Alltid ferskt – noe for enhver smak.</p>
-</section>
+<main id="main">
+  <!-- HERO -->
+  <section class="hero hero--small" aria-labelledby="menuHeroTitle">
+    <span class="heroBadge">FireFly · Grimstad</span>
+    <h1 id="menuHeroTitle">Vår <span class="accent">Meny</span></h1>
+    <p>Alltid ferskt — noe for enhver smak.</p>
+  </section>
 
-<!-- ── MENU ── -->
-<section class="menu" aria-labelledby="menuTitle">
-
-  <div class="menuTop">
-    <div>
-      <h2 id="menuTitle">Våre retter</h2>
-      <p class="menuHint">Trykk på en rett for å se mer. Vil du bestille? Gå til <a href="booking.html" style="color:var(--gold)">bestilling</a>.</p>
-    </div>
-    <div class="menuControls" role="group" aria-label="Menyfiltre">
-      <div class="searchWrap">
-        <input id="menuSearch" type="search" placeholder="Søk: burger, pizza, pasta…" aria-label="Søk i menyen" autocomplete="off" />
+  <!-- MENU -->
+  <section class="menu" aria-labelledby="menuTitle">
+    <div class="menuTop">
+      <div>
+        <h2 id="menuTitle">Våre retter</h2>
+        <p class="menuHint">Trykk på en rett for å se mer. Vil du bestille? Gå til <a href="booking.html" style="color:var(--gold)">bestilling</a>.</p>
       </div>
-      <div class="chips" role="group" aria-label="Kategorier">
-        <button class="chip active" type="button" data-filter="all">Alle</button>
-        <button class="chip" type="button" data-filter="main">Hovedretter</button>
-        <button class="chip" type="button" data-filter="light">Lett</button>
-        <button class="chip" type="button" data-filter="soup">Suppe</button>
-        <button class="chip" type="button" data-filter="dessert">Dessert</button>
-        <button class="chip" type="button" data-filter="drink">Drikke</button>
+      <div class="menuControls" role="group" aria-label="Menyfiltre">
+        <div class="searchWrap">
+          <input id="menuSearch" type="search" placeholder="Søk: burger, pizza, pasta…" aria-label="Søk i menyen" autocomplete="off" />
+        </div>
+        <div class="chips" role="group" aria-label="Kategorier">
+          <button class="chip active" type="button" data-filter="all">Alle</button>
+          <button class="chip" type="button" data-filter="main">Hovedretter</button>
+          <button class="chip" type="button" data-filter="light">Lett</button>
+          <button class="chip" type="button" data-filter="soup">Suppe</button>
+          <button class="chip" type="button" data-filter="dessert">Dessert</button>
+          <button class="chip" type="button" data-filter="drink">Drikke</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <p class="menuCount" id="menuCount" aria-live="polite"></p>
+    <p class="menuCount" id="menuCount" aria-live="polite"></p>
 
-  <div class="cards" id="menuCards">
+    <div class="cards" id="menuCards">
 
-    <article class="card reveal" data-cat="main" data-name="burger" tabindex="0"
-      data-id="1" data-price="150" data-emoji="🍔" data-tag="🔥 Populær"
-      data-desc="Saftig hjemmelaget burger med sprøe pommes frites, husets dressing og sylteagurk. Serveres på briochebolla.">
-      <div class="cardImg"><span>🍔</span><img src="images/burger.jpg" alt="Burger" /></div>
-      <div class="cardTop"><h3>Burger</h3><span class="price">150 kr</span></div>
-      <p>Saftig burger med pommes frites og husets dressing.</p>
-      <div class="cardActions"><span class="tag">🔥 Populær</span><span class="menuViewHint">Trykk for mer →</span></div>
-    </article>
+      <article class="card reveal" data-cat="main" data-name="burger" tabindex="0"
+        data-id="1" data-price="150" data-emoji="🍔" data-tag="🔥 Populær"
+        data-desc="Saftig hjemmelaget burger med sprøe pommes frites, husets dressing og sylteagurk. Serveres på briochebolla.">
+        <div class="cardImg"><span>🍔</span><img src="images/burger.jpg" alt="Burger" /></div>
+        <div class="cardTop"><h3>Burger</h3><span class="price">150 kr</span></div>
+        <p>Saftig burger med pommes frites og husets dressing.</p>
+        <div class="cardActions"><span class="tag">🔥 Populær</span><span class="menuViewHint">Trykk for mer →</span></div>
+      </article>
 
-    <article class="card reveal" data-cat="main" data-name="pizza kylling" tabindex="0"
-      data-id="2" data-price="200" data-emoji="🍕" data-tag="✨ Ny"
-      data-desc="Sprø bunn med hjemmelaget tomatsaus, mozzarella, grillet kylling, paprika og ruccola. Ferdigbakt i steinovn.">
-      <div class="cardImg"><span>🍕</span><img src="images/pizza.jpg" alt="Kyllingpizza" /></div>
-      <div class="cardTop"><h3>Kyllingpizza</h3><span class="price">200 kr</span></div>
-      <p>Sprø bunn med mozzarella, grillet kylling og paprika.</p>
-      <div class="cardActions"><span class="tag">✨ Ny</span><span class="menuViewHint">Trykk for mer →</span></div>
-    </article>
+      <article class="card reveal" data-cat="main" data-name="pizza kylling" tabindex="0"
+        data-id="2" data-price="200" data-emoji="🍕" data-tag="✨ Ny"
+        data-desc="Sprø bunn med hjemmelaget tomatsaus, mozzarella, grillet kylling, paprika og ruccola. Ferdigbakt i steinovn.">
+        <div class="cardImg"><span>🍕</span><img src="images/pizza.jpg" alt="Kyllingpizza" /></div>
+        <div class="cardTop"><h3>Kyllingpizza</h3><span class="price">200 kr</span></div>
+        <p>Sprø bunn med mozzarella, grillet kylling og paprika.</p>
+        <div class="cardActions"><span class="tag">✨ Ny</span><span class="menuViewHint">Trykk for mer →</span></div>
+      </article>
 
-    <article class="card reveal" data-cat="light" data-name="salat" tabindex="0"
-      data-id="3" data-price="119" data-emoji="🥗" data-tag="🥗 Lett"
-      data-desc="Blandede blader, cherrytomater, agurk, rødløk og en frisk vinaigrette. Kan tilsettes grillet kylling (+40 kr).">
-      <div class="cardImg"><span>🥗</span><img src="images/salat.jpg" alt="Frisk salat" /></div>
-      <div class="cardTop"><h3>Frisk salat</h3><span class="price">119 kr</span></div>
-      <p>Blandede blader, cherrytomater, agurk og vinaigrette.</p>
-      <div class="cardActions"><span class="tag">🥗 Lett</span><span class="menuViewHint">Trykk for mer →</span></div>
-    </article>
+      <article class="card reveal" data-cat="light" data-name="salat" tabindex="0"
+        data-id="3" data-price="119" data-emoji="🥗" data-tag="🥗 Lett"
+        data-desc="Blandede blader, cherrytomater, agurk, rødløk og en frisk vinaigrette. Kan tilsettes grillet kylling (+40 kr).">
+        <div class="cardImg"><span>🥗</span><img src="images/salat.jpg" alt="Frisk salat" /></div>
+        <div class="cardTop"><h3>Frisk salat</h3><span class="price">119 kr</span></div>
+        <p>Blandede blader, cherrytomater, agurk og vinaigrette.</p>
+        <div class="cardActions"><span class="tag">🥗 Lett</span><span class="menuViewHint">Trykk for mer →</span></div>
+      </article>
 
-    <article class="card reveal" data-cat="main" data-name="pasta kremet" tabindex="0"
-      data-id="4" data-price="179" data-emoji="🍝" data-tag="⭐ Anbefalt"
-      data-desc="Fettuccine med grillet kylling i kremet hvitløkssaus med parmesan og fersk basilikum. Husets favoritt.">
-      <div class="cardImg"><span>🍝</span><img src="images/pasta.jpg" alt="Kremet pasta" /></div>
-      <div class="cardTop"><h3>Kremet pasta</h3><span class="price">179 kr</span></div>
-      <p>Fettuccine med grillet kylling i kremet hvitløkssaus.</p>
-      <div class="cardActions"><span class="tag">⭐ Anbefalt</span><span class="menuViewHint">Trykk for mer →</span></div>
-    </article>
+      <article class="card reveal" data-cat="main" data-name="pasta kremet" tabindex="0"
+        data-id="4" data-price="179" data-emoji="🍝" data-tag="⭐ Anbefalt"
+        data-desc="Fettuccine med grillet kylling i kremet hvitløkssaus med parmesan og fersk basilikum. Husets favoritt.">
+        <div class="cardImg"><span>🍝</span><img src="images/pasta.jpg" alt="Kremet pasta" /></div>
+        <div class="cardTop"><h3>Kremet pasta</h3><span class="price">179 kr</span></div>
+        <p>Fettuccine med grillet kylling i kremet hvitløkssaus.</p>
+        <div class="cardActions"><span class="tag">⭐ Anbefalt</span><span class="menuViewHint">Trykk for mer →</span></div>
+      </article>
 
-    <article class="card reveal" data-cat="soup" data-name="suppe dagens" tabindex="0"
-      data-id="5" data-price="99" data-emoji="🍲" data-tag="🍲 Dagens"
-      data-desc="Varm suppe laget av sesongens råvarer, servert med ferskt hjemmelaget brød. Spør servitøren om dagens variant.">
-      <div class="cardImg"><span>🍲</span><img src="images/suppe.jpg" alt="Dagens suppe" /></div>
-      <div class="cardTop"><h3>Dagens suppe</h3><span class="price">99 kr</span></div>
-      <p>Varm suppe av sesongens råvarer, servert med ferskt brød.</p>
-      <div class="cardActions"><span class="tag">🍲 Dagens</span><span class="menuViewHint">Trykk for mer →</span></div>
-    </article>
+      <article class="card reveal" data-cat="soup" data-name="suppe dagens" tabindex="0"
+        data-id="5" data-price="99" data-emoji="🍲" data-tag="🍲 Dagens"
+        data-desc="Varm suppe laget av sesongens råvarer, servert med ferskt hjemmelaget brød. Spør servitøren om dagens variant.">
+        <div class="cardImg"><span>🍲</span><img src="images/suppe.jpg" alt="Dagens suppe" /></div>
+        <div class="cardTop"><h3>Dagens suppe</h3><span class="price">99 kr</span></div>
+        <p>Varm suppe av sesongens råvarer, servert med ferskt brød.</p>
+        <div class="cardActions"><span class="tag">🍲 Dagens</span><span class="menuViewHint">Trykk for mer →</span></div>
+      </article>
 
-    <article class="card reveal" data-cat="dessert" data-name="dessert" tabindex="0"
-      data-id="6" data-price="89" data-emoji="🍮" data-tag="🍮 Søt"
-      data-desc="Søt avslutning på måltidet – spør servitøren om dagens dessert. Varierer etter sesong og inspirasjon fra kjøkkenet.">
-      <div class="cardImg"><span>🍮</span><img src="images/dessert.jpg" alt="Dessert" /></div>
-      <div class="cardTop"><h3>Dessert</h3><span class="price">89 kr</span></div>
-      <p>Søt avslutning – spør servitøren om dagens dessert.</p>
-      <div class="cardActions"><span class="tag">🍮 Søt</span><span class="menuViewHint">Trykk for mer →</span></div>
-    </article>
+      <article class="card reveal" data-cat="dessert" data-name="dessert" tabindex="0"
+        data-id="6" data-price="89" data-emoji="🍮" data-tag="🍮 Søt"
+        data-desc="Søt avslutning på måltidet – spør servitøren om dagens dessert. Varierer etter sesong og inspirasjon fra kjøkkenet.">
+        <div class="cardImg"><span>🍮</span><img src="images/dessert.jpg" alt="Dessert" /></div>
+        <div class="cardTop"><h3>Dessert</h3><span class="price">89 kr</span></div>
+        <p>Søt avslutning – spør servitøren om dagens dessert.</p>
+        <div class="cardActions"><span class="tag">🍮 Søt</span><span class="menuViewHint">Trykk for mer →</span></div>
+      </article>
 
-    <article class="card reveal" data-cat="drink" data-name="brus vann drikke" tabindex="0"
-      data-id="7" data-price="45" data-emoji="🥤" data-tag="🥤 Drikke"
-      data-desc="Velg mellom Cola, Fanta, Sprite eller iskaldt mineralvann. Serveres med is og sitron.">
-      <div class="cardImg"><span>🥤</span><img src="images/brus.jpg" alt="Brus og vann" /></div>
-      <div class="cardTop"><h3>Brus / Vann</h3><span class="price">45 kr</span></div>
-      <p>Cola, Fanta, Sprite eller iskaldt vann.</p>
-      <div class="cardActions"><span class="tag">🥤 Drikke</span><span class="menuViewHint">Trykk for mer →</span></div>
-    </article>
+      <article class="card reveal" data-cat="drink" data-name="brus vann drikke" tabindex="0"
+        data-id="7" data-price="45" data-emoji="🥤" data-tag="🥤 Drikke"
+        data-desc="Velg mellom Cola, Fanta, Sprite eller iskaldt mineralvann. Serveres med is og sitron.">
+        <div class="cardImg"><span>🥤</span><img src="images/brus.jpg" alt="Brus og vann" /></div>
+        <div class="cardTop"><h3>Brus / Vann</h3><span class="price">45 kr</span></div>
+        <p>Cola, Fanta, Sprite eller iskaldt vann.</p>
+        <div class="cardActions"><span class="tag">🥤 Drikke</span><span class="menuViewHint">Trykk for mer →</span></div>
+      </article>
 
-    <article class="card reveal" data-cat="drink" data-name="kaffe latte cappuccino espresso" tabindex="0"
-      data-id="8" data-price="55" data-emoji="☕" data-tag="☕ Varm"
-      data-desc="Vi serverer espresso, americano, latte, cappuccino og flat white. Laget med nøye utvalgte bønner fra lokale brennere.">
-      <div class="cardImg"><span>☕</span><img src="images/kaffe.jpg" alt="Kaffe" /></div>
-      <div class="cardTop"><h3>Kaffe</h3><span class="price">55 kr</span></div>
-      <p>Espresso, americano, latte eller cappuccino.</p>
-      <div class="cardActions"><span class="tag">☕ Varm</span><span class="menuViewHint">Trykk for mer →</span></div>
-    </article>
+      <article class="card reveal" data-cat="drink" data-name="kaffe latte cappuccino espresso" tabindex="0"
+        data-id="8" data-price="55" data-emoji="☕" data-tag="☕ Varm"
+        data-desc="Vi serverer espresso, americano, latte, cappuccino og flat white. Laget med nøye utvalgte bønner fra lokale brennere.">
+        <div class="cardImg"><span>☕</span><img src="images/kaffe.jpg" alt="Kaffe" /></div>
+        <div class="cardTop"><h3>Kaffe</h3><span class="price">55 kr</span></div>
+        <p>Espresso, americano, latte eller cappuccino.</p>
+        <div class="cardActions"><span class="tag">☕ Varm</span><span class="menuViewHint">Trykk for mer →</span></div>
+      </article>
 
-  </div>
+    </div>
 
-  <p class="menuEmpty" id="menuEmpty" hidden aria-live="polite">
-    Ingen treff. Prøv et annet søk eller kategori.
-  </p>
+    <p class="menuEmpty" id="menuEmpty" hidden aria-live="polite">
+      Ingen treff. Prøv et annet søk eller kategori.
+    </p>
+  </section>
+</main>
 
-</section>
-
-<!-- ── MODAL ── -->
+<!-- MODAL -->
 <div class="modalOverlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal" id="modal">
     <button class="modalClose" id="modalClose" aria-label="Lukk">✕</button>
@@ -306,23 +282,26 @@
       <div class="modalPrice" id="modalPrice">150 kr</div>
       <p class="modalDesc" id="modalDesc">Beskrivelse her.</p>
       <div class="modalActions">
-        <button class="btn primary modalOrderBtn" id="modalAddBtn">
-          + Legg i kurv
-        </button>
-        <a class="btn ghost" href="booking.html">Gå til bestilling →</a>
+        <button class="btn primary modalOrderBtn" id="modalAddBtn">+ Legg i kurv</button>
+        <a class="btn ghost" href="booking.html">Bestill bord →</a>
         <button class="btn ghost" id="modalCloseBtn">Lukk</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer class="footer">
   <div class="footerInner">
     <div>
       <h3>FireFly Restaurant</h3>
       <p>Storgaten 33, 4876 Grimstad</p>
       <p><a href="tel:+4700000000">+47 000 00 000</a></p>
+      <div class="footerSocial">
+        <a class="socialBtn" href="https://www.facebook.com/profile.php?id=61587469647280" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <svg viewBox="0 0 320 512" aria-hidden="true"><path d="M279.14 288l14.22-92.66h-88.91V117.78c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+        </a>
+      </div>
     </div>
     <div>
       <h3>Åpningstider</h3>
@@ -347,7 +326,7 @@
   </div>
 </footer>
 
-<!-- ── BESTILLINGSBOBLE ── -->
+<!-- BESTILLINGSBOBLE -->
 <div class="orderBubble" id="orderBubble">
   <div class="orderPanel" id="orderPanel">
     <div class="orderPanelHead">
@@ -370,12 +349,12 @@
 <script>
 /* ── HANDLEKURV (fra modal) ── */
 const CART_KEY = 'fireflyCart';
-function loadCart() { try { return JSON.parse(sessionStorage.getItem(CART_KEY))||{}; } catch { return {}; } }
+function loadCart() { try { return JSON.parse(sessionStorage.getItem(CART_KEY)) || {}; } catch { return {}; } }
 function saveCart(c) { sessionStorage.setItem(CART_KEY, JSON.stringify(c)); }
 function updateBadge() {
-  const total = Object.values(loadCart()).reduce((s,q)=>s+q,0);
+  const total = Object.values(loadCart()).reduce((s, q) => s + q, 0);
   const badge = document.getElementById('orderBadge');
-  if (badge) { badge.textContent=total; badge.style.display=total>0?'flex':'none'; }
+  if (badge) { badge.textContent = total; badge.style.display = total > 0 ? 'flex' : 'none'; }
 }
 updateBadge();
 
@@ -388,22 +367,22 @@ document.getElementById('modalAddBtn').addEventListener('click', () => {
   saveCart(cart);
   updateBadge();
 
-  // Vis bekreftelse på knappen
-  const btn = document.getElementById('modalAddBtn');
-  const prev = btn.textContent;
+  const btn  = document.getElementById('modalAddBtn');
   btn.textContent = `✅ Lagt til (${cart[currentModalId]})`;
-  btn.style.background = 'rgba(50,200,100,.15)';
-  btn.style.borderColor = 'rgba(50,200,100,.4)';
-  btn.style.color = '#4caf6e';
+  btn.style.background  = 'rgba(50,200,100,.12)';
+  btn.style.borderColor = 'rgba(50,200,100,.35)';
+  btn.style.color       = '#4caf6e';
   setTimeout(() => {
     btn.textContent = `+ Legg i kurv (${cart[currentModalId]})`;
-    btn.style = '';
+    btn.style.cssText = '';
   }, 1200);
 });
-const searchEl  = document.getElementById('menuSearch');
-const countEl   = document.getElementById('menuCount');
-const emptyEl   = document.getElementById('menuEmpty');
-const cards     = [...document.querySelectorAll('#menuCards .card')];
+
+/* ── FILTER ── */
+const searchEl   = document.getElementById('menuSearch');
+const countEl    = document.getElementById('menuCount');
+const emptyEl    = document.getElementById('menuEmpty');
+const cards      = [...document.querySelectorAll('#menuCards .card')];
 let activeFilter = 'all';
 
 function filterCards() {
@@ -432,62 +411,43 @@ searchEl?.addEventListener('input', filterCards);
 filterCards();
 
 /* ── MODAL ── */
-const overlay     = document.getElementById('modalOverlay');
-const modalTitle  = document.getElementById('modalTitle');
-const modalPrice  = document.getElementById('modalPrice');
-const modalDesc   = document.getElementById('modalDesc');
-const modalTag    = document.getElementById('modalTag');
-const modalEmoji  = document.getElementById('modalEmoji');
-const modalImgEl  = document.getElementById('modalImgEl');
+const overlay    = document.getElementById('modalOverlay');
+const modalTitle = document.getElementById('modalTitle');
+const modalPrice = document.getElementById('modalPrice');
+const modalDesc  = document.getElementById('modalDesc');
+const modalTag   = document.getElementById('modalTag');
+const modalEmoji = document.getElementById('modalEmoji');
+const modalImgEl = document.getElementById('modalImgEl');
 
-// Image paths — bytt ut med ekte bilder når du har dem
 const IMG_MAP = {
-  1: 'images/burger.jpg',
-  2: 'images/pizza.jpg',
-  3: 'images/salat.jpg',
-  4: 'images/pasta.jpg',
-  5: 'images/suppe.jpg',
-  6: 'images/dessert.jpg',
-  7: 'images/brus.jpg',
-  8: 'images/kaffe.jpg',
+  1: 'images/burger.jpg', 2: 'images/pizza.jpg',
+  3: 'images/salat.jpg',  4: 'images/pasta.jpg',
+  5: 'images/suppe.jpg',  6: 'images/dessert.jpg',
+  7: 'images/brus.jpg',   8: 'images/kaffe.jpg',
 };
 
 function openModal(card) {
-  const name  = card.querySelector('h3').textContent;
-  const price = card.dataset.price;
-  const desc  = card.dataset.desc;
-  const tag   = card.dataset.tag;
-  const emoji = card.dataset.emoji;
   const id    = card.dataset.id;
-
   currentModalId = id;
 
-  modalTitle.textContent = name;
-  modalPrice.textContent = price + ' kr';
-  modalDesc.textContent  = desc;
-  modalTag.textContent   = tag;
-  modalEmoji.textContent = emoji;
+  modalTitle.textContent = card.querySelector('h3').textContent;
+  modalPrice.textContent = card.dataset.price + ' kr';
+  modalDesc.textContent  = card.dataset.desc;
+  modalTag.textContent   = card.dataset.tag;
+  modalEmoji.textContent = card.dataset.emoji;
 
-  // Reset add button
   const addBtn = document.getElementById('modalAddBtn');
   const qty = loadCart()[id] || 0;
   addBtn.textContent = qty > 0 ? `+ Legg i kurv (${qty})` : '+ Legg i kurv';
-  addBtn.style = '';
+  addBtn.style.cssText = '';
 
-  // Prøv å laste bilde — vis emoji som fallback
   const imgSrc = IMG_MAP[id];
   modalImgEl.src = '';
   modalImgEl.classList.remove('loaded');
   modalEmoji.style.display = 'block';
   if (imgSrc) {
-    modalImgEl.onload = () => {
-      modalImgEl.classList.add('loaded');
-      modalEmoji.style.display = 'none';
-    };
-    modalImgEl.onerror = () => {
-      modalImgEl.classList.remove('loaded');
-      modalEmoji.style.display = 'block';
-    };
+    modalImgEl.onload  = () => { modalImgEl.classList.add('loaded'); modalEmoji.style.display = 'none'; };
+    modalImgEl.onerror = () => { modalImgEl.classList.remove('loaded'); modalEmoji.style.display = 'block'; };
     modalImgEl.src = imgSrc;
   }
 
@@ -500,7 +460,6 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-// Åpne modal ved klikk på kort
 cards.forEach(card => {
   card.addEventListener('click', () => openModal(card));
   card.addEventListener('keydown', e => {
@@ -508,7 +467,6 @@ cards.forEach(card => {
   });
 });
 
-// Lukk
 document.getElementById('modalClose').addEventListener('click', closeModal);
 document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
 overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });

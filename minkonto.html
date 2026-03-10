@@ -41,8 +41,9 @@
       opacity: 0;
       transition: opacity var(--t);
     }
-    .authCard:hover { transform: translateY(-4px) scale(1.01); border-color: rgba(232,184,109,.28); box-shadow: 0 24px 60px rgba(0,0,0,.50); }
+    .authCard:hover { transform: translateY(-3px); border-color: rgba(232,184,109,.22); box-shadow: var(--shadow); }
     .authCard:hover::before { opacity: 1; }
+
     .authIcon { font-size: 2.8rem; margin-bottom: 0.85rem; }
     .authCard h2 { font-family: var(--ff-serif); font-size: 1.9rem; font-weight: 300; margin-bottom: 0.4rem; }
     .authCard > p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.7; }
@@ -81,7 +82,7 @@
       outline: none;
       transition: border-color var(--t), box-shadow var(--t);
     }
-    .authForm input:focus { border-color: rgba(232,184,109,.55); box-shadow: 0 0 0 3px rgba(232,184,109,.08); }
+    .authForm input:focus { border-color: rgba(232,184,109,.50); box-shadow: 0 0 0 3px rgba(232,184,109,.07); }
     .authFormRow { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
     .authDivider {
       display: flex; align-items: center; gap: 0.75rem;
@@ -89,13 +90,13 @@
     }
     .authDivider::before, .authDivider::after { content: ''; flex: 1; height: 1px; background: var(--border2); }
     .authError {
-      background: rgba(255,80,80,.08); border: 1px solid rgba(255,80,80,.25);
+      background: rgba(255,80,80,.07); border: 1px solid rgba(255,80,80,.22);
       border-radius: 10px; padding: 0.7rem 1rem; color: #ff6b6b;
       font-size: 0.85rem; display: none; text-align: left; margin-bottom: 0.5rem;
     }
     .authError.show { display: block; }
     .authSuccess {
-      background: rgba(50,200,100,.08); border: 1px solid rgba(50,200,100,.22);
+      background: rgba(50,200,100,.07); border: 1px solid rgba(50,200,100,.20);
       border-radius: 10px; padding: 0.7rem 1rem; color: #4caf6e;
       font-size: 0.85rem; display: none; text-align: left; margin-bottom: 0.5rem;
     }
@@ -122,9 +123,10 @@
       font-size: 1.8rem; margin: 0 auto 0.85rem;
       font-family: var(--ff-serif); font-weight: 600; color: var(--gold);
     }
-    .accountName { font-family: var(--ff-serif); font-size: 1.2rem; font-weight: 400; color: var(--text); }
+    .accountName { font-family: var(--ff-serif); font-size: 1.2rem; font-weight: 400; }
     .accountEmail { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
     .accountMemberSince { font-size: 0.72rem; color: var(--muted2); margin-top: 0.3rem; }
+
     .accountNav { padding: 0.75rem; }
     .accountNav a {
       display: flex; align-items: center; gap: 0.75rem;
@@ -132,9 +134,10 @@
       font-size: 0.88rem; color: var(--muted);
       transition: background var(--t), color var(--t);
       margin-bottom: 2px; cursor: pointer;
+      border: 1px solid transparent;
     }
     .accountNav a:hover { background: var(--surface2); color: var(--text); }
-    .accountNav a.active { background: var(--gold-glow); color: var(--gold); border: 1px solid rgba(232,184,109,.2); }
+    .accountNav a.active { background: var(--gold-glow); color: var(--gold); border-color: rgba(232,184,109,.18); }
     .accountNav a .navIcon { font-size: 1rem; width: 20px; text-align: center; }
 
     /* ── CONTENT CARDS ── */
@@ -150,14 +153,16 @@
       background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
       opacity: 0; transition: opacity var(--t);
     }
-    .accountCard:hover { transform: translateY(-3px); border-color: rgba(232,184,109,.20); box-shadow: 0 20px 60px rgba(0,0,0,.50); }
+    .accountCard:hover { transform: translateY(-3px); border-color: rgba(232,184,109,.18); box-shadow: var(--shadow); }
     .accountCard:hover::before { opacity: 1; }
+
     .accountCardTitle {
       font-family: var(--ff-serif); font-size: 1.3rem; font-weight: 400;
-      color: var(--text); margin-bottom: 1.25rem; padding-bottom: 0.85rem;
+      margin-bottom: 1.25rem; padding-bottom: 0.85rem;
       border-bottom: 1px solid var(--border2);
       display: flex; align-items: center; gap: 0.5rem;
     }
+
     .accountStats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 1.5rem; }
     .accountStat { background: var(--surface2); border: 1px solid var(--border2); border-radius: 12px; padding: 1.1rem; text-align: center; }
     .accountStatNum { font-family: var(--ff-serif); font-size: 1.8rem; color: var(--gold); font-weight: 400; line-height: 1; }
@@ -170,52 +175,41 @@
       border: 1px solid var(--border2); border-radius: 12px;
       transition: border-color var(--t);
     }
-    .orderHistItem:hover { border-color: rgba(232,184,109,.25); }
+    .orderHistItem:hover { border-color: rgba(232,184,109,.22); }
     .orderHistLeft { display: flex; align-items: center; gap: 0.85rem; }
-    .orderHistIcon {
-      width: 40px; height: 40px; border-radius: 10px;
-      background: var(--gold-glow); display: flex;
-      align-items: center; justify-content: center;
-      font-size: 1.1rem; flex-shrink: 0;
-    }
+    .orderHistIcon { width: 40px; height: 40px; border-radius: 10px; background: var(--gold-glow); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
     .orderHistName { font-size: 0.9rem; font-weight: 500; }
     .orderHistDate { font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
     .orderHistPrice { font-family: var(--ff-serif); color: var(--gold); font-size: 1rem; white-space: nowrap; }
     .orderHistStatus { display: inline-flex; padding: 3px 10px; border-radius: 100px; font-size: 0.72rem; font-weight: 600; }
-    .status-done    { background: rgba(50,200,100,.12); color: #4caf6e; border: 1px solid rgba(50,200,100,.2); }
-    .status-pending { background: rgba(232,184,109,.12); color: var(--gold); border: 1px solid rgba(232,184,109,.2); }
+    .status-done    { background: rgba(50,200,100,.10); color: #4caf6e; border: 1px solid rgba(50,200,100,.18); }
+    .status-pending { background: rgba(232,184,109,.10); color: var(--gold); border: 1px solid rgba(232,184,109,.18); }
 
     .profileForm { display: flex; flex-direction: column; gap: 0.85rem; }
     .profileFormRow { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
     .profileForm label { display: block; }
     .profileForm label span { display: block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 0.4rem; }
-    .profileForm input {
+    .profileForm input, .fieldInput {
       width: 100%; background: var(--surface2); border: 1px solid var(--border2);
       border-radius: 12px; padding: 0.8rem 1rem; color: var(--text);
       font-family: var(--ff-sans); font-size: 0.9rem; outline: none;
-      transition: border-color var(--t);
+      transition: border-color var(--t), box-shadow var(--t);
     }
-    .profileForm input:focus { border-color: rgba(232,184,109,.55); }
-
+    .profileForm input:focus, .fieldInput:focus {
+      border-color: rgba(232,184,109,.50);
+      box-shadow: 0 0 0 3px rgba(232,184,109,.07);
+    }
     .fieldBlock { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 0.5rem; }
-    .fieldLabel { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; color: var(--muted); }
-    .fieldInput {
-      width: 100%; background: var(--surface2); border: 1px solid var(--border2);
-      border-radius: 12px; padding: 0.8rem 1rem; color: var(--text);
-      font-family: var(--ff-sans); font-size: 0.9rem; outline: none;
-      transition: border-color var(--t);
-    }
-    .fieldInput:focus { border-color: rgba(232,184,109,.55); }
+    .fieldLabel { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; color: var(--muted); text-transform: uppercase; }
 
     .logoutBtn { width: 100%; justify-content: center; color: var(--muted); border-color: var(--border2); margin-top: 0.5rem; font-size: 0.85rem; }
-    .logoutBtn:hover { color: var(--ember); border-color: rgba(255,107,53,.3); background: rgba(255,107,53,.06); }
-    .deleteAccountBtn { width: 100%; justify-content: center; color: var(--ember); border-color: rgba(255,107,53,.3); background: rgba(255,107,53,.04); margin-top: 0.5rem; font-size: 0.85rem; }
-    .deleteAccountBtn:hover { background: rgba(255,107,53,.12); }
+    .logoutBtn:hover { color: var(--ember); border-color: rgba(255,107,53,.28); background: rgba(255,107,53,.05); }
+    .deleteAccountBtn { width: 100%; justify-content: center; color: var(--ember); border-color: rgba(255,107,53,.25); background: rgba(255,107,53,.04); margin-top: 0.5rem; font-size: 0.85rem; }
+    .deleteAccountBtn:hover { background: rgba(255,107,53,.10); }
 
     @media (max-width: 860px) {
       .accountLayout { grid-template-columns: 1fr; }
       .accountSidebar { position: static; }
-      .accountStats { grid-template-columns: repeat(3,1fr); }
       .authFormRow { grid-template-columns: 1fr; }
     }
     @media (max-width: 480px) {
@@ -226,6 +220,9 @@
 </head>
 <body>
 
+<a class="skipLink" href="#main">Hopp til innhold</a>
+
+<!-- HEADER -->
 <header class="siteHeader">
   <div class="headerInner">
     <a class="brand" href="index.html" aria-label="Gå til FireFly forsiden">
@@ -237,7 +234,7 @@
         <li><a href="index.html">Hjem</a></li>
         <li><a href="about.html">Om oss</a></li>
         <li><a href="menu.html">Meny</a></li>
-        <li><a href="minkonto.html" class="active" aria-current="page">Min konto</a></li>
+        <li><a class="active" href="minkonto.html" aria-current="page">Min konto</a></li>
         <li><a href="contact.html">Kontakt</a></li>
       </ul>
     </nav>
@@ -256,7 +253,7 @@
 <main id="main">
   <section class="hero hero--small" aria-labelledby="accountHeroTitle">
     <span class="heroBadge">FireFly · Min konto</span>
-    <h1 id="accountHeroTitle">Min konto</h1>
+    <h1 id="accountHeroTitle">Min <span class="accent">konto</span></h1>
     <p>Se dine bestillinger, administrer profilen din og mer.</p>
   </section>
 
@@ -335,7 +332,7 @@
                 <div class="accountStat"><div class="accountStatNum" id="statTotal">0</div><div class="accountStatLabel">Brukt (kr)</div></div>
                 <div class="accountStat"><div class="accountStatNum" id="statFav">—</div><div class="accountStatLabel">Favoritt</div></div>
               </div>
-              <p class="muted" id="welcomeMsg" style="font-size:0.88rem;">Velkommen! Bestill noe fra menyen for å komme i gang.</p>
+              <p class="muted" id="welcomeMsg" style="font-size:0.88rem;"></p>
             </div>
             <div class="accountCard reveal">
               <div class="accountCardTitle">🕐 Siste bestillinger</div>
@@ -381,15 +378,15 @@
               <p class="muted" style="font-size:0.9rem;margin-bottom:1.25rem;">Endre passordet ditt her.</p>
               <div style="display:flex;flex-direction:column;gap:0.85rem;">
                 <div class="fieldBlock">
-                  <div class="fieldLabel">NÅVÆRENDE PASSORD</div>
+                  <div class="fieldLabel">Nåværende passord</div>
                   <input type="password" class="fieldInput" id="currentPassword" placeholder="••••••••" />
                 </div>
                 <div class="fieldBlock">
-                  <div class="fieldLabel">NYTT PASSORD</div>
+                  <div class="fieldLabel">Nytt passord</div>
                   <input type="password" class="fieldInput" id="newPassword" placeholder="Minst 6 tegn" />
                 </div>
                 <div class="fieldBlock">
-                  <div class="fieldLabel">BEKREFT NYTT PASSORD</div>
+                  <div class="fieldLabel">Bekreft nytt passord</div>
                   <input type="password" class="fieldInput" id="confirmNewPassword" placeholder="Gjenta nytt passord" />
                 </div>
                 <div class="formActions" style="margin-top:0.25rem;">
@@ -435,12 +432,18 @@
   </section>
 </main>
 
+<!-- FOOTER -->
 <footer class="footer">
   <div class="footerInner">
     <div>
       <h3>FireFly Restaurant</h3>
       <p>Storgaten 33, 4876 Grimstad</p>
       <p><a href="tel:+4700000000">+47 000 00 000</a></p>
+      <div class="footerSocial">
+        <a class="socialBtn" href="https://www.facebook.com/profile.php?id=61587469647280" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <svg viewBox="0 0 320 512" aria-hidden="true"><path d="M279.14 288l14.22-92.66h-88.91V117.78c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+        </a>
+      </div>
     </div>
     <div>
       <h3>Åpningstider</h3>
@@ -465,6 +468,7 @@
   </div>
 </footer>
 
+<!-- BESTILLINGSBOBLE -->
 <div class="orderBubble" id="orderBubble">
   <div class="orderPanel" id="orderPanel">
     <div class="orderPanelHead">
@@ -487,11 +491,6 @@
 <script>
 /* ═══════════════════════════════════════════════════
    FireFly Konto-system — localStorage som database
-   ═══════════════════════════════════════════════════
-   localStorage-nøkler:
-     fireflyUsers    → array med alle brukerkontoer
-     fireflySession  → e-post til innlogget bruker
-     fireflyTheme    → tema (dark/light)
    ═══════════════════════════════════════════════════ */
 
 const USERS_KEY   = 'fireflyUsers';
@@ -509,110 +508,102 @@ const MENU_DATA = [
   {id:8,name:'Kaffe',price:55,emoji:'☕'},
 ];
 
-/* ── DB-hjelpere ── */
-const getUsers      = () => { try { return JSON.parse(localStorage.getItem(USERS_KEY))||[]; } catch{return[];} };
-const saveUsers     = u  => localStorage.setItem(USERS_KEY, JSON.stringify(u));
-const getUserByEmail= e  => getUsers().find(u=>u.email.toLowerCase()===e.toLowerCase());
-const getSession    = () => localStorage.getItem(SESSION_KEY);
-const setSession    = e  => localStorage.setItem(SESSION_KEY, e);
-const clearSession  = () => localStorage.removeItem(SESSION_KEY);
-const getCurrentUser= () => { const e=getSession(); return e ? getUserByEmail(e) : null; };
+const getUsers       = () => { try { return JSON.parse(localStorage.getItem(USERS_KEY)) || []; } catch { return []; } };
+const saveUsers      = u  => localStorage.setItem(USERS_KEY, JSON.stringify(u));
+const getUserByEmail = e  => getUsers().find(u => u.email.toLowerCase() === e.toLowerCase());
+const getSession     = () => localStorage.getItem(SESSION_KEY);
+const setSession     = e  => localStorage.setItem(SESSION_KEY, e);
+const clearSession   = () => localStorage.removeItem(SESSION_KEY);
+const getCurrentUser = () => { const e = getSession(); return e ? getUserByEmail(e) : null; };
 
 function saveUser(user) {
   const users = getUsers();
-  const idx = users.findIndex(u=>u.email.toLowerCase()===user.email.toLowerCase());
-  if (idx>=0) users[idx]=user; else users.push(user);
+  const idx = users.findIndex(u => u.email.toLowerCase() === user.email.toLowerCase());
+  if (idx >= 0) users[idx] = user; else users.push(user);
   saveUsers(users);
 }
 
-/* ── Enkel hash (kun demo — ikke kryptografisk) ── */
 function simpleHash(str) {
-  let h=0;
-  for(let i=0;i<str.length;i++){h=((h<<5)-h)+str.charCodeAt(i);h|=0;}
+  let h = 0;
+  for (let i = 0; i < str.length; i++) { h = ((h << 5) - h) + str.charCodeAt(i); h |= 0; }
   return h.toString(36);
 }
 
-/* ── Tab-bytte ── */
 function switchTab(tab) {
-  document.getElementById('formLogin').style.display    = tab==='login'    ? 'flex' : 'none';
-  document.getElementById('formRegister').style.display = tab==='register' ? 'flex' : 'none';
-  document.getElementById('tabLogin').classList.toggle('active', tab==='login');
-  document.getElementById('tabRegister').classList.toggle('active', tab==='register');
+  document.getElementById('formLogin').style.display    = tab === 'login'    ? 'flex' : 'none';
+  document.getElementById('formRegister').style.display = tab === 'register' ? 'flex' : 'none';
+  document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+  document.getElementById('tabRegister').classList.toggle('active', tab === 'register');
   document.getElementById('authError').classList.remove('show');
   document.getElementById('authSuccess').classList.remove('show');
 }
 
-const showError   = m => { const e=document.getElementById('authError');   e.textContent=m; e.classList.add('show'); document.getElementById('authSuccess').classList.remove('show'); };
-const showOK      = m => { const e=document.getElementById('authSuccess'); e.textContent=m; e.classList.add('show'); document.getElementById('authError').classList.remove('show'); };
+const showError = m => { const e = document.getElementById('authError');   e.textContent = m; e.classList.add('show'); document.getElementById('authSuccess').classList.remove('show'); };
+const showOK    = m => { const e = document.getElementById('authSuccess'); e.textContent = m; e.classList.add('show'); document.getElementById('authError').classList.remove('show'); };
 
-/* ── Registrering ── */
 document.getElementById('registerBtn').addEventListener('click', () => {
-  const first=document.getElementById('regFirst').value.trim();
-  const last =document.getElementById('regLast').value.trim();
-  const email=document.getElementById('regEmail').value.trim();
-  const phone=document.getElementById('regPhone').value.trim();
-  const pw   =document.getElementById('regPassword').value;
-  const pw2  =document.getElementById('regPasswordConfirm').value;
+  const first = document.getElementById('regFirst').value.trim();
+  const last  = document.getElementById('regLast').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const phone = document.getElementById('regPhone').value.trim();
+  const pw    = document.getElementById('regPassword').value;
+  const pw2   = document.getElementById('regPasswordConfirm').value;
 
-  if (!first)              return showError('Vennligst skriv inn fornavn.');
-  if (!email||!email.includes('@')) return showError('Ugyldig e-postadresse.');
-  if (pw.length<6)         return showError('Passordet må være minst 6 tegn.');
-  if (pw!==pw2)            return showError('Passordene stemmer ikke overens.');
-  if (getUserByEmail(email)) return showError('Det finnes allerede en konto med denne e-posten.');
+  if (!first)                     return showError('Vennligst skriv inn fornavn.');
+  if (!email || !email.includes('@')) return showError('Ugyldig e-postadresse.');
+  if (pw.length < 6)              return showError('Passordet må være minst 6 tegn.');
+  if (pw !== pw2)                 return showError('Passordene stemmer ikke overens.');
+  if (getUserByEmail(email))      return showError('Det finnes allerede en konto med denne e-posten.');
 
   const user = {
-    first, last, name:`${first} ${last}`.trim(),
+    first, last, name: `${first} ${last}`.trim(),
     email, phone,
     passwordHash: simpleHash(pw),
-    createdAt: new Date().toLocaleDateString('no-NO',{day:'numeric',month:'long',year:'numeric'}),
+    createdAt: new Date().toLocaleDateString('no-NO', {day:'numeric',month:'long',year:'numeric'}),
     orders: [],
-    preferences: { emailNotifications:true, darkMode:true },
+    preferences: { emailNotifications: true, darkMode: true },
   };
   saveUser(user);
   setSession(email);
   showOK('✅ Konto opprettet! Logger inn...');
-  setTimeout(()=>showDashboard(user), 800);
+  setTimeout(() => showDashboard(user), 800);
 });
 
-/* ── Innlogging ── */
 document.getElementById('loginBtn').addEventListener('click', () => {
-  const email=document.getElementById('loginEmail').value.trim();
-  const pw   =document.getElementById('loginPassword').value;
+  const email = document.getElementById('loginEmail').value.trim();
+  const pw    = document.getElementById('loginPassword').value;
   if (!email) return showError('Vennligst skriv inn e-post.');
   if (!pw)    return showError('Vennligst skriv inn passord.');
   const user = getUserByEmail(email);
-  if (!user) return showError('Ingen konto funnet med denne e-posten.');
-  if (user.passwordHash!==simpleHash(pw)) return showError('Feil passord. Prøv igjen.');
+  if (!user)  return showError('Ingen konto funnet med denne e-posten.');
+  if (user.passwordHash !== simpleHash(pw)) return showError('Feil passord. Prøv igjen.');
   setSession(email);
   showDashboard(user);
 });
 
-/* ── Gjest ── */
 document.getElementById('guestBtn').addEventListener('click', () => {
   const g = {
     first:'Gjest', last:'', name:'Gjest', email:'gjest@firefly.no', phone:'',
     passwordHash:'', isGuest:true,
-    createdAt: new Date().toLocaleDateString('no-NO',{day:'numeric',month:'long',year:'numeric'}),
+    createdAt: new Date().toLocaleDateString('no-NO', {day:'numeric',month:'long',year:'numeric'}),
     orders:[], preferences:{emailNotifications:false, darkMode:true},
   };
   saveUser(g); setSession('gjest@firefly.no');
   showDashboard(g);
 });
 
-/* ── Vis dashboard ── */
 function showDashboard(user) {
-  document.getElementById('authGate').style.display='none';
-  document.getElementById('accountDashboard').style.display='block';
-  document.getElementById('accountAvatar').textContent      = (user.name||'G')[0].toUpperCase();
-  document.getElementById('accountName').textContent        = user.name||'Gjest';
-  document.getElementById('accountEmailDisplay').textContent= user.email;
-  document.getElementById('accountMemberSince').textContent = user.createdAt?`Medlem siden ${user.createdAt}`:'';
-  document.getElementById('profileFirst').value = user.first||'';
-  document.getElementById('profileLast').value  = user.last||'';
-  document.getElementById('profileEmail').value = user.email||'';
-  document.getElementById('profilePhone').value = user.phone||'';
-  document.getElementById('prefEmail').checked  = user.preferences?.emailNotifications!==false;
-  // prefDark: bruk localStorage som fasit (ikke bare user.preferences)
+  document.getElementById('authGate').style.display       = 'none';
+  document.getElementById('accountDashboard').style.display = 'block';
+  document.getElementById('accountAvatar').textContent    = (user.name || 'G')[0].toUpperCase();
+  document.getElementById('accountName').textContent      = user.name || 'Gjest';
+  document.getElementById('accountEmailDisplay').textContent = user.email;
+  document.getElementById('accountMemberSince').textContent  = user.createdAt ? `Medlem siden ${user.createdAt}` : '';
+  document.getElementById('profileFirst').value = user.first || '';
+  document.getElementById('profileLast').value  = user.last  || '';
+  document.getElementById('profileEmail').value = user.email || '';
+  document.getElementById('profilePhone').value = user.phone || '';
+  document.getElementById('prefEmail').checked  = user.preferences?.emailNotifications !== false;
   const currentTheme = localStorage.getItem(THEME_KEY) || 'dark';
   document.getElementById('prefDark').checked = (currentTheme === 'dark');
   mergeCartOrders(user);
@@ -620,178 +611,150 @@ function showDashboard(user) {
   renderRecentOrders(user);
 }
 
-/* ── Hent pendingOrder lagret av booking.html ── */
 function mergeCartOrders(user) {
   try {
     const pending = localStorage.getItem('fireflyPendingOrder');
     if (!pending) return;
     const order = JSON.parse(pending);
     if (!order || !order.id) return;
-
-    // Sjekk at denne ordren ikke allerede er lagt til
     if (!user.orders) user.orders = [];
-    const already = user.orders.some(o => o.id === order.id);
-    if (already) return;
-
+    if (user.orders.some(o => o.id === order.id)) return;
     user.orders.unshift(order);
     saveUser(user);
-    // Fjern pending så den ikke legges til igjen
     localStorage.removeItem('fireflyPendingOrder');
-  } catch(e) { console.error(e); }
+  } catch (e) { console.error(e); }
 }
 
-/* ── Stats ── */
 function renderStats(user) {
-  const orders = user.orders||[];
-  const total  = orders.reduce((s,o)=>s+(o.total||0),0);
-  const countMap={};
-  orders.forEach(o=>(o.items||[]).forEach(i=>{countMap[i.name]=(countMap[i.name]||0)+(i.qty||1);}));
-  const fav = Object.entries(countMap).sort((a,b)=>b[1]-a[1])[0];
-  const favItem = fav?MENU_DATA.find(m=>m.name===fav[0]):null;
+  const orders = user.orders || [];
+  const total  = orders.reduce((s, o) => s + (o.total || 0), 0);
+  const countMap = {};
+  orders.forEach(o => (o.items || []).forEach(i => { countMap[i.name] = (countMap[i.name] || 0) + (i.qty || 1); }));
+  const fav = Object.entries(countMap).sort((a, b) => b[1] - a[1])[0];
+  const favItem = fav ? MENU_DATA.find(m => m.name === fav[0]) : null;
   document.getElementById('statOrders').textContent = orders.length;
   document.getElementById('statTotal').textContent  = total;
-  document.getElementById('statFav').textContent    = favItem?favItem.emoji:'—';
+  document.getElementById('statFav').textContent    = favItem ? favItem.emoji : '—';
   const wMsg = document.getElementById('welcomeMsg');
-  if (orders.length>0) {
-    const names=(orders[0].items||[]).map(i=>i.name).join(' + ');
-    wMsg.innerHTML=`Velkommen tilbake, <strong>${user.first||user.name}</strong>! Siste: <strong>${names}</strong>.`;
+  if (orders.length > 0) {
+    const names = (orders[0].items || []).map(i => i.name).join(' + ');
+    wMsg.innerHTML = `Velkommen tilbake, <strong>${user.first || user.name}</strong>! Siste: <strong>${names}</strong>.`;
   } else {
-    wMsg.innerHTML=`Velkommen, <strong>${user.first||user.name}</strong>! Bestill noe fra <a href="menu.html" style="color:var(--gold)">menyen</a>.`;
+    wMsg.innerHTML = `Velkommen, <strong>${user.first || user.name}</strong>! Bestill noe fra <a href="menu.html" style="color:var(--gold)">menyen</a>.`;
   }
 }
 
-function renderRecentOrders(user) { renderOrderList(document.getElementById('recentOrderList'),(user.orders||[]).slice(0,3)); }
-function renderFullOrdersPanel()  { renderOrderList(document.getElementById('fullOrderList'), (getCurrentUser()?.orders||[])); }
+function renderRecentOrders(user) { renderOrderList(document.getElementById('recentOrderList'), (user.orders || []).slice(0, 3)); }
+function renderFullOrdersPanel()  { renderOrderList(document.getElementById('fullOrderList'), (getCurrentUser()?.orders || [])); }
 
 function renderOrderList(el, orders) {
   if (!el) return;
-  if (!orders.length) { el.innerHTML='<p class="muted" style="font-size:0.88rem;text-align:center;padding:1rem 0;">Ingen bestillinger ennå.</p>'; return; }
-  el.innerHTML = orders.map(o=>{
-    const txt=(o.items||[]).map(i=>`${i.emoji||'🍽️'} ${i.name}${i.qty>1?' ×'+i.qty:''}`).join(', ');
-    const sc=o.status==='done'?'status-done':'status-pending';
-    const st=o.status==='done'?'Levert':'Venter';
-    const em=(o.items&&o.items[0])?o.items[0].emoji||'🍽️':'🍽️';
+  if (!orders.length) { el.innerHTML = '<p class="muted" style="font-size:0.88rem;text-align:center;padding:1rem 0;">Ingen bestillinger ennå.</p>'; return; }
+  el.innerHTML = orders.map(o => {
+    const txt = (o.items || []).map(i => `${i.emoji || '🍽️'} ${i.name}${i.qty > 1 ? ' ×' + i.qty : ''}`).join(', ');
+    const sc  = o.status === 'done' ? 'status-done' : 'status-pending';
+    const st  = o.status === 'done' ? 'Levert' : 'Venter';
+    const em  = o.items?.[0]?.emoji || '🍽️';
     return `<div class="orderHistItem">
       <div class="orderHistLeft">
         <div class="orderHistIcon">${em}</div>
-        <div><div class="orderHistName">${txt}</div><div class="orderHistDate">${o.date||''}</div></div>
+        <div><div class="orderHistName">${txt}</div><div class="orderHistDate">${o.date || ''}</div></div>
       </div>
       <div style="display:flex;align-items:center;gap:0.75rem;">
         <span class="orderHistStatus ${sc}">${st}</span>
-        <span class="orderHistPrice">${o.total||0} kr</span>
+        <span class="orderHistPrice">${o.total || 0} kr</span>
       </div>
     </div>`;
   }).join('');
 }
 
-/* ── Sidebar-nav ── */
-document.querySelectorAll('.accountNav a[data-section]').forEach(link=>{
-  link.addEventListener('click', e=>{
+document.querySelectorAll('.accountNav a[data-section]').forEach(link => {
+  link.addEventListener('click', e => {
     e.preventDefault();
-    document.querySelectorAll('.accountNav a').forEach(l=>l.classList.remove('active'));
-    document.querySelectorAll('.accountSection').forEach(s=>s.style.display='none');
+    document.querySelectorAll('.accountNav a').forEach(l => l.classList.remove('active'));
+    document.querySelectorAll('.accountSection').forEach(s => s.style.display = 'none');
     link.classList.add('active');
-    const sec=document.getElementById('section-'+link.dataset.section);
-    if (sec) sec.style.display=link.dataset.section==='overview'?'flex':'block';
-    if (link.dataset.section==='orders') renderFullOrdersPanel();
+    const sec = document.getElementById('section-' + link.dataset.section);
+    if (sec) sec.style.display = link.dataset.section === 'overview' ? 'flex' : 'block';
+    if (link.dataset.section === 'orders') renderFullOrdersPanel();
   });
 });
 
-/* ── Lagre profil ── */
-document.getElementById('saveProfileBtn').addEventListener('click', ()=>{
-  const user=getCurrentUser(); if(!user) return;
+document.getElementById('saveProfileBtn').addEventListener('click', () => {
+  const user = getCurrentUser(); if (!user) return;
   user.first = document.getElementById('profileFirst').value.trim();
   user.last  = document.getElementById('profileLast').value.trim();
-  user.name  = `${user.first} ${user.last}`.trim()||'Gjest';
+  user.name  = `${user.first} ${user.last}`.trim() || 'Gjest';
   user.email = document.getElementById('profileEmail').value.trim();
   user.phone = document.getElementById('profilePhone').value.trim();
   saveUser(user); setSession(user.email);
-  document.getElementById('accountName').textContent        = user.name;
-  document.getElementById('accountEmailDisplay').textContent= user.email;
-  document.getElementById('accountAvatar').textContent      = user.name[0].toUpperCase();
-  const m=document.getElementById('profileSaveMsg');
-  m.style.display='inline'; setTimeout(()=>m.style.display='none',2500);
+  document.getElementById('accountName').textContent         = user.name;
+  document.getElementById('accountEmailDisplay').textContent = user.email;
+  document.getElementById('accountAvatar').textContent       = user.name[0].toUpperCase();
+  const m = document.getElementById('profileSaveMsg');
+  m.style.display = 'inline'; setTimeout(() => m.style.display = 'none', 2500);
 });
 
-/* ── Endre passord ── */
-document.getElementById('changePasswordBtn').addEventListener('click', ()=>{
-  const user=getCurrentUser();
-  const cur =document.getElementById('currentPassword').value;
-  const np  =document.getElementById('newPassword').value;
-  const np2 =document.getElementById('confirmNewPassword').value;
-  const msg =document.getElementById('passwordChangeMsg');
-  const show=(t,ok)=>{msg.style.display='inline';msg.textContent=t;msg.style.color=ok?'#4caf6e':'#ff6b6b';setTimeout(()=>msg.style.display='none',3000);};
-  if (!user||user.isGuest) return show('❌ Gjestekonto kan ikke endre passord.',false);
-  if (user.passwordHash!==simpleHash(cur)) return show('❌ Feil nåværende passord.',false);
-  if (np.length<6) return show('❌ Minst 6 tegn.',false);
-  if (np!==np2)    return show('❌ Passordene stemmer ikke.',false);
-  user.passwordHash=simpleHash(np); saveUser(user);
-  document.getElementById('currentPassword').value='';
-  document.getElementById('newPassword').value='';
-  document.getElementById('confirmNewPassword').value='';
-  show('✅ Passord endret!',true);
+document.getElementById('changePasswordBtn').addEventListener('click', () => {
+  const user = getCurrentUser();
+  const cur  = document.getElementById('currentPassword').value;
+  const np   = document.getElementById('newPassword').value;
+  const np2  = document.getElementById('confirmNewPassword').value;
+  const msg  = document.getElementById('passwordChangeMsg');
+  const show = (t, ok) => { msg.style.display = 'inline'; msg.textContent = t; msg.style.color = ok ? '#4caf6e' : '#ff6b6b'; setTimeout(() => msg.style.display = 'none', 3000); };
+  if (!user || user.isGuest) return show('❌ Gjestekonto kan ikke endre passord.', false);
+  if (user.passwordHash !== simpleHash(cur)) return show('❌ Feil nåværende passord.', false);
+  if (np.length < 6) return show('❌ Minst 6 tegn.', false);
+  if (np !== np2)    return show('❌ Passordene stemmer ikke.', false);
+  user.passwordHash = simpleHash(np); saveUser(user);
+  document.getElementById('currentPassword').value = '';
+  document.getElementById('newPassword').value = '';
+  document.getElementById('confirmNewPassword').value = '';
+  show('✅ Passord endret!', true);
 });
 
-/* ── Slett konto ── */
-document.getElementById('deleteAccountBtn').addEventListener('click', ()=>{
-  const user=getCurrentUser(); if(!user) return;
+document.getElementById('deleteAccountBtn').addEventListener('click', () => {
+  const user = getCurrentUser(); if (!user) return;
   if (!confirm(`Slett kontoen til ${user.name}? Dette kan ikke angres.`)) return;
-  saveUsers(getUsers().filter(u=>u.email.toLowerCase()!==user.email.toLowerCase()));
+  saveUsers(getUsers().filter(u => u.email.toLowerCase() !== user.email.toLowerCase()));
   clearSession();
-  document.getElementById('accountDashboard').style.display='none';
-  document.getElementById('authGate').style.display='block';
+  document.getElementById('accountDashboard').style.display = 'none';
+  document.getElementById('authGate').style.display         = 'block';
   switchTab('login');
   showOK('Kontoen din er slettet.');
 });
 
-/* ── Logg ut ── */
-document.getElementById('logoutBtn').addEventListener('click', ()=>{
+document.getElementById('logoutBtn').addEventListener('click', () => {
   clearSession();
-  sessionStorage.removeItem('fireflyCartSaved');
-  document.getElementById('accountDashboard').style.display='none';
-  document.getElementById('authGate').style.display='block';
+  document.getElementById('accountDashboard').style.display = 'none';
+  document.getElementById('authGate').style.display         = 'block';
   switchTab('login');
 });
 
-/* ── Lagre preferanser ── */
-document.getElementById('savePrefBtn').addEventListener('click', ()=>{
-  const user=getCurrentUser(); if(!user) return;
-  if (!user.preferences) user.preferences={};
-  user.preferences.emailNotifications=document.getElementById('prefEmail').checked;
-  user.preferences.darkMode=document.getElementById('prefDark').checked;
+document.getElementById('savePrefBtn').addEventListener('click', () => {
+  const user = getCurrentUser(); if (!user) return;
+  if (!user.preferences) user.preferences = {};
+  user.preferences.emailNotifications = document.getElementById('prefEmail').checked;
+  user.preferences.darkMode = document.getElementById('prefDark').checked;
   saveUser(user);
-  applyTheme(user.preferences.darkMode ? 'dark' : 'light');
-  const m=document.getElementById('prefSaveMsg');
-  m.style.display='inline'; setTimeout(()=>m.style.display='none',2500);
-});
-
-/* ── Tema-hjelper ── */
-function applyTheme(t) {
+  const t = user.preferences.darkMode ? 'dark' : 'light';
   localStorage.setItem(THEME_KEY, t);
   if (t === 'light') {
-    document.documentElement.setAttribute('data-theme','light');
+    document.documentElement.setAttribute('data-theme', 'light');
     document.body.classList.add('lightMode');
   } else {
     document.documentElement.removeAttribute('data-theme');
     document.body.classList.remove('lightMode');
   }
-  // Synkroniser header-toggle
   const tt = document.getElementById('themeToggle');
   if (tt) tt.checked = (t === 'light');
-}
+  const m = document.getElementById('prefSaveMsg');
+  m.style.display = 'inline'; setTimeout(() => m.style.display = 'none', 2500);
+});
 
-/* ── Auto-login ── */
-const existingUser=getCurrentUser();
+// Auto-login
+const existingUser = getCurrentUser();
 if (existingUser) showDashboard(existingUser);
-
-/* ── Tema init ved sideinnlasting ── */
-(function initTheme() {
-  const saved = localStorage.getItem(THEME_KEY) || 'dark';
-  applyTheme(saved);
-  // Sett prefDark-checkboxen riktig
-  const pd = document.getElementById('prefDark');
-  if (pd) pd.checked = (saved === 'dark');
-})();
 </script>
 </body>
 </html>

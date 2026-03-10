@@ -9,12 +9,17 @@
   const toggle = document.getElementById('themeToggle');
   if (!toggle) return;
 
-  const KEY = 'fireflyTheme'; // Én nøkkel brukt overalt
+  const KEY = 'fireflyTheme';
 
   function applyTheme(theme) {
     const isLight = theme === 'light';
-    document.documentElement.setAttribute('data-theme', isLight ? 'light' : '');
-    document.body.classList.toggle('lightMode', isLight);
+    if (isLight) {
+      document.documentElement.setAttribute('data-theme', 'light');
+      document.body.classList.add('lightMode');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      document.body.classList.remove('lightMode');
+    }
     toggle.checked = isLight;
   }
 
@@ -48,8 +53,21 @@
     });
   });
 
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && hamburger.classList.contains('open')) {
+      hamburger.classList.remove('open');
+      mainNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Close nav on outside click
+  document.addEventListener('click', e => {
+    if (
+      mainNav.classList.contains('open') &&
+      !mainNav.contains(e.target) &&
+      !hamburger.contains(e.target)
+    ) {
       hamburger.classList.remove('open');
       mainNav.classList.remove('open');
       hamburger.setAttribute('aria-expanded', 'false');
@@ -66,7 +84,7 @@
     const href = (link.getAttribute('href') || '').split('#')[0];
     if (/^https?:\/\//i.test(href)) return;
 
-    const page = href === '' ? 'index.html' : href;
+    const page    = href === '' ? 'index.html' : href;
     const isActive = page === currentPage;
 
     link.classList.toggle('active', isActive);
@@ -88,7 +106,7 @@
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.10 });
 
   els.forEach(el => observer.observe(el));
 })();
@@ -182,8 +200,6 @@
 
 
 // ── 9) LIVE BESTILLINGSBOBLE ─────────────────────
-// Vises på alle sider. Handlekurven lagres i sessionStorage.
-// På menysiden erstattes "Bestill mat"-lenker med "Legg til"-knapper.
 (() => {
   // Ikke init boblen på booking.html (har egen innebygd kurv)
   if (document.querySelector('script[data-no-cart]')) return;
@@ -199,16 +215,7 @@
 
   if (!bubbleBtn) return;
 
-  const CART_KEY = 'fireflyCart'; // Samme nøkkel som booking.html
-
-  // -- Lagring (bruker object {id: qty} format som booking.html) --
-  function loadCart() {
-    try { return JSON.parse(sessionStorage.getItem(CART_KEY)) || {}; }
-    catch { return {}; }
-  }
-  function saveCart(cart) {
-    sessionStorage.setItem(CART_KEY, JSON.stringify(cart));
-  }
+  const CART_KEY = 'fireflyCart';
 
   const MENU_DATA = [
     { id:1, name:'Burger',       price:150 },
@@ -221,6 +228,13 @@
     { id:8, name:'Kaffe',        price:55  },
   ];
 
+  function loadCart() {
+    try { return JSON.parse(sessionStorage.getItem(CART_KEY)) || {}; }
+    catch { return {}; }
+  }
+  function saveCart(cart) {
+    sessionStorage.setItem(CART_KEY, JSON.stringify(cart));
+  }
   function cartCount(cart) {
     return Object.values(cart).reduce((s, q) => s + q, 0);
   }
@@ -236,17 +250,15 @@
     const count = cartCount(cart);
     const total = cartTotal(cart);
 
-    // Badge
-    badge.textContent    = count;
-    badge.style.display  = count > 0 ? 'flex' : 'none';
+    badge.textContent   = count;
+    badge.style.display = count > 0 ? 'flex' : 'none';
 
-    // Liste
     if (count === 0) {
       listEl.innerHTML      = '<p class="orderEmpty">Ingen retter lagt til ennå.<br/>Gå til menyen og trykk «Legg til».</p>';
       totalEl.style.display = 'none';
       sendBtn.style.display = 'none';
     } else {
-      const entries = Object.entries(cart).filter(([,q]) => q > 0);
+      const entries = Object.entries(cart).filter(([, q]) => q > 0);
       listEl.innerHTML = entries.map(([id, qty]) => {
         const it = MENU_DATA.find(m => m.id === +id);
         if (!it) return '';
@@ -273,7 +285,7 @@
     }
   }
 
-  // -- Toggle panel --
+  // Toggle panel
   bubbleBtn.addEventListener('click', () => {
     const open = panel.classList.toggle('open');
     bubbleBtn.classList.toggle('open', open);
@@ -281,8 +293,8 @@
     if (open) renderOrder();
   });
 
-  // -- Lukk panel ved klikk utenfor --
-  document.addEventListener('click', (e) => {
+  // Close on outside click
+  document.addEventListener('click', e => {
     const bubble = document.getElementById('orderBubble');
     if (bubble && !bubble.contains(e.target) && panel.classList.contains('open')) {
       panel.classList.remove('open');
@@ -291,14 +303,14 @@
     }
   });
 
-  // -- Tøm alt --
+  // Clear all
   clearBtn?.addEventListener('click', () => {
     saveCart({});
     renderOrder();
     syncMenuButtons();
   });
 
-  // -- Konverter menykortkort til "Legg til"-knapper (på menu.html) --
+  // Sync menu card buttons (on menu.html)
   function syncMenuButtons() {
     const cart = loadCart();
     document.querySelectorAll('#menuCards .card').forEach(card => {
@@ -311,16 +323,13 @@
       const priceStr = priceEl ? priceEl.textContent.trim() : '0 kr';
       const price    = parseInt(priceStr.replace(/[^0-9]/g, ''), 10) || 0;
 
-      // Finn menyen basert på navn
       const menuItem = MENU_DATA.find(m => m.name === name);
       const itemId   = menuItem ? menuItem.id : null;
       const qty      = itemId ? (cart[itemId] || 0) : 0;
 
-      // Finn eksisterende knapp eller lenke
       let btn = actionDiv.querySelector('.addToCartBtn');
 
       if (!btn) {
-        // Fjern den gamle "Bestill mat"-lenken
         const oldLink = actionDiv.querySelector('a.btn');
         if (oldLink) oldLink.remove();
 
@@ -329,7 +338,8 @@
         btn.type = 'button';
         actionDiv.appendChild(btn);
 
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', e => {
+          e.stopPropagation(); // prevent modal from opening
           if (!itemId) return;
           const cart2 = loadCart();
           cart2[itemId] = (cart2[itemId] || 0) + 1;
@@ -337,7 +347,6 @@
           renderOrder();
           syncMenuButtons();
 
-          // Bump-animasjon
           badge.classList.remove('bump');
           void badge.offsetWidth;
           badge.classList.add('bump');
@@ -345,20 +354,18 @@
         });
       }
 
-      // Oppdater knapp-tekst basert på antall i kurv
       if (qty > 0) {
-        btn.textContent  = `✓ ${qty} i kurv`;
-        btn.style.color  = 'var(--gold)';
+        btn.textContent   = `✓ ${qty} i kurv`;
+        btn.style.color   = 'var(--gold)';
         btn.style.borderColor = 'var(--gold-dim)';
       } else {
-        btn.textContent = '+ Legg til';
-        btn.style.color = '';
+        btn.textContent   = '+ Legg til';
+        btn.style.color   = '';
         btn.style.borderColor = '';
       }
     });
   }
 
-  // Initialiser
   renderOrder();
   syncMenuButtons();
 })();
