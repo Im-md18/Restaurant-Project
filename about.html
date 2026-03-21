@@ -25,7 +25,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
   
   <link rel="stylesheet" href="styles.css" />
-  <title>FireFly Restaurant – Grimstad</title>
+  <title>Om oss – FireFly Restaurant Grimstad</title>
 </head>
 <body>
 
@@ -60,10 +60,16 @@
 </header>
 
 <main id="main">
-  <section class="hero hero--small" aria-labelledby="aboutHeroTitle">
+  <section class="hero full" id="aboutHero" aria-labelledby="aboutHeroTitle">
+    <canvas id="foodCanvas" aria-hidden="true"></canvas>
     <span class="heroBadge">FireFly · Grimstad</span>
     <h1 id="aboutHeroTitle">Om <span class="accent">FireFly</span></h1>
-    <p>Vår historie, visjon og hva som gjør oss unike.</p>
+    <p>Vår historie, visjon og hva som gjør oss unike —<br>midt i hjertet av Grimstad.</p>
+    <div class="heroActions">
+      <a class="btn primary" href="menu.html">Se vår meny</a>
+      <a class="btn ghost" href="contact.html">Kontakt oss</a>
+    </div>
+    <div class="scrollHint" aria-hidden="true">Scroll</div>
   </section>
 
   <section class="aboutPage" aria-labelledby="aboutPageTitle">
@@ -72,9 +78,7 @@
     <article class="panel reveal">
       <h2>Vår historie</h2>
       <p class="muted lead">
-        FireFly Restaurant ble grunnlagt i 2025 av en gruppe matentusiaster.
-        Målet var å skape en varm og moderne restaurantopplevelse — med fokus på smak, kvalitet og atmosfære
-        midt i hjertet av Grimstad.
+        FireFly Restaurant ble grunnlagt i 2025 av en gruppe matentusiaster med én felles drøm: å skape en varm og moderne restaurantopplevelse — med fokus på smak, kvalitet og atmosfære midt i hjertet av Grimstad. Vi henter råvarer lokalt der vi kan, og setter gjestens opplevelse i sentrum.
       </p>
       <div class="statRow" aria-label="Høydepunkter">
         <div class="stat"><div class="statNum">2025</div><div class="statText">Grunnlagt</div></div>
@@ -91,7 +95,7 @@
       <div class="whyGrid">
         <div class="whyItem reveal">
           <div class="whyTitle">🚀 Rask og enkel bestilling</div>
-          <p>Bestill bord eller kontakt oss direkte — enkelt og effektivt, uten stress.</p>
+          <p>Bestill bord eller mat direkte fra nettsiden — enkelt og effektivt, uten unødvendig venting.</p>
         </div>
         <div class="whyItem reveal" style="transition-delay:0.1s">
           <div class="whyTitle">🍴 Variert meny</div>
@@ -121,6 +125,7 @@
     </div>
     <div>
       <h3>Åpningstider</h3>
+      <span class="openStatusBadge openNowBadge" aria-live="polite">Åpent nå</span>
       <p>Man – Tor:&nbsp; 12:00 – 22:00</p>
       <p>Fre – Søn:&nbsp; 12:00 – 02:30</p>
     </div>
@@ -161,5 +166,6 @@
 </div>
 
 <script src="script.js"></script>
+<script src="foodanimation.js"></script>
 </body>
 </html>

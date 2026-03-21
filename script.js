@@ -369,3 +369,32 @@
   renderOrder();
   syncMenuButtons();
 })();
+
+// ── 10) ÅPNINGSTIDS-INDIKATOR ─────────────────────────────
+(() => {
+  function updateOpenStatus() {
+    const badges = document.querySelectorAll('.openStatusBadge');
+    if (!badges.length) return;
+
+    const now = new Date();
+    const day  = now.getDay(); // 0=sun, 1=mon ... 6=sat
+    const hour = now.getHours() + now.getMinutes() / 60;
+
+    // Mon–Thu: 12–22, Fri–Sun: 12–02:30
+    let isOpen = false;
+    if (day >= 1 && day <= 4) {
+      isOpen = hour >= 12 && hour < 22;
+    } else if (day === 5) {
+      isOpen = hour >= 12;
+    } else if (day === 6 || day === 0) {
+      isOpen = hour >= 12 || hour < 2.5;
+    }
+
+    badges.forEach(el => {
+      el.className = isOpen ? 'openStatusBadge openNowBadge' : 'openStatusBadge closedBadge';
+      el.textContent = isOpen ? 'Åpent nå' : 'Stengt nå';
+    });
+  }
+  updateOpenStatus();
+  setInterval(updateOpenStatus, 60000);
+})();

@@ -25,7 +25,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
   
   <link rel="stylesheet" href="styles.css" />
-  <title>FireFly Restaurant – Grimstad</title>
+  <title>Kontakt oss – FireFly Restaurant Grimstad</title>
 </head>
 <body>
 
@@ -60,10 +60,16 @@
 </header>
 
 <main id="main">
-  <section class="hero hero--small" aria-labelledby="contactHeroTitle">
+  <section class="hero full" id="contactHero" aria-labelledby="contactHeroTitle">
+    <canvas id="foodCanvas" aria-hidden="true"></canvas>
     <span class="heroBadge">FireFly · Grimstad</span>
     <h1 id="contactHeroTitle">Kontakt <span class="accent">oss</span></h1>
-    <p>Bestill bord, still spørsmål eller send oss en melding.</p>
+    <p>Ta kontakt — vi svarer raskt og hjelper deg gjerne<br>med bordreservasjon eller spørsmål.</p>
+    <div class="heroActions">
+      <a class="btn primary" href="#contactMe">Send melding</a>
+      <a class="btn ghost" href="booking.html">Bestill bord</a>
+    </div>
+    <div class="scrollHint" aria-hidden="true">Scroll</div>
   </section>
 
   <section class="contact" id="contactMe" aria-labelledby="contactTitle">
@@ -169,6 +175,7 @@
     </div>
     <div>
       <h3>Åpningstider</h3>
+      <span class="openStatusBadge openNowBadge" aria-live="polite">Åpent nå</span>
       <p>Man – Tor:&nbsp; 12:00 – 22:00</p>
       <p>Fre – Søn:&nbsp; 12:00 – 02:30</p>
     </div>
@@ -209,5 +216,6 @@
 </div>
 
 <script src="script.js"></script>
+<script src="foodanimation.js"></script>
 </body>
 </html>

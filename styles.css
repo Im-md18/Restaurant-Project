@@ -7,31 +7,31 @@
 
 /* ── TOKENS ──────────────────────────────────────────────── */
 :root {
-  --bg:        #0d0b08;
-  --bg2:       #141210;
-  --surface:   #141210;
-  --surface2:  #1c1916;
-  --surface3:  #221f1a;
+  --bg:        #0a0806;
+  --bg2:       #111009;
+  --surface:   #111009;
+  --surface2:  #191510;
+  --surface3:  #1f1b14;
 
-  --border:    rgba(255, 200, 100, 0.10);
-  --border2:   rgba(255, 255, 255, 0.06);
+  --border:    rgba(255, 200, 100, 0.12);
+  --border2:   rgba(255, 255, 255, 0.07);
 
   --gold:      #e8b86d;
   --gold-dim:  #c49a50;
-  --gold-glow: rgba(232, 184, 109, 0.12);
+  --gold-glow: rgba(232, 184, 109, 0.13);
   --ember:     #ff6b35;
   --accent:    #e8b86d;
 
-  --text:      #f0e8d8;
+  --text:      #f2ead9;
   --muted:     #a89880;
-  --muted2:    rgba(168, 152, 128, 0.65);
+  --muted2:    rgba(168, 152, 128, 0.60);
 
-  --max:       1140px;
-  --padX:      24px;
-  --radius:    14px;
-  --radiusLg:  20px;
-  --shadow:    0 20px 60px rgba(0, 0, 0, 0.55);
-  --shadowSm:  0 8px 24px  rgba(0, 0, 0, 0.35);
+  --max:       1160px;
+  --padX:      28px;
+  --radius:    16px;
+  --radiusLg:  22px;
+  --shadow:    0 24px 70px rgba(0, 0, 0, 0.60);
+  --shadowSm:  0 8px 28px  rgba(0, 0, 0, 0.38);
 
   --ff-serif:  'Cormorant Garamond', Georgia, serif;
   --ff-sans:   'DM Sans', system-ui, sans-serif;
@@ -383,8 +383,9 @@ body.lightMode .siteHeader {
   align-items: center;
   justify-content: center;
   background:
-    radial-gradient(ellipse 65% 55% at 50% 85%, rgba(255,107,53,.12), transparent 65%),
-    radial-gradient(ellipse 45% 35% at 50% 100%, rgba(232,184,109,.08), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 90%, rgba(255,107,53,.15), transparent 65%),
+    radial-gradient(ellipse 50% 40% at 50% 100%, rgba(232,184,109,.10), transparent 65%),
+    radial-gradient(ellipse 100% 60% at 20% 50%, rgba(232,184,109,.04), transparent 60%),
     var(--bg);
 }
 
@@ -1352,7 +1353,104 @@ body.lightMode input[type="time"] {
   animation: fadeUp 0.6s 0.45s ease both;
 }
 
-/* ── RESPONSIVE ──────────────────────────────────────────── */
+/* ── CARD HOVER SHIMMER ──────────────────────────────────── */
+.card::after,
+.aboutCard::after,
+.panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(232,184,109,.05), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--t);
+}
+.card:hover::after,
+.aboutCard:hover::after,
+.panel:hover::after { opacity: 1; }
+
+/* ── OPEN HOURS BADGE (footer) ────────────────────────────── */
+.openNowBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border-radius: 100px;
+  border: 1px solid rgba(74,222,128,.25);
+  background: rgba(74,222,128,.07);
+  color: #4ade80;
+  margin-top: 0.5rem;
+}
+.openNowBadge::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #4ade80;
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink {
+  0%,100% { opacity:1; }
+  50% { opacity:0.3; }
+}
+.closedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border-radius: 100px;
+  border: 1px solid rgba(255,107,53,.25);
+  background: rgba(255,107,53,.07);
+  color: var(--ember);
+  margin-top: 0.5rem;
+}
+
+/* ── IMPROVED SECTION SPACING ─────────────────────────────── */
+main > section { margin-bottom: 100px; }
+main > section:last-of-type { margin-bottom: 120px; }
+
+/* ── CONTACT FORM IMPROVEMENTS ───────────────────────────── */
+.contactForm textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+/* ── MENU CARD IMPROVEMENTS ───────────────────────────────── */
+.card h3 {
+  font-family: var(--ff-serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 0.35rem;
+  transition: color var(--t);
+}
+.card:hover h3 { color: var(--gold); }
+
+/* ── IMPROVED ABOUT PAGE STATS ────────────────────────────── */
+.stat {
+  border-radius: 14px;
+  padding: 1.25rem 1rem;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  text-align: center;
+  transition: border-color var(--t), transform var(--t);
+}
+.stat:hover { border-color: rgba(232,184,109,.25); transform: translateY(-2px); }
+
+/* ── ANCHOR OFFSET FIX ────────────────────────────────────── */
+[id] { scroll-margin-top: 88px; }
+
+/* ── THANKS SECTION IMPROVEMENT ──────────────────────────── */
+.thanksSection p:last-of-type { margin-bottom: 0.5rem; }
+
+
 @media (max-width: 900px) {
   .navigation {
     display: none;
@@ -1362,12 +1460,12 @@ body.lightMode input[type="time"] {
     right: 0;
     background: var(--surface);
     border-bottom: 1px solid var(--border2);
-    padding: 1rem var(--padX);
-    box-shadow: var(--shadowSm);
+    padding: 0.75rem var(--padX) 1rem;
+    box-shadow: 0 16px 40px rgba(0,0,0,.45);
   }
   .navigation.open { display: block; }
-  .navigation ul { flex-direction: column; gap: 0.35rem; }
-  .navigation a { border-radius: 10px; padding: 0.7rem 1rem; font-size: 0.95rem; }
+  .navigation ul { flex-direction: column; gap: 0.25rem; }
+  .navigation a { border-radius: 12px; padding: 0.8rem 1rem; font-size: 0.95rem; width: 100%; }
   .hamburger { display: flex; }
 
   .aboutGrid,
@@ -1399,4 +1497,139 @@ body.lightMode input[type="time"] {
   .orderBubble { bottom: 1.25rem; right: 1.25rem; }
   .featureDivider { display: none; }
   .featureItem { flex: 1 1 45%; padding: 0.5rem 0.75rem; justify-content: center; }
+}
+/* ── CUSTOM SCROLLBAR ─────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold-dim); }
+
+/* ── SMOOTH SELECTION ────────────────────────────────────── */
+::selection { background: rgba(232,184,109,.20); color: var(--text); }
+
+/* ── PRINT STYLES ────────────────────────────────────────── */
+@media print {
+  .siteHeader, .orderBubble, .hamburger, .uiSwitchWrap, .footerQR { display: none !important; }
+  body { background: #fff; color: #000; }
+}
+
+/* ── IMPROVED PREVIEW GRID (index) ──────────────────────── */
+.previewGrid {
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (max-width: 640px) {
+  .previewGrid { grid-template-columns: 1fr; }
+}
+
+/* ── BOOKING PAGE PADDING ─────────────────────────────────── */
+.bookingPage { padding-bottom: 80px; }
+
+/* ── BETTER INPUT AUTOFILL ───────────────────────────────── */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--surface2) inset;
+  -webkit-text-fill-color: var(--text);
+  caret-color: var(--text);
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* ── FEATURE STRIP HOVER ─────────────────────────────────── */
+.featureItem {
+  transition: color var(--t);
+}
+.featureItem:hover { color: var(--gold); }
+
+/* ── HERO BADGE PULSE AFTER ──────────────────────────────── */
+.heroBadge::before {
+  content: '✦';
+  margin-right: 0.3rem;
+  font-size: 0.6rem;
+  opacity: 0.7;
+}
+
+/* ── FOOTER LINK HOVER UNDERLINE ─────────────────────────── */
+.footer div > p > a {
+  position: relative;
+}
+.footer div > p > a::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width var(--t) var(--ease);
+}
+.footer div > p > a:hover::after { width: 100%; }
+
+/* ── BETTER BUTTON ACTIVE STATE ──────────────────────────── */
+.btn:active { transform: translateY(0) scale(0.98); }
+.btn.primary:active { box-shadow: 0 2px 8px var(--gold-glow); }
+
+/* ── MENU SEARCH ICON ────────────────────────────────────── */
+.searchWrap {
+  position: relative;
+}
+.searchWrap::before {
+  content: '🔍';
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.85rem;
+  pointer-events: none;
+  z-index: 1;
+}
+.searchWrap input {
+  padding-left: 2.6rem;
+}
+
+/* ── CONTACT INFO HOVER SLIDE ────────────────────────────── */
+.contactInfo .infoItem {
+  transition: transform var(--t) var(--ease), border-color var(--t), background var(--t);
+}
+.contactInfo .infoItem:hover {
+  transform: translateX(5px);
+  border-color: rgba(232,184,109,.25);
+  background: var(--surface);
+}
+
+/* ── WHY ITEM IMPROVED ───────────────────────────────────── */
+.whyItem {
+  padding: 1.5rem;
+  border-radius: var(--radiusLg);
+}
+.whyItem .whyTitle {
+  font-size: 1rem;
+  margin-bottom: 0.65rem;
+}
+
+/* ── STAT ROW ANIMATION ──────────────────────────────────── */
+.statNum {
+  font-size: 1.75rem;
+}
+
+/* ── ACCOUNT PAGE MOBILE ─────────────────────────────────── */
+@media (max-width: 780px) {
+  .accountLayout {
+    grid-template-columns: 1fr !important;
+  }
+  .accountSidebar {
+    position: static !important;
+  }
+}
+
+/* ── ABOUT / CONTACT FULL HERO MARGIN FIX ────────────────── */
+/* When hero is full-height, give the first content section breathing room */
+.hero.full + section,
+.hero.full ~ section:first-of-type {
+  margin-top: 0;
+}
+
+/* Scroll anchor: offset by header height */
+#contactMe,
+#aboutPageTitle {
+  scroll-margin-top: 90px;
 }

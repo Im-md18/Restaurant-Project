@@ -25,7 +25,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
   
   <link rel="stylesheet" href="styles.css" />
-  <title>FireFly Restaurant – Grimstad</title>
+  <title>Vår meny – FireFly Restaurant Grimstad</title>
   <style>
     .card { cursor: pointer; }
     .card:hover {
@@ -185,7 +185,7 @@
     <div class="menuTop">
       <div>
         <h2 id="menuTitle">Våre retter</h2>
-        <p class="menuHint">Trykk på en rett for å se mer. Vil du bestille? Gå til <a href="booking.html" style="color:var(--gold)">bestilling</a>.</p>
+        <p class="menuHint">Trykk på en rett for å se detaljer. Vil du bestille? Gå til <a href="booking.html" style="color:var(--gold)">bestilling →</a></p>
       </div>
       <div class="menuControls" role="group" aria-label="Menyfiltre">
         <div class="searchWrap">
@@ -325,6 +325,7 @@
     </div>
     <div>
       <h3>Åpningstider</h3>
+      <span class="openStatusBadge openNowBadge" aria-live="polite">Åpent nå</span>
       <p>Man – Tor:&nbsp; 12:00 – 22:00</p>
       <p>Fre – Søn:&nbsp; 12:00 – 02:30</p>
     </div>
@@ -365,7 +366,7 @@
 </div>
 
 <script src="script.js"></script>
-<script src="food-animation.js"></script>
+<script src="foodanimation.js"></script>
 <script>
 /* ── HANDLEKURV (fra modal) ── */
 const CART_KEY = 'fireflyCart';
