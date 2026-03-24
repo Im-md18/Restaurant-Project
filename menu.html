@@ -156,7 +156,7 @@
         <li><a href="index.html">Hjem</a></li>
         <li><a href="about.html">Om oss</a></li>
         <li><a class="active" href="menu.html" aria-current="page">Meny</a></li>
-        <li><a href="minkonto.html">Min konto</a></li>
+        <li><a href="tilbud.html">Tilbud</a></li>
         <li><a href="contact.html">Kontakt</a></li>
       </ul>
     </nav>
@@ -174,14 +174,20 @@
 
 <main id="main">
   <!-- HERO -->
-  <section class="hero hero--small" aria-labelledby="menuHeroTitle">
+  <section class="hero full" id="menuHero" aria-labelledby="menuHeroTitle">
+    <canvas id="foodCanvas" aria-hidden="true"></canvas>
     <span class="heroBadge">FireFly · Grimstad</span>
     <h1 id="menuHeroTitle">Vår <span class="accent">Meny</span></h1>
-    <p>Alltid ferskt — noe for enhver smak.</p>
+    <p>Alltid ferskt — noe for enhver smak.<br>Trykk på en rett for å se mer.</p>
+    <div class="heroActions">
+      <a class="btn primary" href="booking.html">Bestill bord</a>
+      <a class="btn ghost" href="#menuSection">Se menyen</a>
+    </div>
+    <div class="scrollHint" aria-hidden="true">Scroll</div>
   </section>
 
   <!-- MENU -->
-  <section class="menu" aria-labelledby="menuTitle">
+  <section class="menu" id="menuSection" aria-labelledby="menuTitle">
     <div class="menuTop">
       <div>
         <h2 id="menuTitle">Våre retter</h2>
@@ -334,6 +340,7 @@
       <p><a href="menu.html">Meny</a></p>
       <p><a href="about.html">Om oss</a></p>
       <p><a href="contact.html">Kontakt</a></p>
+      <p><a href="tilbud.html">Tilbud</a></p>
       <p><a href="booking.html">Bestill mat</a></p>
     </div>
     <div class="footerQR">
