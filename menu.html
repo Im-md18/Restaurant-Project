@@ -181,7 +181,7 @@
     <p>Alltid ferskt — noe for enhver smak.<br>Trykk på en rett for å se mer.</p>
     <div class="heroActions">
       <a class="btn primary" href="booking.html">Bestill bord</a>
-      <a class="btn ghost" href="index.html">Tilbake til hjemmesiden</a>
+      <a class="btn ghost" href="#menuSection">Se menyen</a>
     </div>
     <div class="scrollHint" aria-hidden="true">Scroll</div>
   </section>
@@ -266,7 +266,7 @@
     </div>
     <div class="footerQR">
       <h3>Scan meg</h3>
-      <img src="images/qrkode1.png" alt="QR-kode til min github-profil" />
+      <img src="images/qrkode.png" alt="QR-kode til FireFly nettsiden" />
     </div>
   </div>
   <div class="footerBottom">
@@ -328,7 +328,21 @@ var CATS = [
 /* ── Lagring ────────────────────────────────────────────── */
 function lsGet(k){ try{ var v=localStorage.getItem(k); return v?JSON.parse(v):null; }catch(e){ return null; } }
 function lsSet(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
-function getMenu(){ var v=lsGet(MENU_KEY); return (v&&v.length)?v:DEF_MENU; }
+function getMenu(){
+  var v = lsGet(MENU_KEY);
+  var data = (v&&v.length) ? v : DEF_MENU;
+  /* Merge uploaded images from separate store so they survive refreshes */
+  try {
+    var imgs = JSON.parse(localStorage.getItem('ffMenuImgs') || '{}');
+    data = data.map(function(item) {
+      if (imgs[String(item.id)]) {
+        return Object.assign({}, item, { img: imgs[String(item.id)] });
+      }
+      return item;
+    });
+  } catch(e2) {}
+  return data;
+}
 
 /* ── Render menykort ────────────────────────────────────── */
 function renderMenu(filterCat, searchQ) {
@@ -698,10 +712,28 @@ if (modalImgEl) {
     var menu  = [];
     for (var i = 0; i < items.length; i++) {
       var el   = items[i];
-      var img  = el.querySelector('.miImg').value.trim();
-      /* Check if there's an uploaded data URL stored */
-      var stored = el.getAttribute('data-img');
-      if (stored) img = stored;
+      var itemId = el.querySelector('.miId').value;
+      var img    = el.querySelector('.miImg').value.trim();
+      /* Check imgStore for uploaded images (survives page refresh) */
+      window._menuImgStore = window._menuImgStore || {};
+      var storedUpload = window._menuImgStore[itemId];
+      if (!storedUpload) {
+        /* Also check localStorage imgs */
+        try {
+          var imgs = JSON.parse(localStorage.getItem('ffMenuImgs') || '{}');
+          storedUpload = imgs[itemId];
+        } catch(e2) {}
+      }
+      if (storedUpload) img = storedUpload;
+      else if (!img) {
+        /* Fall back to original img from loaded menu data */
+        var origMenu = getMenu();
+        for (var mi=0; mi<origMenu.length; mi++) {
+          if (String(origMenu[mi].id) === String(itemId) && origMenu[mi].img) {
+            img = origMenu[mi].img; break;
+          }
+        }
+      }
       menu.push({
         id:         parseInt(el.querySelector('.miId').value)  || Date.now() + i,
         name:       el.querySelector('.miName').value.trim()   || 'Rett',
@@ -731,11 +763,9 @@ function mItemHTML(o) {
     return '<option value="' + c.id + '"' + (o.cat === c.id ? ' selected' : '') + '>' + c.label + '</option>';
   }).join('');
 
-  var previewStyle = o.img
-    ? 'background:var(--surface3);border-radius:8px;overflow:hidden;height:80px;display:flex;align-items:center;justify-content:center;margin-bottom:.75rem;font-size:2rem'
-    : 'background:var(--surface3);border-radius:8px;overflow:hidden;height:80px;display:flex;align-items:center;justify-content:center;margin-bottom:.75rem;font-size:2rem';
+  var previewStyle = 'background:var(--surface3);border-radius:8px;overflow:hidden;height:80px;display:flex;align-items:center;justify-content:center;margin-bottom:.75rem;font-size:2rem';
 
-  return '<div class="mItem" style="background:var(--surface2);border:1px solid var(--border2);border-radius:14px;padding:1.25rem;position:relative" data-img="' + (o.img||'') + '">'
+  return '<div class="mItem" style="background:var(--surface2);border:1px solid var(--border2);border-radius:14px;padding:1.25rem;position:relative">'
     + '<input type="hidden" class="miId" value="' + o.id + '"/>'
     + '<button class="mDelBtn" type="button" style="position:absolute;top:.75rem;right:.75rem;background:none;border:1px solid rgba(255,80,80,.18);color:rgba(255,100,100,.5);border-radius:8px;padding:.25rem .55rem;font-size:.72rem;cursor:pointer;font-family:var(--ff-sans)">Slett</button>'
 
@@ -785,10 +815,19 @@ function inputStyle() {
 }
 
 function bindMItem(el) {
-  /* Delete */
-  el.querySelector('.mDelBtn').addEventListener('click', function() { el.remove(); });
+  /* Delete — also clean up stored image */
+  el.querySelector('.mDelBtn').addEventListener('click', function() {
+    var itemId = el.querySelector('.miId').value;
+    try {
+      var imgs = JSON.parse(localStorage.getItem('ffMenuImgs') || '{}');
+      delete imgs[itemId];
+      localStorage.setItem('ffMenuImgs', JSON.stringify(imgs));
+    } catch(e2) {}
+    if (window._menuImgStore) delete window._menuImgStore[itemId];
+    el.remove();
+  });
 
-  /* File upload → convert to data URL → preview */
+  /* File upload → convert to data URL → store in imgStore + preview */
   var fileInput = el.querySelector('.miFile');
   fileInput.addEventListener('change', function() {
     var file = this.files[0];
@@ -796,12 +835,21 @@ function bindMItem(el) {
     var reader = new FileReader();
     reader.onload = function(e) {
       var dataUrl = e.target.result;
-      el.setAttribute('data-img', dataUrl);
+      var itemId  = el.querySelector('.miId').value;
+      /* Store in JS map AND persist to localStorage immediately */
+      window._menuImgStore = window._menuImgStore || {};
+      window._menuImgStore[itemId] = dataUrl;
+      try {
+        var imgs = JSON.parse(localStorage.getItem('ffMenuImgs') || '{}');
+        imgs[itemId] = dataUrl;
+        localStorage.setItem('ffMenuImgs', JSON.stringify(imgs));
+      } catch(e2) {}
       /* Update preview */
       var preview = el.querySelector('.miPreview');
       preview.innerHTML = '<img src="' + dataUrl + '" style="max-height:80px;max-width:100%;object-fit:cover;border-radius:8px"/>';
-      /* Clear URL field since we have a file */
+      /* Clear URL field */
       el.querySelector('.miImg').value = '';
+      el.setAttribute('data-uploaded', '1');
     };
     reader.readAsDataURL(file);
   });
