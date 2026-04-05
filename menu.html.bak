@@ -2,11 +2,10 @@
 <html lang="no">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" href="images/flyfire.png" type="image/png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="FireFly Restaurant – Deilig mat og drikke i Grimstad. Bestill bord i dag!" />
   <meta name="theme-color" content="#e8b86d">
-  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   
   <!-- PWA -->
@@ -267,7 +266,7 @@
     </div>
     <div class="footerQR">
       <h3>Scan meg</h3>
-      <img src="images/qrkode1.png" alt="QR-kode til FireFly Restaurant" />
+      <img src="images/qrkode.png" alt="QR-kode til FireFly nettsiden" />
     </div>
   </div>
   <div class="footerBottom">

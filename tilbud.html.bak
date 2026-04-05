@@ -2,11 +2,10 @@
 <html lang="no">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" href="images/flyfire.png" type="image/png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="FireFly Restaurant – Ukens tilbud, drikketilbud og kampanjer i Grimstad." />
   <meta name="theme-color" content="#e8b86d">
-  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="manifest" href="/manifest.json">
   <link rel="preload" href="images/flyfire.png" as="image">
   <link rel="preload" href="styles.css" as="style">
@@ -279,7 +278,7 @@
     </div>
     <div class="footerQR">
       <h3>Scan meg</h3>
-      <img src="images/qrkode1.png" alt="QR-kode til FireFly Restaurant"/>
+      <img src="images/qrkode1.png" alt="QR-kode til min github-profil"/>
     </div>
   </div>
   <div class="footerBottom">

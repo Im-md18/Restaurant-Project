@@ -61,7 +61,6 @@
     }
   });
 
-  // Close nav on outside click
   document.addEventListener('click', e => {
     if (
       mainNav.classList.contains('open') &&
@@ -84,7 +83,7 @@
     const href = (link.getAttribute('href') || '').split('#')[0];
     if (/^https?:\/\//i.test(href)) return;
 
-    const page    = href === '' ? 'index.html' : href;
+    const page     = href === '' ? 'index.html' : href;
     const isActive = page === currentPage;
 
     link.classList.toggle('active', isActive);
@@ -118,8 +117,8 @@
     form.addEventListener('submit', () => {
       const btn = form.querySelector('button[type="submit"]');
       if (!btn) return;
-      btn.disabled    = true;
-      btn.textContent = 'Sender…';
+      btn.disabled      = true;
+      btn.textContent   = 'Sender…';
       btn.style.opacity = '0.75';
     });
   });
@@ -201,7 +200,6 @@
 
 // ── 9) LIVE BESTILLINGSBOBLE ─────────────────────
 (() => {
-  // Ikke init boblen på booking.html (har egen innebygd kurv)
   if (document.querySelector('script[data-no-cart]')) return;
 
   const bubbleBtn  = document.getElementById('orderBubbleBtn');
@@ -285,7 +283,6 @@
     }
   }
 
-  // Toggle panel
   bubbleBtn.addEventListener('click', () => {
     const open = panel.classList.toggle('open');
     bubbleBtn.classList.toggle('open', open);
@@ -293,7 +290,6 @@
     if (open) renderOrder();
   });
 
-  // Close on outside click
   document.addEventListener('click', e => {
     const bubble = document.getElementById('orderBubble');
     if (bubble && !bubble.contains(e.target) && panel.classList.contains('open')) {
@@ -303,14 +299,12 @@
     }
   });
 
-  // Clear all
   clearBtn?.addEventListener('click', () => {
     saveCart({});
     renderOrder();
     syncMenuButtons();
   });
 
-  // Sync menu card buttons (on menu.html)
   function syncMenuButtons() {
     const cart = loadCart();
     document.querySelectorAll('#menuCards .card').forEach(card => {
@@ -339,7 +333,7 @@
         actionDiv.appendChild(btn);
 
         btn.addEventListener('click', e => {
-          e.stopPropagation(); // prevent modal from opening
+          e.stopPropagation();
           if (!itemId) return;
           const cart2 = loadCart();
           cart2[itemId] = (cart2[itemId] || 0) + 1;
@@ -355,12 +349,12 @@
       }
 
       if (qty > 0) {
-        btn.textContent   = `✓ ${qty} i kurv`;
-        btn.style.color   = 'var(--gold)';
+        btn.textContent       = `✓ ${qty} i kurv`;
+        btn.style.color       = 'var(--gold)';
         btn.style.borderColor = 'var(--gold-dim)';
       } else {
-        btn.textContent   = '+ Legg til';
-        btn.style.color   = '';
+        btn.textContent       = '+ Legg til';
+        btn.style.color       = '';
         btn.style.borderColor = '';
       }
     });
@@ -370,31 +364,45 @@
   syncMenuButtons();
 })();
 
+
 // ── 10) ÅPNINGSTIDS-INDIKATOR ─────────────────────────────
+// Åpningstider:
+//   Søn – Tor:  12:00 – 22:00
+//   Fre – Lør:  12:00 – 02:30 (neste dag)
 (() => {
+  function isOpenNow() {
+    const now     = new Date();
+    const day     = now.getDay();   // 0=søn, 1=man, 2=tir, 3=ons, 4=tor, 5=fre, 6=lør
+    const hours   = now.getHours();
+    const minutes = now.getMinutes();
+    const hm      = hours + minutes / 60; // desimaltid
+
+    // Fre (5) og Lør (6): åpent 12:00–02:30 neste dag
+    // Det betyr: hvis klokken er mellom 00:00 og 02:30 på Lør (6) eller Søn (0),
+    // er vi fortsatt innenfor fredag/lørdag-åpningstiden.
+    if (day === 6 && hm < 2.5)  return true;  // lørdag natt (etter fre-åpning)
+    if (day === 0 && hm < 2.5)  return true;  // søndag natt (etter lør-åpning)
+
+    // Fre (5) og Lør (6): åpent fra 12:00
+    if (day === 5 || day === 6) return hm >= 12;
+
+    // Søn (0), Man (1), Tir (2), Ons (3), Tor (4): 12:00–22:00
+    if (day === 0 || (day >= 1 && day <= 4)) return hm >= 12 && hm < 22;
+
+    return false;
+  }
+
   function updateOpenStatus() {
     const badges = document.querySelectorAll('.openStatusBadge');
     if (!badges.length) return;
 
-    const now = new Date();
-    const day  = now.getDay(); // 0=sun, 1=mon ... 6=sat
-    const hour = now.getHours() + now.getMinutes() / 60;
-
-    // Mon–Thu: 12–22, Fri–Sun: 12–02:30
-    let isOpen = false;
-    if (day >= 1 && day <= 4) {
-      isOpen = hour >= 12 && hour < 22;
-    } else if (day === 5) {
-      isOpen = hour >= 12;
-    } else if (day === 6 || day === 0) {
-      isOpen = hour >= 12 || hour < 2.5;
-    }
-
+    const open = isOpenNow();
     badges.forEach(el => {
-      el.className = isOpen ? 'openStatusBadge openNowBadge' : 'openStatusBadge closedBadge';
-      el.textContent = isOpen ? 'Åpent nå' : 'Stengt nå';
+      el.className   = open ? 'openStatusBadge openNowBadge' : 'openStatusBadge closedBadge';
+      el.textContent = open ? 'Åpent nå' : 'Stengt nå';
     });
   }
+
   updateOpenStatus();
   setInterval(updateOpenStatus, 60000);
 })();

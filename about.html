@@ -3,27 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="FireFly Restaurant – Deilig mat og drikke i Grimstad. Bestill bord i dag!" />
+  <meta name="description" content="FireFly Restaurant – Om oss. Vår historie, visjon og verdier i Grimstad." />
   <meta name="theme-color" content="#e8b86d">
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  
+
+  <!-- Favicon -->
+  <link rel="icon" href="images/flyfire.png" type="image/png" />
+
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json">
-  
+
   <!-- Preload kritisk -->
   <link rel="preload" href="images/flyfire.png" as="image">
   <link rel="preload" href="styles.css" as="style">
-  
-  <!-- Google Fonts + Formspree raskere -->
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://formspree.io">
-  <link rel="dns-prefetch" href="//maps.googleapis.com">
-  
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
-  
+
   <link rel="stylesheet" href="styles.css" />
   <title>Om oss – FireFly Restaurant Grimstad</title>
 </head>
@@ -85,8 +84,7 @@
         <div class="stat"><div class="statNum">100%</div><div class="statText">Ferskt</div></div>
         <div class="stat"><div class="statNum">Lokalt</div><div class="statText">Miljø</div></div>
       </div>
-      <div class="ctaRow">
-      </div>
+      <!-- RETTET: fjernet tom <div class="ctaRow"></div> -->
     </article>
 
     <section class="whyUs" aria-labelledby="whyTitle">
@@ -117,14 +115,14 @@
       <p>Storgaten 33, 4876 Grimstad</p>
       <p><a href="tel:+4797286018">+47 97 28 60 18</a></p>
       <div class="footerSocial">
-        <a class="socialBtn" href="https://www.facebook.com/profile.php?id=61587469647280" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+        <a class="socialBtn" href="https://www.facebook.com/profile.php?id=61587469647280" target="_blank" rel="noopener noreferrer" aria-label="Besøk FireFly på Facebook">
           <svg viewBox="0 0 320 512" aria-hidden="true"><path d="M279.14 288l14.22-92.66h-88.91V117.78c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
         </a>
       </div>
     </div>
     <div>
       <h3>Åpningstider</h3>
-      <span class="openStatusBadge openNowBadge" aria-live="polite">Åpent nå</span>
+      <span class="openStatusBadge" aria-live="polite">Laster…</span>
       <p>Søn – Tor:&nbsp; 12:00 – 22:00</p>
       <p>Fre – Lør:&nbsp; 12:00 – 02:30</p>
     </div>
@@ -138,7 +136,8 @@
     </div>
     <div class="footerQR">
       <h3>Scan meg</h3>
-      <img src="images/qrkode1.png" alt="QR-kode til min github-profil" />
+      <!-- RETTET: alt-tekst var "min github-profil" -->
+      <img src="images/qrkode1.png" alt="QR-kode til FireFly Restaurant" />
     </div>
   </div>
   <div class="footerBottom">
