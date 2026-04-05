@@ -172,14 +172,7 @@
         <div>
           <h2 style="font-family:var(--ff-serif);font-size:1.5rem;font-weight:400;margin-bottom:0.4rem;">Velg fra menyen</h2>
           <p class="muted" style="font-size:0.88rem;margin-bottom:1rem;">Bruk + og − for å justere antall. Handlekurven oppdateres automatisk.</p>
-          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem;" id="cartChips">
-            <button class="chip active" data-cat="all">Alle</button>
-            <button class="chip" data-cat="main">Hovedretter</button>
-            <button class="chip" data-cat="light">Lett</button>
-            <button class="chip" data-cat="soup">Suppe</button>
-            <button class="chip" data-cat="dessert">Dessert</button>
-            <button class="chip" data-cat="drink">Drikke</button>
-          </div>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem;" id="cartChips"></div>
           <div class="cartMenuGrid" id="cartMenuGrid"></div>
         </div>
 
@@ -350,17 +343,48 @@ document.querySelectorAll('.bookingTab').forEach(btn => {
   });
 });
 
-/* ── MENU DATA ── */
-const MENU = [
-  { id:1, name:'Burger',       price:150, desc:'Saftig burger med pommes frites og husets dressing.',       cat:'main',    tag:'🔥 Populær' },
-  { id:2, name:'Kyllingpizza', price:200, desc:'Sprø bunn med mozzarella, grillet kylling og paprika.',     cat:'main',    tag:'✨ Ny' },
-  { id:3, name:'Frisk salat',  price:119, desc:'Blandede blader, cherrytomater, agurk og vinaigrette.',     cat:'light',   tag:'🥗 Lett' },
-  { id:4, name:'Kremet pasta', price:179, desc:'Fettuccine med grillet kylling i kremet hvitløkssaus.',     cat:'main',    tag:'⭐ Anbefalt' },
-  { id:5, name:'Dagens suppe', price:99,  desc:'Varm suppe av sesongens råvarer, servert med ferskt brød.', cat:'soup',    tag:'🍲 Dagens' },
-  { id:6, name:'Dessert',      price:89,  desc:'Søt avslutning — spør servitøren om dagens dessert.',       cat:'dessert', tag:'🍮 Søt' },
-  { id:7, name:'Brus / Vann',  price:45,  desc:'Cola, Fanta, Sprite eller iskaldt vann.',                   cat:'drink',   tag:'🥤 Drikke' },
-  { id:8, name:'Kaffe',        price:55,  desc:'Espresso, americano, latte eller cappuccino.',               cat:'drink',   tag:'☕ Varm' },
+/* ── MENU DATA — hentes fra localStorage (samme som menu.html admin) ── */
+const MENU_KEY = 'ffMenu3';
+const MENU_DEFAULT = [
+  { id:1, name:'Burger',       price:150, desc:'Saftig burger med pommes frites og husets dressing.',       cat:'main',    tag:'🔥 Populær', emoji:'🍔' },
+  { id:2, name:'Kyllingpizza', price:200, desc:'Sprø bunn med mozzarella, grillet kylling og paprika.',     cat:'main',    tag:'✨ Ny',       emoji:'🍕' },
+  { id:3, name:'Frisk salat',  price:119, desc:'Blandede blader, cherrytomater, agurk og vinaigrette.',     cat:'light',   tag:'🥗 Lett',     emoji:'🥗' },
+  { id:4, name:'Kremet pasta', price:179, desc:'Fettuccine med grillet kylling i kremet hvitløkssaus.',     cat:'main',    tag:'⭐ Anbefalt', emoji:'🍝' },
+  { id:5, name:'Dagens suppe', price:99,  desc:'Varm suppe av sesongens råvarer, servert med ferskt brød.', cat:'soup',    tag:'🍲 Dagens',   emoji:'🍲' },
+  { id:6, name:'Dessert',      price:89,  desc:'Søt avslutning — spør servitøren om dagens dessert.',       cat:'dessert', tag:'🍮 Søt',      emoji:'🍮' },
+  { id:7, name:'Brus / Vann',  price:45,  desc:'Cola, Fanta, Sprite eller iskaldt vann.',                   cat:'drink',   tag:'🥤 Drikke',   emoji:'🥤' },
+  { id:8, name:'Kaffe',        price:55,  desc:'Espresso, americano, latte eller cappuccino.',               cat:'drink',   tag:'☕ Varm',     emoji:'☕' },
 ];
+
+function getMenu() {
+  try {
+    const saved = localStorage.getItem(MENU_KEY);
+    const data  = saved ? JSON.parse(saved) : null;
+    return (data && data.length) ? data : MENU_DEFAULT;
+  } catch(e) { return MENU_DEFAULT; }
+}
+
+// Bruk alltid fersk data fra localStorage
+let MENU = getMenu();
+
+// Bygg kategori-chips dynamisk basert på faktiske kategorier i menyen
+function buildBookingChips() {
+  const wrap = document.getElementById('cartChips');
+  if (!wrap) return;
+  const cats = ['all', ...new Set(getMenu().map(m => m.cat))];
+  const catLabels = { all:'Alle', main:'Hovedretter', light:'Lett', soup:'Suppe', dessert:'Dessert', drink:'Drikke' };
+  wrap.innerHTML = cats.map((c, i) =>
+    `<button class="chip${i === 0 ? ' active' : ''}" data-cat="${c}">${catLabels[c] || c}</button>`
+  ).join('');
+  wrap.querySelectorAll('.chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      wrap.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      MENU = getMenu();
+      renderMenuGrid(btn.dataset.cat);
+    });
+  });
+}
 
 const CART_KEY = 'fireflyCart';
 let cart = {};
@@ -409,16 +433,19 @@ function renderCartSummary() {
 let currentCat = 'all';
 function renderMenuGrid(cat) {
   currentCat = cat;
+  MENU = getMenu(); // alltid fersk data
   const grid = document.getElementById('cartMenuGrid');
   if (!grid) return;
   const list = cat === 'all' ? MENU : MENU.filter(m => m.cat === cat);
   grid.innerHTML = list.map(it => {
-    const qty = cart[it.id] || 0;
+    const qty   = cart[it.id] || 0;
+    const emoji = it.emoji || '🍽️';
     return `<div class="cartMenuCard ${qty > 0 ? 'hasItems' : ''}" data-id="${it.id}">
       <span class="inCartBadge">${qty} i kurv</span>
+      <div style="font-size:2rem;margin-bottom:0.4rem;">${emoji}</div>
       <span class="tag" style="width:fit-content;">${it.tag}</span>
       <h4>${it.name}</h4>
-      <p>${it.desc}</p>
+      <p>${it.shortDesc || it.desc || ''}</p>
       <div class="cartMenuCardBottom">
         <span class="cartMenuCardPrice">${it.price} kr</span>
         <div class="qtyWrap">
@@ -442,13 +469,7 @@ function renderMenuGrid(cat) {
   });
 }
 
-document.querySelectorAll('#cartChips .chip').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('#cartChips .chip').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderMenuGrid(btn.dataset.cat);
-  });
-});
+buildBookingChips();
 
 document.getElementById('cartSendBtn')?.addEventListener('click', () => {
   const wrap = document.getElementById('cartFormWrap');
@@ -465,10 +486,9 @@ document.getElementById('cartFormSubmit')?.addEventListener('click', () => {
   const entries = Object.entries(cart).filter(([, q]) => q > 0);
   if (!entries.length) return;
 
-  const MENU_EMOJIS = { 1:'🍔', 2:'🍕', 3:'🥗', 4:'🍝', 5:'🍲', 6:'🍰', 7:'🥤', 8:'☕' };
   const items = entries.map(([id, qty]) => {
     const m = MENU.find(x => x.id === +id);
-    return m ? { name: m.name, emoji: MENU_EMOJIS[m.id] || '🍽️', qty, price: m.price * qty } : null;
+    return m ? { name: m.name, emoji: m.emoji || '🍽️', qty, price: m.price * qty } : null;
   }).filter(Boolean);
 
   const order = {
