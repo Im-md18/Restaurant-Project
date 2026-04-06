@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="FireFly Restaurant – Deilig mat og drikke i Grimstad. Bestill bord i dag!" />
   <meta name="theme-color" content="#e8b86d">
-  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
   <!-- Favicon -->
@@ -112,6 +112,24 @@
 
     .cartFormWrap { margin-top: 2rem; max-width: 600px; background: var(--surface); border: 1px solid var(--border2); border-radius: var(--radiusLg); padding: 1.75rem; }
 
+    /* ── VALIDERING ── */
+    .fieldError {
+      font-size: 0.78rem;
+      color: #ff6b6b;
+      margin-top: 0.3rem;
+      display: none;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .fieldError.show { display: flex; }
+    .inputError {
+      border-color: rgba(255, 107, 107, 0.6) !important;
+      box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.08) !important;
+    }
+    .inputOk {
+      border-color: rgba(74, 222, 128, 0.5) !important;
+    }
+
     @media (max-width: 860px) { .cartLayout { grid-template-columns: 1fr; } .cartSummary { position: static; } }
     @media (max-width: 560px) {
       .bookingTabs { flex-direction: row; width: 100%; }
@@ -200,19 +218,25 @@
           <input type="hidden" name="bestilling" id="cartOrderHidden" />
           <input type="text" name="_gotcha" style="display:none" tabindex="-1" />
           <div class="formRow" style="margin-bottom:0.85rem;">
-            <label><span>Navn *</span><input name="name" type="text" placeholder="Ditt fulle navn" required autocomplete="name" /></label>
-            <label><span>E-post *</span><input name="email" type="email" placeholder="navn@epost.no" required autocomplete="email" /></label>
+            <div>
+              <label><span>Navn *</span><input id="cf-name" name="name" type="text" placeholder="Ditt fulle navn" required autocomplete="name" /></label>
+              <div class="fieldError" id="cf-name-err">⚠ Vennligst skriv inn fullt navn</div>
+            </div>
+            <div>
+              <label><span>E-post *</span><input id="cf-email" name="email" type="email" placeholder="navn@epost.no" required autocomplete="email" /></label>
+              <div class="fieldError" id="cf-email-err">⚠ Skriv inn en gyldig e-postadresse (f.eks. navn@epost.no)</div>
+            </div>
           </div>
-          <label style="display:block;margin-bottom:0.85rem;">
-            <span>Telefon *</span>
-            <input name="phone" type="tel" placeholder="+47 97 28 60 18" required autocomplete="tel" />
-          </label>
+          <div style="margin-bottom:0.85rem;">
+            <label style="display:block;"><span>Telefon *</span><input id="cf-phone" name="phone" type="tel" placeholder="+47 97 28 60 18" required autocomplete="tel" /></label>
+            <div class="fieldError" id="cf-phone-err">⚠ Vennligst skriv inn telefonnummer</div>
+          </div>
           <label style="display:block;margin-bottom:1rem;">
             <span>Ekstra info (valgfritt)</span>
             <textarea name="message" rows="3" placeholder="Allergier, spesielle ønsker, hentetid…"></textarea>
           </label>
           <div class="formActions">
-            <button class="btn primary" type="submit" id="cartFormSubmit">Send bestilling</button>
+            <button class="btn primary" type="button" id="cartFormSubmit">Send bestilling</button>
             <button class="btn ghost" type="button" id="cartFormCancel">Avbryt</button>
           </div>
         </form>
@@ -237,25 +261,37 @@
           <div class="fieldGroup">
             <h3 class="groupTitle">📋 Kontaktinfo</h3>
             <div class="formRow">
-              <label><span>Navn *</span><input name="name" type="text" placeholder="Ditt fulle navn" required autocomplete="name" /></label>
-              <label><span>E-post *</span><input name="email" type="email" placeholder="navn@epost.no" required autocomplete="email" /></label>
+              <div>
+                <label><span>Navn *</span><input id="rf-name" name="name" type="text" placeholder="Ditt fulle navn" required autocomplete="name" /></label>
+                <div class="fieldError" id="rf-name-err">⚠ Vennligst skriv inn fullt navn</div>
+              </div>
+              <div>
+                <label><span>E-post *</span><input id="rf-email" name="email" type="email" placeholder="navn@epost.no" required autocomplete="email" /></label>
+                <div class="fieldError" id="rf-email-err">⚠ Skriv inn en gyldig e-postadresse (f.eks. navn@epost.no)</div>
+              </div>
             </div>
-            <label style="display:block;margin-top:0.85rem;">
-              <span>Telefon *</span>
-              <input name="phone" type="tel" placeholder="+47 000 00 000" required autocomplete="tel" />
-            </label>
+            <div style="margin-top:0.85rem;">
+              <label style="display:block;"><span>Telefon *</span><input id="rf-phone" name="phone" type="tel" placeholder="+47 000 00 000" required autocomplete="tel" /></label>
+              <div class="fieldError" id="rf-phone-err">⚠ Vennligst skriv inn telefonnummer</div>
+            </div>
           </div>
 
           <div class="fieldGroup">
             <h3 class="groupTitle">📅 Tid og antall</h3>
             <div class="formRow">
-              <label><span>Dato *</span><input name="date" id="dateInput" type="date" required /></label>
-              <label><span>Tid *</span><input name="time" type="time" min="12:00" max="22:00" required /></label>
+              <div>
+                <label><span>Dato *</span><input id="rf-date" name="date" id="dateInput" type="date" required /></label>
+                <div class="fieldError" id="rf-date-err">⚠ Velg en dato</div>
+              </div>
+              <div>
+                <label><span>Tid *</span><input id="rf-time" name="time" type="time" min="12:00" max="22:00" required /></label>
+                <div class="fieldError" id="rf-time-err">⚠ Velg et tidspunkt</div>
+              </div>
             </div>
-            <label style="display:block;margin-top:0.85rem;">
-              <span>Antall personer *</span>
-              <input name="people" type="number" min="1" max="20" placeholder="1 – 20 personer" required />
-            </label>
+            <div style="margin-top:0.85rem;">
+              <label style="display:block;"><span>Antall personer *</span><input id="rf-people" name="people" type="number" min="1" max="20" placeholder="1 – 20 personer" required /></label>
+              <div class="fieldError" id="rf-people-err">⚠ Skriv inn antall personer (1–20)</div>
+            </div>
             <label style="display:block;margin-top:0.85rem;">
               <span>Ekstra info (valgfritt)</span>
               <textarea name="message" rows="4" placeholder="Allergier, barnestol, jubileum, spesielle ønsker…"></textarea>
@@ -263,7 +299,7 @@
           </div>
 
           <div class="formActions">
-            <button class="btn primary" type="submit">Send bestilling</button>
+            <button class="btn primary" type="button" id="reserveSubmitBtn">Send bestilling</button>
             <span class="muted formNote">Du får svar på e-post så snart som mulig.</span>
           </div>
         </form>
@@ -521,6 +557,140 @@ document.getElementById('cartFormCancel')?.addEventListener('click', () => {
 document.getElementById('cartClearBtn')?.addEventListener('click', () => {
   cart = {}; saveCart(); renderCartSummary(); renderMenuGrid(currentCat);
   document.getElementById('cartFormWrap').style.display = 'none';
+});
+
+/* ══════════════════════════════════════════════
+   VALIDERING — felles hjelpefunksjoner
+══════════════════════════════════════════════ */
+function isValidEmail(val) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val.trim());
+}
+function isValidPhone(val) {
+  return val.replace(/[\s\-+]/g, '').length >= 8;
+}
+function showErr(inputEl, errEl, show) {
+  if (show) {
+    inputEl.classList.add('inputError');
+    inputEl.classList.remove('inputOk');
+    errEl.classList.add('show');
+  } else {
+    inputEl.classList.remove('inputError');
+    inputEl.classList.add('inputOk');
+    errEl.classList.remove('show');
+  }
+}
+
+/* Live-validering — viser feil mens du skriver */
+function bindLiveValidation(inputId, errId, checkFn) {
+  const input = document.getElementById(inputId);
+  const err   = document.getElementById(errId);
+  if (!input || !err) return;
+  input.addEventListener('blur', () => showErr(input, err, !checkFn(input.value)));
+  input.addEventListener('input', () => {
+    if (input.classList.contains('inputError')) showErr(input, err, !checkFn(input.value));
+  });
+}
+
+/* Handlekurv-skjema validering */
+bindLiveValidation('cf-name',  'cf-name-err',  v => v.trim().length >= 2);
+bindLiveValidation('cf-email', 'cf-email-err', v => isValidEmail(v));
+bindLiveValidation('cf-phone', 'cf-phone-err', v => isValidPhone(v));
+
+/* Bordbestilling-skjema validering */
+bindLiveValidation('rf-name',   'rf-name-err',   v => v.trim().length >= 2);
+bindLiveValidation('rf-email',  'rf-email-err',  v => isValidEmail(v));
+bindLiveValidation('rf-phone',  'rf-phone-err',  v => isValidPhone(v));
+bindLiveValidation('rf-date',   'rf-date-err',   v => v.length > 0);
+bindLiveValidation('rf-time',   'rf-time-err',   v => v.length > 0);
+bindLiveValidation('rf-people', 'rf-people-err', v => +v >= 1 && +v <= 20);
+
+/* ── Handlekurv: valider før innsending ── */
+document.getElementById('cartFormSubmit')?.addEventListener('click', () => {
+  const nameEl  = document.getElementById('cf-name');
+  const emailEl = document.getElementById('cf-email');
+  const phoneEl = document.getElementById('cf-phone');
+
+  const nameOk  = nameEl.value.trim().length >= 2;
+  const emailOk = isValidEmail(emailEl.value);
+  const phoneOk = isValidPhone(phoneEl.value);
+
+  showErr(nameEl,  document.getElementById('cf-name-err'),  !nameOk);
+  showErr(emailEl, document.getElementById('cf-email-err'), !emailOk);
+  showErr(phoneEl, document.getElementById('cf-phone-err'), !phoneOk);
+
+  if (!nameOk || !emailOk || !phoneOk) {
+    // Scroll til første feil
+    const first = [nameEl, emailEl, phoneEl].find((el, i) => ![nameOk, emailOk, phoneOk][i]);
+    first?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  /* Alt OK — lagre ordre og send skjema */
+  const entries = Object.entries(cart).filter(([, q]) => q > 0);
+  if (!entries.length) return;
+
+  const items = entries.map(([id, qty]) => {
+    const m = MENU.find(x => x.id === +id);
+    return m ? { name: m.name, emoji: m.emoji || '🍽️', qty, price: m.price * qty } : null;
+  }).filter(Boolean);
+
+  const order = {
+    id: Date.now(),
+    date: new Date().toLocaleDateString('no-NO', { day:'numeric', month:'long', year:'numeric' }),
+    items,
+    total: items.reduce((s, i) => s + i.price, 0),
+    status: 'pending',
+  };
+
+  try {
+    const sessionEmail = localStorage.getItem('fireflySession');
+    if (sessionEmail) {
+      const users = JSON.parse(localStorage.getItem('fireflyUsers')) || [];
+      const idx = users.findIndex(u => u.email.toLowerCase() === sessionEmail.toLowerCase());
+      if (idx >= 0) {
+        if (!users[idx].orders) users[idx].orders = [];
+        users[idx].orders.unshift(order);
+        localStorage.setItem('fireflyUsers', JSON.stringify(users));
+      }
+    }
+    localStorage.setItem('fireflyPendingOrder', JSON.stringify(order));
+  } catch (e) { console.error(e); }
+
+  // Send skjema
+  document.getElementById('cartForm').submit();
+});
+
+/* ── Bordbestilling: valider før innsending ── */
+document.getElementById('reserveSubmitBtn')?.addEventListener('click', () => {
+  const fields = [
+    { id: 'rf-name',   errId: 'rf-name-err',   check: v => v.trim().length >= 2 },
+    { id: 'rf-email',  errId: 'rf-email-err',  check: v => isValidEmail(v) },
+    { id: 'rf-phone',  errId: 'rf-phone-err',  check: v => isValidPhone(v) },
+    { id: 'rf-date',   errId: 'rf-date-err',   check: v => v.length > 0 },
+    { id: 'rf-time',   errId: 'rf-time-err',   check: v => v.length > 0 },
+    { id: 'rf-people', errId: 'rf-people-err', check: v => +v >= 1 && +v <= 20 },
+  ];
+
+  let allOk = true;
+  let firstError = null;
+
+  fields.forEach(f => {
+    const input = document.getElementById(f.id);
+    const err   = document.getElementById(f.errId);
+    if (!input || !err) return;
+    const ok = f.check(input.value);
+    showErr(input, err, !ok);
+    if (!ok && !firstError) firstError = input;
+    if (!ok) allOk = false;
+  });
+
+  if (!allOk) {
+    firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  // Alt OK — send skjema
+  document.getElementById('reserveSubmitBtn').closest('form').submit();
 });
 
 renderMenuGrid('all');

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="FireFly Restaurant – Kontakt oss i Grimstad. Vi svarer raskt!" />
   <meta name="theme-color" content="#e8b86d">
-  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
   <!-- Favicon -->
@@ -29,6 +29,12 @@
 
   <link rel="stylesheet" href="styles.css" />
   <title>Kontakt oss – FireFly Restaurant Grimstad</title>
+  <style>
+    .fieldError { font-size: 0.78rem; color: #ff6b6b; margin-top: 0.3rem; display: none; align-items: center; gap: 0.3rem; }
+    .fieldError.show { display: flex; }
+    .inputError { border-color: rgba(255,107,107,0.6) !important; box-shadow: 0 0 0 3px rgba(255,107,107,0.08) !important; }
+    .inputOk { border-color: rgba(74,222,128,0.5) !important; }
+  </style>
 </head>
 <body>
 
@@ -90,29 +96,29 @@
             method="POST"
             novalidate>
         <div class="formRow">
-          <label>
-            <span>Navn *</span>
-            <input name="name" type="text" placeholder="Ditt fulle navn" required autocomplete="name" />
-          </label>
-          <label>
-            <span>E-post *</span>
-            <input name="email" type="email" placeholder="navn@epost.no" required autocomplete="email" />
-          </label>
+          <div>
+            <label><span>Navn *</span><input id="con-name" name="name" type="text" placeholder="Ditt fulle navn" required autocomplete="name" /></label>
+            <div class="fieldError" id="con-name-err">&#9888; Vennligst skriv inn fullt navn</div>
+          </div>
+          <div>
+            <label><span>E-post *</span><input id="con-email" name="email" type="email" placeholder="navn@epost.no" required autocomplete="email" /></label>
+            <div class="fieldError" id="con-email-err">&#9888; Skriv inn en gyldig e-postadresse (f.eks. navn@epost.no)</div>
+          </div>
         </div>
         <label style="display:block; margin-top:0.85rem;">
           <span>Telefon (valgfritt)</span>
           <input name="phone" type="tel" placeholder="+47 97 28 60 18" autocomplete="tel" />
         </label>
-        <label style="display:block; margin-top:0.85rem;">
-          <span>Melding *</span>
-          <textarea name="message" rows="6" placeholder="Skriv hva du ønsker — dato, klokkeslett, antall personer…" required></textarea>
-        </label>
+        <div style="margin-top:0.85rem;">
+          <label style="display:block;"><span>Melding *</span><textarea id="con-msg" name="message" rows="6" placeholder="Skriv hva du onsker — dato, klokkeslett, antall personer..." required></textarea></label>
+          <div class="fieldError" id="con-msg-err">&#9888; Vennligst skriv en melding</div>
+        </div>
         <!-- Honeypot spam protection -->
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
         <input type="hidden" name="_subject" value="Ny melding fra FireFly nettsted" />
         <input type="hidden" name="_next" value="thanks.html" />
         <div class="formActions">
-          <button class="btn primary" type="submit">Send melding</button>
+          <button class="btn primary" type="button" id="contactSubmitBtn">Send melding</button>
           <span class="formNote muted">Ved å sende godtar du at vi kan kontakte deg på e-post.</span>
         </div>
       </form>
@@ -222,5 +228,39 @@
 
 <script src="script.js"></script>
 <script src="foodanimation.js"></script>
+<script>
+function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); }
+function showErr(inp, err, show) {
+  if (show) { inp.classList.add('inputError'); inp.classList.remove('inputOk'); err.classList.add('show'); }
+  else       { inp.classList.remove('inputError'); inp.classList.add('inputOk'); err.classList.remove('show'); }
+}
+function bindLive(id, errId, fn) {
+  var inp = document.getElementById(id), err = document.getElementById(errId);
+  if (!inp || !err) return;
+  inp.addEventListener('blur',  function() { showErr(inp, err, !fn(inp.value)); });
+  inp.addEventListener('input', function() { if (inp.classList.contains('inputError')) showErr(inp, err, !fn(inp.value)); });
+}
+bindLive('con-name',  'con-name-err',  function(v) { return v.trim().length >= 2; });
+bindLive('con-email', 'con-email-err', function(v) { return isValidEmail(v); });
+bindLive('con-msg',   'con-msg-err',   function(v) { return v.trim().length >= 5; });
+
+document.getElementById('contactSubmitBtn')?.addEventListener('click', function() {
+  var nameEl  = document.getElementById('con-name');
+  var emailEl = document.getElementById('con-email');
+  var msgEl   = document.getElementById('con-msg');
+  var nameOk  = nameEl.value.trim().length >= 2;
+  var emailOk = isValidEmail(emailEl.value);
+  var msgOk   = msgEl.value.trim().length >= 5;
+  showErr(nameEl,  document.getElementById('con-name-err'),  !nameOk);
+  showErr(emailEl, document.getElementById('con-email-err'), !emailOk);
+  showErr(msgEl,   document.getElementById('con-msg-err'),   !msgOk);
+  if (!nameOk || !emailOk || !msgOk) {
+    [nameEl, emailEl, msgEl].find(function(el, i) { return ![nameOk, emailOk, msgOk][i]; })
+      ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  this.closest('form').submit();
+});
+</script>
 </body>
 </html>
