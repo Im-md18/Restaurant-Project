@@ -102,13 +102,13 @@
           </div>
           <div>
             <label><span>E-post *</span><input id="con-email" name="email" type="email" placeholder="navn@epost.no" required autocomplete="email" /></label>
-            <div class="fieldError" id="con-email-err">&#9888; Skriv inn en gyldig e-postadresse (f.eks. navn@epost.no)</div>
+            <div class="fieldError" id="con-email-err">&#9888; Skriv inn en gyldig e-postadresse (f.eks. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="214f40574f6144514e52550f4f4e">[email&#160;protected]</a>)</div>
           </div>
         </div>
-        <label style="display:block; margin-top:0.85rem;">
-          <span>Telefon (valgfritt)</span>
-          <input name="phone" type="tel" placeholder="+47 97 28 60 18" autocomplete="tel" />
-        </label>
+        <div style="margin-top:0.85rem;">
+          <label style="display:block;"><span>Telefon *</span><input id="con-phone" name="phone" type="tel" placeholder="+47 97 28 60 18" required autocomplete="tel" /></label>
+          <div class="fieldError" id="con-phone-err">&#9888; Vennligst skriv inn telefonnummer</div>
+        </div>
         <div style="margin-top:0.85rem;">
           <label style="display:block;"><span>Melding *</span><textarea id="con-msg" name="message" rows="6" placeholder="Skriv hva du onsker — dato, klokkeslett, antall personer..." required></textarea></label>
           <div class="fieldError" id="con-msg-err">&#9888; Vennligst skriv en melding</div>
@@ -226,7 +226,7 @@
   </button>
 </div>
 
-<script src="script.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="script.js"></script>
 <script src="foodanimation.js"></script>
 <script>
 function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); }
@@ -240,6 +240,7 @@ function bindLive(id, errId, fn) {
   inp.addEventListener('blur',  function() { showErr(inp, err, !fn(inp.value)); });
   inp.addEventListener('input', function() { if (inp.classList.contains('inputError')) showErr(inp, err, !fn(inp.value)); });
 }
+bindLive('con-phone', 'con-phone-err', function(v) { return v.replace(/[\s\-+]/g, '').length >= 8; });
 bindLive('con-name',  'con-name-err',  function(v) { return v.trim().length >= 2; });
 bindLive('con-email', 'con-email-err', function(v) { return isValidEmail(v); });
 bindLive('con-msg',   'con-msg-err',   function(v) { return v.trim().length >= 5; });
@@ -247,15 +248,18 @@ bindLive('con-msg',   'con-msg-err',   function(v) { return v.trim().length >= 5
 document.getElementById('contactSubmitBtn')?.addEventListener('click', function() {
   var nameEl  = document.getElementById('con-name');
   var emailEl = document.getElementById('con-email');
+  var phoneEl = document.getElementById('con-phone');
   var msgEl   = document.getElementById('con-msg');
   var nameOk  = nameEl.value.trim().length >= 2;
   var emailOk = isValidEmail(emailEl.value);
+  var phoneOk = phoneEl.value.replace(/[\s\-+]/g, '').length >= 8;
   var msgOk   = msgEl.value.trim().length >= 5;
   showErr(nameEl,  document.getElementById('con-name-err'),  !nameOk);
+  showErr(phoneEl, document.getElementById('con-phone-err'), !phoneOk);
   showErr(emailEl, document.getElementById('con-email-err'), !emailOk);
   showErr(msgEl,   document.getElementById('con-msg-err'),   !msgOk);
-  if (!nameOk || !emailOk || !msgOk) {
-    [nameEl, emailEl, msgEl].find(function(el, i) { return ![nameOk, emailOk, msgOk][i]; })
+  if (!nameOk || !emailOk || !phoneOk || !msgOk) {
+    [nameEl,    [nameEl, emailEl, phoneEl, msgEl].find(function(el, i) { return ![nameOk, emailOk, phoneOk, msgOk][i]; })
       ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
