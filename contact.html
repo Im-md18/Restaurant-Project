@@ -6,6 +6,7 @@
   <meta name="description" content="FireFly Restaurant – Kontakt oss i Grimstad. Vi svarer raskt!" />
   <meta name="theme-color" content="#e8b86d">
   <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
   <!-- Favicon -->
@@ -259,7 +260,7 @@ document.getElementById('contactSubmitBtn')?.addEventListener('click', function(
   showErr(emailEl, document.getElementById('con-email-err'), !emailOk);
   showErr(msgEl,   document.getElementById('con-msg-err'),   !msgOk);
   if (!nameOk || !emailOk || !phoneOk || !msgOk) {
-    [nameEl,    [nameEl, emailEl, phoneEl, msgEl].find(function(el, i) { return ![nameOk, emailOk, phoneOk, msgOk][i]; })
+    [nameEl, emailEl, phoneEl, msgEl].find(function(el, i) { return ![nameOk, emailOk, phoneOk, msgOk][i]; })
       ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
